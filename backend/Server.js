@@ -25,7 +25,7 @@ app.use((req, res, next)=>{
 })
 
 
-//routes
+//routes for workout api
 app.use('/api/workout', workoutRoutes);
 
 //Database connect
