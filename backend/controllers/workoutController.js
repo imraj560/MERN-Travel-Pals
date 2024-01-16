@@ -1,4 +1,5 @@
 const Workout = require('../models/workoutModel');
+const mongoose = require('mongoose');
 
 /**All the functions for the API CRUD functionality */
 
@@ -19,7 +20,81 @@ const newWorkout = async(req, res) => {
    
 }
 
+//Grab all  workout
+const allWorkout = async(req, res) => {
+
+    const workouts = await Workout.find({});
+
+    res.status(200).json(workouts);
+}
+
+//Grab workout by ID
+const findWorkout = async(req, res)=>{
+
+    const {id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+
+        return res.status(404).json({error: 'Invalid mongoId'});
+    }
+
+    const workout = await Workout.findById(id);
+
+    if(!workout){
+
+        return res.status(404).json({error:'No such workouts found'});
+    }
+
+    return res.status(200).json(workout);
+
+
+}
+
+//Delete a workou
+const deleteWorkout = async(req, res)=>{
+
+    const {id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+
+        return res.status(404).error({error: 'Invalid mongoose Id'});
+    }
+
+    const workout = await Workout.findOneAndDelete({_id: id});
+
+    if(!workout){
+
+        res.status(400).json({error: 'No such Rercord Found'});
+    }
+
+    res.status(200).json(workout);
+}
+
+//Update a workout
+const updateWorkout = async(req, res)=>{
+
+    const {id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+
+        res.status(404).error({error: "Invalid mongoose Id"});
+    }
+
+    const workout = await Workout.findOneAndUpdate({_id: id}, {...req.body});
+
+    if(!workout){
+
+        return res.status(400).json({error: 'Update unsuccessfull'});
+    }
+
+    return res.status(200).json(workout);
+}
+
 module.exports = {
 
-    newWorkout
+    newWorkout,
+    allWorkout,
+    findWorkout,
+    deleteWorkout,
+    updateWorkout
 }
