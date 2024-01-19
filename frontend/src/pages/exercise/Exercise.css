@@ -1,58 +1,20 @@
-#container{
+#exerciseContainer{
 
     width: 100%;
     height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 30px;
     
 
 }
 
-#formContainer{
+button{
 
-    width: 700px;
-    height: 400px;
-    background-color: #f7f7f7;
-    padding: 35px;
-    text-align: center;
-   
-}
-
-#formContainer p{
-
-    font-weight: 600;
-    font-size: 20px;
-}
-
-form{
-
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-
-form input{
-
-    height: 55px;
-    padding: 0px 20px;
-    border: none;
-    margin-bottom: 20px;
-}
-
-form button{
-
-    width: 30%;
     height: 45px;
+    width: 120px;
     border: none;
-    cursor: pointer;
-    display: block;
-    margin: auto;
     background-color: #939393;
-    color: white;
-    font-size: 15px;
     letter-spacing: 2px;
+    cursor: pointer;
+
 }
-
-
 
