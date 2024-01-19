@@ -1,26 +1,58 @@
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './Exercise.css';
 
 const Exercise = ()=>{
 
+    const [workout, setWorkout] = useState([]);
+
+    /**Api call to get Workout Data */
+    useEffect(()=>{
+
+        const fetchApiData = async()=>{
+
+            let data = await fetch('/api/workout/').then((response)=>{
+
+                return response.json();
+
+            }).then((data)=>{
+
+                setWorkout(data);
+
+                console.log('Workout data', workout);
+            })
+        }
+
+        fetchApiData();
+
+    }, [])
+  
     return (
 
     
-           <div id="container">
+           <div id="exerciseContainer">
 
-                <div id="formContainer">
+            <button><NavLink to="/add" style={{textDecoration:'none', color:'white'}}>Add Exercise</NavLink></button>
 
-                    <p>Add Workout</p>
+            
+            {
+                workout && workout.map((singleWorkout)=>{
 
-                    <form>
-                        <input type="text" name="title" placeholder="Name your workout" />
-                        <input type="number" name="reps" placeholder="Enter Reps" />
-                        <input type="number" name="load" placeholder="Enter Weight" />
-                        <button type="submit">Create Workout</button>
-                    </form>
-                   
-                </div>
+                    return (
+                        <ul>
+                            <li>{singleWorkout.title}</li>
+                            <li>{singleWorkout.load}</li>
+                            <li>{singleWorkout.reps}</li>
+                        </ul>
+                    )
+                })
+            }
 
+
+                
            </div>
+
+
         
     )
 }
