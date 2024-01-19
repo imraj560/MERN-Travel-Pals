@@ -1,0 +1,32 @@
+header{
+
+    height: 100px;
+    width: 100%;
+    background-color: #f9f5f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 40px;
+}
+
+header h1{
+
+    letter-spacing: 2px;
+    font-size: 25px;
+}
+
+#nav_links ul{
+
+    display: flex;
+    justify-content: space-between;
+}
+
+#nav_links ul li{
+
+    margin-left: 30px;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+
+}

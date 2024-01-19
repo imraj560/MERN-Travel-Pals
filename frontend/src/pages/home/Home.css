@@ -1,0 +1,44 @@
+
+
+#banner{
+
+    width: 100%;
+    height: 500px;
+    background:url(../../assets/images/banner.jpg);
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#banner  p{
+
+    color: white;
+    font-size: 40px;
+    
+}
+
+section p{
+
+    font-size: 25px;
+}
+
+section{
+    width: 100%;
+    padding: 30px 20px;
+}
+
+#workout_profiles{
+    height: 600px;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-between;
+}
+
+#workout_profiles div{
+
+    width: 30%;
+    height: 100%;
+    background-color: whitesmoke;
+}
