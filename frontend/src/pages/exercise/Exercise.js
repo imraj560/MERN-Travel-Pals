@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { NavLink } from 'react-router-dom';
 import './Exercise.css';
 
 const Exercise = ()=>{
 
-    const [workout, setWorkout] = useState([]);
+    /**We have used use state for local access of data */
+    // const [workouts, setWorkout] = useState([]);
+
+    /**Now lets invoke the reducers for global access */
+    const {workouts, dispatch} = UseWorkoutsContext();
 
     /**Api call to get Workout Data */
     useEffect(()=>{
@@ -17,9 +22,11 @@ const Exercise = ()=>{
 
             }).then((data)=>{
 
-                setWorkout(data);
+                // setWorkout(data);
+                //Now we dispatch the action to fill out workouts
+                dispatch({type: 'SET_WORKOUTS', payload: data})
 
-                console.log('Workout data', workout);
+                console.log('Workout data', workouts);
             })
         }
 
@@ -36,7 +43,7 @@ const Exercise = ()=>{
 
             
             {
-                workout && workout.map((singleWorkout)=>{
+                workouts && workouts.map((singleWorkout)=>{
 
                     return (
                         <ul>
