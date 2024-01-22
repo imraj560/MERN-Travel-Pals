@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { NavLink } from 'react-router-dom';
 import './Exercise.css';
+import WorkoutCard from '../../components/workoutcards/WorkoutCard';
 
 const Exercise = ()=>{
 
@@ -39,21 +40,25 @@ const Exercise = ()=>{
     
            <div id="exerciseContainer">
 
-            <button><NavLink to="/add" style={{textDecoration:'none', color:'white'}}>Add Exercise</NavLink></button>
+            <button><NavLink to="/add" style={{textDecoration:'none', color:'black'}}>Add Exercise</NavLink></button>
 
-            
-            {
+            <div id='gridContainer'>
+               
+                 {
                 workouts && workouts.map((singleWorkout)=>{
 
                     return (
-                        <ul>
-                            <li>{singleWorkout.title}</li>
-                            <li>{singleWorkout.load}</li>
-                            <li>{singleWorkout.reps}</li>
-                        </ul>
+                       
+
+                        <WorkoutCard props={singleWorkout} />
                     )
                 })
             }
+            </div>
+            
+           
+
+           
 
 
                 
