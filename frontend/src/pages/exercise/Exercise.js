@@ -3,6 +3,7 @@ import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { NavLink } from 'react-router-dom';
 import './Exercise.css';
 import WorkoutCard from '../../components/workoutcards/WorkoutCard';
+import { ToastContainer } from 'react-toastify';
 
 const Exercise = ()=>{
 
