@@ -1,6 +1,14 @@
 import { NavLink } from 'react-router-dom';
+import { UseLogOut } from '../../hooks/UseLogOut';
 import './Header.css';
 const Header = ()=>{
+
+    const { logout } = UseLogOut();
+
+    const handleClick = ()=>{
+
+        logout()
+    }
 
     return (
 
@@ -13,7 +21,7 @@ const Header = ()=>{
                 <ul>
                     <li>Hello Raju</li>
                     <li><NavLink style={{textDecoration:'none', color:'black'}} to="/exercise">Exercises</NavLink></li>
-                    <li>Log Out</li>
+                    <li onClick={handleClick}>Log Out</li>
                 </ul>
 
             </div>
