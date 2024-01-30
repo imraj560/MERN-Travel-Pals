@@ -3,7 +3,7 @@ import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { NavLink } from 'react-router-dom';
 import './Exercise.css';
 import WorkoutCard from '../../components/workoutcards/WorkoutCard';
-import { ToastContainer } from 'react-toastify';
+import { AuthComponent } from '../../components/AuthComponent';
 
 const Exercise = ()=>{
 
@@ -38,32 +38,36 @@ const Exercise = ()=>{
   
     return (
 
-    
-           <div id="exerciseContainer">
+            <AuthComponent>
 
-            <button><NavLink to="/add" style={{textDecoration:'none', color:'black'}}>Add Exercise</NavLink></button>
+                 <div id="exerciseContainer">
 
-            <div id='gridContainer'>
-               
-                 {
-                workouts && workouts.map((singleWorkout)=>{
+                <button><NavLink to="/add" style={{textDecoration:'none', color:'black'}}>Add Exercise</NavLink></button>
 
-                    return (
-                       
+                <div id='gridContainer'>
+                
+                    {
+                    workouts && workouts.map((singleWorkout)=>{
 
-                        <WorkoutCard props={singleWorkout} />
-                    )
-                })
-            }
-            </div>
-            
+                        return (
+                        
+
+                            <WorkoutCard props={singleWorkout} />
+                        )
+                    })
+                }
+                </div>
+                
            
 
            
 
 
                 
-           </div>
+                </div>
+
+            </AuthComponent>
+          
 
 
         

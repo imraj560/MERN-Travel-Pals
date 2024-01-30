@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { useNavigate } from 'react-router-dom';
+import { AuthComponent } from '../../components/AuthComponent';
 import './Add.css';
 
 const Add = ()=>{
@@ -52,8 +53,8 @@ const Add = ()=>{
 
     return (
 
-    
-           <div id="container">
+           <AuthComponent>
+             <div id="container">
 
                 <div id="formContainer">
 
@@ -69,6 +70,8 @@ const Add = ()=>{
                 </div>
 
            </div>
+           </AuthComponent>
+          
         
     )
 }
