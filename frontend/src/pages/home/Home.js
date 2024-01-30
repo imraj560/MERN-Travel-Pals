@@ -1,9 +1,10 @@
+import { AuthComponent } from '../../components/AuthComponent';
 import './Home.css';
 
 const Home = ()=>{
 
     return (
-        <>
+        <AuthComponent>
 
          <div id="banner">
             <p>What your friends are Working on?</p>
@@ -29,7 +30,7 @@ const Home = ()=>{
 
         </section>
 
-        </>
+        </AuthComponent>
        
        
     )
