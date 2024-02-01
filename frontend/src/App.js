@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home';
-
+import { Login } from './pages/login/Login';
 import Exercise from './pages/exercise/Exercise';
 import Add from './pages/exercise/Add';
 import EditForm from './pages/edit/EditForm';
@@ -16,7 +16,8 @@ function App() {
      
         <Routes>
             <Route path='/' element={<Home/>} />
-            <Route path='/signup' element={<Signup/>} />  
+            <Route path='/signup' element={<Signup/>} />
+            <Route path='/login' element={<Login/>} />  
             <Route path='/exercise' element={<Exercise/>} />
             <Route path='/add' element={<Add/>} />
             <Route path='/editform/:id' element={<EditForm/>} />
