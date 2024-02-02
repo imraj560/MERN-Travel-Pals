@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { useNavigate } from 'react-router-dom';
 import { AuthComponent } from '../../components/AuthComponent';
+import { UseAuthContext } from '../../hooks/UseAuthContext';
+import {toast} from 'react-toastify'
 import './Add.css';
 
 const Add = ()=>{
 
     const {dispatch} = UseWorkoutsContext();
     const navigate = useNavigate();
+    const { user } = UseAuthContext()
 
     const [title, setTitle] = useState('');
     const [reps, setReps] = useState('');
@@ -17,6 +20,11 @@ const Add = ()=>{
     const handleSubmit = async(e)=>{
 
         e.preventDefault();
+
+        if(!user){
+
+            return
+        }
         
         const workout = {title, load, reps};
 
@@ -26,7 +34,8 @@ const Add = ()=>{
             body: JSON.stringify(workout),
 
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${user.token}`
             }
         })
 
@@ -45,7 +54,7 @@ const Add = ()=>{
             setReps('');
 
             dispatch({type:'CREATE_WORKOUTS', payload: json});
-
+            toast.success('Workout Added')
             navigate('/exercise');
         }
 

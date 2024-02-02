@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import './Exercise.css';
 import WorkoutCard from '../../components/workoutcards/WorkoutCard';
 import { AuthComponent } from '../../components/AuthComponent';
+import { UseAuthContext } from '../../hooks/UseAuthContext';
 
 const Exercise = ()=>{
 
@@ -13,12 +14,22 @@ const Exercise = ()=>{
     /**Now lets invoke the reducers for global access */
     const {workouts, dispatch} = UseWorkoutsContext();
 
+    const { user } = UseAuthContext()
+
     /**Api call to get Workout Data */
     useEffect(()=>{
 
         const fetchApiData = async()=>{
 
-            let data = await fetch('/api/workout/').then((response)=>{
+            let data = await fetch('/api/workout/',{
+
+                headers:{
+
+                    'Content-Type' : 'application/json',
+                    'Authorization' : `Bearer ${user.token}`
+                }
+
+            }).then((response)=>{
 
                 return response.json();
 
@@ -32,9 +43,13 @@ const Exercise = ()=>{
             })
         }
 
-        fetchApiData();
+        if(user){
 
-    }, [])
+             fetchApiData();
+        }
+       
+
+    }, [dispatch, user])
   
     return (
 
@@ -58,11 +73,6 @@ const Exercise = ()=>{
                 }
                 </div>
                 
-           
-
-           
-
-
                 
                 </div>
 
