@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { useNavigate } from 'react-router-dom';
+import { UseAuthContext } from '../../hooks/UseAuthContext';
 import './EditForm.css';
 
 const EditForm = ()=>{
@@ -15,13 +16,23 @@ const EditForm = ()=>{
     const [load, setLoad] = useState('');
     const [error, setError] = useState(null);
 
+    const { user } = UseAuthContext();
+
     
 
     useEffect(()=>{
 
         const apiDataFetch = async()=>{
 
-            const data = await fetch(`/api/workout/${params.id}`).then((response)=>{
+            const data = await fetch(`/api/workout/${params.id}`, {
+
+                  headers:{
+
+                    'Content-Type' : 'application/json',
+                    'Authorization' : `Bearer ${user.token}`
+                }
+
+            }).then((response)=>{
 
                 return response.json();
 
@@ -35,13 +46,26 @@ const EditForm = ()=>{
 
         }
 
-        apiDataFetch();
+        if(user){
+
+             apiDataFetch();
+        }
+
+           
+        
+
+        
 
     },[])
 
     const handleSubmit = async(e)=>{
 
         e.preventDefault();
+
+        if(!user){
+
+            return
+        }
         
         const workout = {title, load, reps};
 
@@ -51,7 +75,8 @@ const EditForm = ()=>{
             body: JSON.stringify(workout),
 
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${user.token}`
             }
         })
 

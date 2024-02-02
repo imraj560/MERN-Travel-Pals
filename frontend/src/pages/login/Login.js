@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { UseLogin } from '../../hooks/UseLogin';
+import {toast} from 'react-toastify'
 import './Login.css'
 
 
@@ -17,7 +18,9 @@ export const Login = ()=>{
         e.preventDefault();
 
         await login(email, password);
- 
+        
+        toast.success('Successfully Logged In')
+
         navigate('/')
     }
 

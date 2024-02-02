@@ -5,10 +5,16 @@ import Exercise from './pages/exercise/Exercise';
 import Add from './pages/exercise/Add';
 import EditForm from './pages/edit/EditForm';
 import { Signup } from './pages/singup/Signup';
+import { UseAuthContext } from './hooks/UseAuthContext';
+import { Navigate } from 'react-router-dom';
 import './App.css';
 
 
 function App() {
+
+  const { user } = UseAuthContext();
+  
+
   return (
    <>
       
@@ -18,9 +24,9 @@ function App() {
             <Route path='/' element={<Home/>} />
             <Route path='/signup' element={<Signup/>} />
             <Route path='/login' element={<Login/>} />  
-            <Route path='/exercise' element={<Exercise/>} />
-            <Route path='/add' element={<Add/>} />
-            <Route path='/editform/:id' element={<EditForm/>} />
+            <Route path='/exercise' element={user ? <Exercise/> : <Navigate to='/login' />} />
+            <Route path='/add' element={user ? <Add/> : <Navigate to='/login' />} />
+            <Route path='/editform/:id' element={user ? <EditForm/> : <Navigate to='/login' />} />
         </Routes>
       </BrowserRouter>
    </>
