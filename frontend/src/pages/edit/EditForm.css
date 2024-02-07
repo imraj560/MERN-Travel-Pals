@@ -1,4 +1,4 @@
-#container{
+#EditContainer{
 
     width: 100%;
     height: 90vh;
@@ -9,10 +9,10 @@
 
 }
 
-#formContainer{
+#EditFormContainer{
 
     width: 700px;
-    height: 400px;
+    /* height: 400px; */
     background-color: #f7f7f7;
     padding: 35px;
     text-align: center;
@@ -53,6 +53,8 @@ form button{
     font-size: 15px;
     letter-spacing: 2px;
 }
+
+
 
 
 

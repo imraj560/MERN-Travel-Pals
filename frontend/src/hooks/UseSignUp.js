@@ -1,13 +1,15 @@
 import  {UseAuthContext } from '../hooks/UseAuthContext'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const UseSignUp = ()=>{
 
     const[error, setError] = useState(null)
     const[loading, setLoading] = useState(null);
     const{dispatch} = UseAuthContext();
+    const navigate = useNavigate()
 
-    const signup = async(email, password)=>{
+    const signup = async(name, email, password)=>{
 
         setLoading(true)
         setError(null)
@@ -16,7 +18,7 @@ export const UseSignUp = ()=>{
 
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email, password})
+            body: JSON.stringify({name, email, password})
         })
 
         const json = await response.json();
@@ -31,6 +33,7 @@ export const UseSignUp = ()=>{
             setLoading(false)
             localStorage.setItem('user', JSON.stringify(json));
             dispatch({type: 'LOGIN', payload:json})
+           
         }
 
     }

@@ -1,7 +1,6 @@
 import {useState} from 'react'
-import { useNavigate } from 'react-router-dom';
 import { UseLogin } from '../../hooks/UseLogin';
-import {toast} from 'react-toastify'
+
 import './Login.css'
 
 
@@ -9,7 +8,7 @@ export const Login = ()=>{
 
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
-    const navigate = useNavigate();
+    
 
     const{error, loading, login} = UseLogin();
 
@@ -19,9 +18,9 @@ export const Login = ()=>{
 
         await login(email, password);
         
-        toast.success('Successfully Logged In')
+        
 
-        navigate('/')
+      
     }
 
     return (

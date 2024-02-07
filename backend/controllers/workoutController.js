@@ -1,16 +1,21 @@
 const Workout = require('../models/workoutModel');
 const mongoose = require('mongoose');
+const fs = require('fs')
+
 
 /**All the functions for the API CRUD functionality */
 
-//Add a single workout
+/**Add a single workout */
 const newWorkout = async(req, res) => {
 
-    const {title, reps, load} = req.body;
+
+   const image = req.file.filename
+
+   const {title, reps, load} = req.body
 
     try{
 
-         const workout = await Workout.create({title, reps, load});
+         const workout = await Workout.create({title, reps, load, image});
          res.status(200).json(workout);
 
     }catch(error){
@@ -20,7 +25,8 @@ const newWorkout = async(req, res) => {
    
 }
 
-//Grab all  workout
+
+/**All workout */
 const allWorkout = async(req, res) => {
 
     const workouts = await Workout.find({});
@@ -28,7 +34,9 @@ const allWorkout = async(req, res) => {
     res.status(200).json(workouts);
 }
 
-//Grab workout by ID
+
+
+/**Grab single workout */
 const findWorkout = async(req, res)=>{
 
     const {id} = req.params;
@@ -50,27 +58,48 @@ const findWorkout = async(req, res)=>{
 
 }
 
-//Delete a workou
+
+/**Delete a workout */
 const deleteWorkout = async(req, res)=>{
 
     const {id} = req.params;
 
     if(!mongoose.Types.ObjectId.isValid(id)){
 
-        return res.status(404).error({error: 'Invalid mongoose Id'});
+        return res.status(404).error({error: 'Invalid mongoose Id'})
     }
 
+    const {image} = await Workout.findOne({_id: id}).select('image')
+
+   
+
+   
     const workout = await Workout.findOneAndDelete({_id: id});
+    
 
     if(!workout){
 
-        res.status(400).json({error: 'No such Rercord Found'});
+    res.status(400).json({error: 'No such Rercord Found'});
+
+    return
+
     }
+
+
+    fs.unlink(`../frontend/public/images/${image}`, (error)=>{
+
+        console.log(error)
+        return
+    })
+    
+
+    
 
     res.status(200).json(workout);
 }
 
-//Update a workout
+
+/**Update a workout */
 const updateWorkout = async(req, res)=>{
 
     const {id} = req.params;
@@ -80,14 +109,45 @@ const updateWorkout = async(req, res)=>{
         res.status(404).error({error: "Invalid mongoose Id"});
     }
 
-    const workout = await Workout.findOneAndUpdate({_id: id}, {...req.body});
+    const {title, reps, load, oldimage} = req.body
 
-    if(!workout){
+    //if there is no new image file for edit
+    if(!req.file){
 
-        return res.status(400).json({error: 'Update unsuccessfull'});
+        const workout = await Workout.findOneAndUpdate({_id: id}, {title, reps, load});
+
+        if(!workout){
+
+            return res.status(400).json({error: 'Update unsuccessfull'});
+            }   
+
+        return res.status(200).json(workout);
     }
 
-    return res.status(200).json(workout);
+    //if there is new image file for edit
+    if(req.file){
+
+        const image = req.file.filename
+
+        const workout = await Workout.findOneAndUpdate({_id: id}, {title, reps, load, image});
+
+        fs.unlink(`../frontend/public/images/${oldimage}`, (error)=>{
+
+                 console.log(error)
+               
+             })
+
+          if(!workout){
+
+         return res.status(400).json({error: 'Update unsuccessfull'});
+         }   
+
+         return res.status(200).json(workout);
+    }
+
+
+
+
 }
 
 module.exports = {
