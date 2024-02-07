@@ -7,6 +7,7 @@ export const Signup = ()=>{
 
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
+    const[name, setName] = useState('');
 
     const{error, loading, signup} = UseSignUp();
 
@@ -14,7 +15,7 @@ export const Signup = ()=>{
 
         e.preventDefault();
 
-        await signup(email, password);
+        await signup(name, email, password);
  
         
     }
@@ -22,12 +23,13 @@ export const Signup = ()=>{
     return (
 
        
-        <div id="container">
+        <div id="RegisterContainer">
 
-            <div id="signupContainer">
+            <div id="RegisterFormContainer">
                 <h2>Register Here</h2>
                 
                 <form onSubmit={handleSubmit}>
+                    <input type="text" name="name" value={name} onChange={(e)=> setName(e.target.value)} placeholder='Your Name please' /> 
                     <input type="email" name="email" value={email} onChange={(e)=> setEmail(e.target.value)} placeholder='Your email please' />
                     <input type="password" name="password" value={password} onChange={(e)=> setPassword(e.target.value)} placeholder='Your password please' />
                     <button disabled={loading} type='submit' id="signupBtn">Register</button>

@@ -17,7 +17,8 @@ const loginUser = async(req, res)=>{
 
         const token = createToken(user._id);
 
-        res.status(200).json({email, token})
+        const name = await User.findOne({ '_id': user._id }, 'name');
+        res.status(200).json({name, email, token})
 
     }catch(error){
 
@@ -27,11 +28,11 @@ const loginUser = async(req, res)=>{
 
 const signupUser = async(req, res)=>{
 
-    const {email, password} = req.body;
+    const {name, email, password} = req.body;
 
     try{
 
-        const user = await User.signup(email, password)
+        const user = await User.signup(name, email, password)
 
         const token = createToken(user._id);
 
