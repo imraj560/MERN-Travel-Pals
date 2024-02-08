@@ -11,11 +11,13 @@ const newWorkout = async(req, res) => {
 
    const image = req.file.filename
 
+   const user_id = req.user._id
+
    const {title, reps, load} = req.body
 
     try{
 
-         const workout = await Workout.create({title, reps, load, image});
+         const workout = await Workout.create({title, reps, load, image, user_id});
          res.status(200).json(workout);
 
     }catch(error){
@@ -29,7 +31,9 @@ const newWorkout = async(req, res) => {
 /**All workout */
 const allWorkout = async(req, res) => {
 
-    const workouts = await Workout.find({});
+    const user_id = req.user._id
+
+    const workouts = await Workout.find({user_id: user_id});
 
     res.status(200).json(workouts);
 }

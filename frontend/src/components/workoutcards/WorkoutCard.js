@@ -2,6 +2,7 @@ import './WorkoutCard.css';
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import {toast} from 'react-toastify';
+import { ArrowRight, Pencil, PencilFill, PencilSquare, Trash2, Trash3, XSquare } from 'react-bootstrap-icons';
 import { NavLink } from 'react-router-dom';
 
 const WorkoutCard = ({props})=>{
@@ -43,8 +44,8 @@ const WorkoutCard = ({props})=>{
         <div key={props._id} id="workoutCard">
            <div id='thumbnail'>
             <div id='action_buttons'>
-                <span style={{marginRight:'5px'}} id='delete' onClick={deleteWorkout}>X</span>
-                <span id='edit' ><NavLink style={{textDecoration:'none', color:'white'}} to={'/editform/'+props._id}>E</NavLink></span>
+                <span style={{marginRight:'10px'}} id='delete' onClick={deleteWorkout}><XSquare size={24}/></span>
+                <span id='edit' ><NavLink style={{textDecoration:'none', color:'white'}} to={'/editform/'+props._id}><Pencil/></NavLink></span>
             </div>
             <img src={process.env.PUBLIC_URL+"images/"+props.image} />
            </div>

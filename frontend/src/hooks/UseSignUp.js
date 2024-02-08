@@ -33,7 +33,7 @@ export const UseSignUp = ()=>{
             setLoading(false)
             localStorage.setItem('user', JSON.stringify(json));
             dispatch({type: 'LOGIN', payload:json})
-           
+            navigate('/')
         }
 
     }

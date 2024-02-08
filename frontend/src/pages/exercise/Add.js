@@ -37,11 +37,11 @@ const Add = ()=>{
         formData.append('reps',reps)
         formData.append('file',file)
 
-        formData.forEach(element => {
+        // formData.forEach(element => {
 
-            console.log('form data' ,element)
+        //     console.log('form data' ,element)
             
-        });
+        // });
 
 
         const response = await fetch('/api/workout/', {
@@ -64,11 +64,12 @@ const Add = ()=>{
 
         if(response.ok){
 
+           
+            // setTitle('');
+            // setLoad('');
+            // setReps('');
+            // setFile('')
             setError(null);
-            setTitle('');
-            setLoad('');
-            setReps('');
-
             dispatch({type:'CREATE_WORKOUTS', payload: json});
             toast.success('Workout Added')
             navigate('/exercise');

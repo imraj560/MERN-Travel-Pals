@@ -1,5 +1,7 @@
 import {useState} from 'react'
 import { UseLogin } from '../../hooks/UseLogin';
+import { toast } from 'react-toastify';
+import { NavLink } from 'react-router-dom';
 
 import './Login.css'
 
@@ -18,7 +20,11 @@ export const Login = ()=>{
 
         await login(email, password);
         
-        
+        if(loading){
+
+            toast.warn('Validating User')
+
+        }
 
       
     }
@@ -36,6 +42,11 @@ export const Login = ()=>{
                     <input type="password" name="password" value={password} onChange={(e)=> setPassword(e.target.value)} placeholder='Your password please' />
                     <button disabled={loading} type='submit' id="signupBtn">Login</button>
                 </form>
+                <p style={{fontSize:'13PX', marginTop:'4px'}}>Not Registered? 
+                    <span >
+                     <NavLink style={{color:'#8a8a8f', cursor:'pointer', textDecoration:'none', marginLeft:'5px'}} to='/signup'>SignUp</NavLink>
+                    </span>
+                </p>
                 {error && <div className='signup_error'>{error}</div>}
                 
                     

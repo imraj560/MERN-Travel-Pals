@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { NavLink } from 'react-router-dom';
 import './Exercise.css';
@@ -13,6 +13,11 @@ const Exercise = ()=>{
 
     /**Now lets invoke the reducers for global access */
     const {workouts, dispatch} = UseWorkoutsContext();
+    const [search, setSearch] = useState('');
+    const [filteredWorkouts, setFilteredWorkouts] = useState()
+
+    console.log('filtered Data', filteredWorkouts)
+  
 
     const { user } = UseAuthContext()
 
@@ -35,11 +40,10 @@ const Exercise = ()=>{
 
             }).then((data)=>{
 
-                // setWorkout(data);
-                //Now we dispatch the action to fill out workouts
+                
                 dispatch({type: 'SET_WORKOUTS', payload: data})
+                setFilteredWorkouts(data)
 
-                console.log('Workout data', workouts);
             })
         }
 
@@ -49,7 +53,36 @@ const Exercise = ()=>{
         }
        
 
-    }, [dispatch, user])
+    }, [dispatch])
+
+    /**Search Functionality */
+     const onSearchChange = (event)=>{
+
+         const searchFilterString = event.target.value.toLocaleLowerCase();
+         setSearch(searchFilterString);
+
+     }
+
+    useEffect(()=>{
+
+        if(workouts !== null){
+
+            const filteredWorkouts = workouts.filter((workout)=>{
+
+            return workout.title.toLocaleLowerCase().includes(search);
+        })
+
+        setFilteredWorkouts(filteredWorkouts);
+
+
+        }
+
+        
+
+        
+    },[search, workouts]);
+
+ 
   
     return (
 
@@ -58,16 +91,18 @@ const Exercise = ()=>{
                  <div id="exerciseContainer">
 
                 <button><NavLink to="/add" style={{textDecoration:'none', color:'black'}}>Add Exercise</NavLink></button>
+                <input type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
+               
 
                 <div id='gridContainer'>
                 
                     {
-                    workouts && workouts.map((singleWorkout)=>{
+                    filteredWorkouts && filteredWorkouts.map((singleWorkout)=>{
 
                         return (
                         
 
-                            <WorkoutCard props={singleWorkout} />
+                            <WorkoutCard key={singleWorkout._id} props={singleWorkout} />
                         )
                     })
                 }
