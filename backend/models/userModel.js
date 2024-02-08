@@ -8,6 +8,8 @@ const userSchema = new Schema({
 
         type: String,
         required: true,
+        min: [6, 'Too small'],
+        max: 12
         
     },
     email:{
@@ -20,8 +22,11 @@ const userSchema = new Schema({
     password:{
 
         type: String,
-        required: true
+        required: true,
+       
     }
+
+   
 })
 
 userSchema.statics.signup = async function(name, email, password){

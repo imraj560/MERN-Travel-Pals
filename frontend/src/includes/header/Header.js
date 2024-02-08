@@ -4,6 +4,7 @@ import { UseAuthContext } from '../../hooks/UseAuthContext';
 import { useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify'
 import './Header.css';
+import { BoxArrowDownRight } from 'react-bootstrap-icons';
 const Header = ()=>{
 
     const { logout } = UseLogOut();
@@ -37,8 +38,8 @@ const Header = ()=>{
                 
                     {user && (<>
                     <li><NavLink style={{textDecoration:'none', color:'black'}} to="/exercise">Exercises</NavLink></li>
-                    <li style={{color:'green'}}>Hi, {user.name.name}</li>
-                    <li onClick={handleClick}>Log Out</li>
+                    <li style={{color:'green'}}>Hi, {user.name}</li>
+                    <li onClick={handleClick}><BoxArrowDownRight/></li>
                     </>)}
                     
                 </ul>

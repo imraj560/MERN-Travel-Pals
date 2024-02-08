@@ -122,7 +122,7 @@ const EditForm = ()=>{
 
                     <p>Edit Workout</p>
 
-                    <form onSubmit={handleSubmit}  enctype='multipart/form-data'>
+                    <form onSubmit={handleSubmit}  encType='multipart/form-data'>
                         <input type="text" required value={title} name="title" placeholder="Name your workout" onChange={(e)=> setTitle(e.target.value)} />
                         <p style={{textAlign:'left', fontSize:'14px', marginBottom:'10px', marginLeft:'10px'}}>Edit Workout Image</p>
                         <img src={process.env.PUBLIC_URL+"/images/"+oldImage} width={80} height={80} style={{marginLeft:'10PX', marginBottom:'5px'}}/>
