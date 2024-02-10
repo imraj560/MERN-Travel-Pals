@@ -1,7 +1,45 @@
+import { useEffect, useState } from 'react';
 import { AuthComponent } from '../../components/AuthComponent';
+import HomeWorkoutCard from '../../components/homecards/HomeWorkoutCard';
+
 import './Home.css';
 
 const Home = ()=>{
+
+    const [workouts, setWorkouts] = useState('');
+
+    useEffect(()=>{
+
+        const fetchApiData = async()=>{
+
+            const data = await fetch('/api/workout/all',{
+
+                method: 'GET',
+
+                header: {
+
+                    'Content-Type':'application/json'
+                }
+
+            }).then((response)=>{
+
+                return response.json()
+
+            }).then((data)=>{
+
+                setWorkouts(data)
+
+                console.log('Workout Data', workouts)
+
+            }).catch((error)=>{
+
+                console.log(error)
+            })
+        }
+
+        fetchApiData()
+
+    }, [])
 
     return (
         <AuthComponent>
@@ -12,21 +50,24 @@ const Home = ()=>{
 
          <section id="day_title">
             <p>
-                Thursday 18th January
+                See What your friends been upto
             </p>
         </section>
 
-        <section id="workout_profiles">
+        <section id="workout_profiles_grid">
 
-            <div>
-                 
-            </div>
-             <div>
-                 
-            </div>
-            <div>
-                 
-            </div>
+        {
+                    
+         workouts && workouts.map((singleWorkout)=>{
+
+                return (
+                
+                    <HomeWorkoutCard key={singleWorkout._id} props={singleWorkout} />
+                )
+            })            
+                        
+                   
+        }
 
         </section>
 

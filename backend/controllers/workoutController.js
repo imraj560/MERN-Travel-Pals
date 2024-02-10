@@ -5,6 +5,24 @@ const fs = require('fs')
 
 /**All the functions for the API CRUD functionality */
 
+
+/**All workout  */
+
+const homeWorkout = async(req, res) => {
+
+
+    const workouts = await Workout.find({}).sort({_id:-1});
+
+    if(workouts){
+
+         res.status(200).json(workouts);
+    }
+
+   
+   
+}
+
+
 /**Add a single workout */
 const newWorkout = async(req, res) => {
 
@@ -28,12 +46,12 @@ const newWorkout = async(req, res) => {
 }
 
 
-/**All workout */
+/**All workout by user */
 const allWorkout = async(req, res) => {
 
     const user_id = req.user._id
 
-    const workouts = await Workout.find({user_id: user_id});
+    const workouts = await Workout.find({user_id: user_id}).sort({_id: -1});
 
     res.status(200).json(workouts);
 }
@@ -158,6 +176,7 @@ module.exports = {
 
     newWorkout,
     allWorkout,
+    homeWorkout,
     findWorkout,
     deleteWorkout,
     updateWorkout

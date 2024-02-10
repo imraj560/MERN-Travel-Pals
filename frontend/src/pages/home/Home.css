@@ -29,16 +29,40 @@ section{
     padding: 30px 20px;
 }
 
-#workout_profiles{
-    height: 600px;
-    /* background-color: red; */
-    display: flex;
-    justify-content: space-between;
+#workout_profiles_grid{
+    padding: 15px 30px;
+    display: grid;
+    grid-template-columns:25% 25% 25% 25%;
+    grid-gap: 3px;
 }
 
-#workout_profiles div{
+@media only screen and (max-width: 1100px) {
+  
 
-    width: 30%;
-    height: 100%;
-    background-color: whitesmoke;
-}
+    #workout_profiles_grid{
+
+    padding: 15px 30px;
+    display: grid;
+    grid-template-columns:33.3% 33.3% 33.3%;
+    grid-gap: 3px;
+
+    }
+
+  }
+
+
+  @media only screen and (max-width: 850px) {
+  
+
+    #workout_profiles_grid{
+
+    padding: 15px 30px;
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-gap: 3px;
+
+    }
+
+  }
+
+

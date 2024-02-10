@@ -1,5 +1,5 @@
 const express = require('express');
-const { newWorkout, allWorkout, findWorkout, deleteWorkout, updateWorkout } = require('../controllers/workoutController');
+const { newWorkout, allWorkout, findWorkout, deleteWorkout, updateWorkout, homeWorkout } = require('../controllers/workoutController');
 const requireAuth = require('../middleware/requireAuth')
 const multer = require('multer')
 const router = express.Router();
@@ -17,6 +17,9 @@ const storage = multer.diskStorage({
   })
   
 const upload = multer({ storage: storage })
+
+router.get('/all', homeWorkout)
+
 
 /**the below middleware prevents unauthorized access */
 router.use(requireAuth)
