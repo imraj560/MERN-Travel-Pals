@@ -90,6 +90,9 @@ const Exercise = ()=>{
 
                  <div id="exerciseContainer">
 
+                 <p style={{marginBottom:'25px', fontSize:'25px', fontWeight:'bold'}}>Hi {user.name}, <span style={{color:'gray',  fontSize:'15px', fontWeight:'bold'}}>Below are your workouts</span></p>
+
+
                 <button><NavLink to="/add" style={{textDecoration:'none', color:'black'}}>Add Exercise</NavLink></button>
                 <input type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
                
@@ -97,15 +100,18 @@ const Exercise = ()=>{
                 <div id='gridContainer'>
                 
                     {
-                    filteredWorkouts && filteredWorkouts.map((singleWorkout)=>{
-
-                        return (
+                    
                         
+                        
+                        filteredWorkouts && filteredWorkouts.map((singleWorkout)=>{
 
-                            <WorkoutCard key={singleWorkout._id} props={singleWorkout} />
-                        )
-                    })
-                }
+                            return (
+                            
+                                <WorkoutCard key={singleWorkout._id} props={singleWorkout} />
+                            )
+                        })
+                    }
+
                 </div>
                 
                 
