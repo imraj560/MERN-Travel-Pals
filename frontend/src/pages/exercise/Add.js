@@ -44,7 +44,7 @@ const Add = ()=>{
         // });
 
 
-        const response = await fetch('/api/workout/', {
+        const response = await fetch('https://exercise-tracker-8ddy.onrender.com/api/workout/', {
 
             method: 'POST',
             body: formData,
