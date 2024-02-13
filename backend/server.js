@@ -1,12 +1,9 @@
 require('dotenv').config();
 
 const express = require('express');
-const cors = require('cors')
 const mongoose = require('mongoose');
 const workoutRoutes = require('./routes/workoutRouter');
 const userRoutes = require('./routes/userRouter');
-
-
 
 /**Some more changes */
 //default middleware
@@ -16,9 +13,6 @@ app.use((req, res, next)=>{
     console.log(req.path, req.method);
     next();
 })
-
-
-const app = express();
 
 
 //routes for workout api
