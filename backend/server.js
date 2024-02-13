@@ -28,14 +28,6 @@ app.use((req, res, next)=>{
 })
 
 
-const app = express();
-app.use(cors({
-
-    origin: "http://localhost:3000",
-    method: ["GET","POST","PATCH","DELETE"]
-
-}))
-
 //routes for workout api
 app.use('/api/workout', workoutRoutes);
 
