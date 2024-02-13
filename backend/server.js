@@ -7,6 +7,7 @@ const workoutRoutes = require('./routes/workoutRouter');
 const userRoutes = require('./routes/userRouter');
 
 
+
 /**Some more changes */
 //default middleware
 app.use(express.json());
@@ -16,6 +17,8 @@ app.use((req, res, next)=>{
     next();
 })
 
+
+const app = express();
 
 
 //routes for workout api
