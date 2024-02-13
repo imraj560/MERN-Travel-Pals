@@ -12,7 +12,7 @@ const Home = ()=>{
 
         const fetchApiData = async()=>{
 
-            const data = await fetch('/api/workout/all',{
+            const data = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/all',{
 
                 method: 'GET',
 

@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors')
 const mongoose = require('mongoose');
 const workoutRoutes = require('./routes/workoutRouter');
 const userRoutes = require('./routes/userRouter');
@@ -9,6 +10,7 @@ const userRoutes = require('./routes/userRouter');
 //lets instantiate express
 
 const app = express();
+app.use(cors())
 
 // //now listen to this port
 
