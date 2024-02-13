@@ -10,7 +10,12 @@ const userRoutes = require('./routes/userRouter');
 //lets instantiate express
 
 const app = express();
-app.use(cors())
+app.use(cors({
+
+    origin: "http://localhost:3000",
+    method: [GET,POST,PATCH,DELETE]
+
+}))
 
 // //now listen to this port
 
