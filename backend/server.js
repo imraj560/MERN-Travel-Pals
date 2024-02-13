@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const workoutRoutes = require('./routes/workoutRouter');
 const userRoutes = require('./routes/userRouter');
-
+const app = express();
 /**Some more changes */
 //default middleware
 app.use(express.json());
