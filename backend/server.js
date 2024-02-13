@@ -9,13 +9,7 @@ const userRoutes = require('./routes/userRouter');
 
 //lets instantiate express
 
-const app = express();
-app.use(cors({
 
-    origin: "http://localhost:3000",
-    method: ["GET","POST","PATCH","DELETE"]
-
-}))
 
 // //now listen to this port
 
@@ -33,6 +27,14 @@ app.use((req, res, next)=>{
     next();
 })
 
+
+const app = express();
+app.use(cors({
+
+    origin: "http://localhost:3000",
+    method: ["GET","POST","PATCH","DELETE"]
+
+}))
 
 //routes for workout api
 app.use('/api/workout', workoutRoutes);
