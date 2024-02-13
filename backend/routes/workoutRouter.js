@@ -22,7 +22,7 @@ router.get('/all', homeWorkout)
 
 
 /**the below middleware prevents unauthorized access */
-// router.use(requireAuth)
+router.use(requireAuth)
 
 
 /**All routes */

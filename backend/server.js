@@ -7,17 +7,6 @@ const workoutRoutes = require('./routes/workoutRouter');
 const userRoutes = require('./routes/userRouter');
 
 
-//lets instantiate express
-
-
-
-// //now listen to this port
-
-// app.listen(process.env.PORT, ()=>{
-
-//     console.log('listening to home made port', process.env.PORT);
-// })
-
 /**Some more changes */
 //default middleware
 app.use(express.json());
@@ -26,6 +15,7 @@ app.use((req, res, next)=>{
     console.log(req.path, req.method);
     next();
 })
+
 
 
 //routes for workout api
