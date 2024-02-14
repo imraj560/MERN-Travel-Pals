@@ -1,6 +1,6 @@
 const express = require('express');
 const { newWorkout, allWorkout, findWorkout, deleteWorkout, updateWorkout, homeWorkout } = require('../controllers/workoutController');
-const requireAuth = require('../middleware/requireAuth')
+// const requireAuth = require('../middleware/requireAuth')
 const multer = require('multer')
 const router = express.Router();
 
@@ -22,7 +22,7 @@ router.get('/all', homeWorkout)
 
 
 /**the below middleware prevents unauthorized access */
-router.use(requireAuth)
+// router.use(requireAuth)
 
 
 /**All routes */
