@@ -31,6 +31,7 @@ const Exercise = ()=>{
                 headers:{
 
                     'Content-Type' : 'application/json',
+                    'Authorization' : `Bearer ${user.token}`
                     
                 }
 
