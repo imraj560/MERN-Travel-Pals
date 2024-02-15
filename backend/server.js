@@ -8,9 +8,7 @@ const cors = require('cors')
 const app = express();
 /**Some more changes */
 
-const corsOptions = {
-    origin: "http://localhost:3000" // frontend URI (ReactJS)
-}
+
 
 function setCorsHeaders(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -28,9 +26,11 @@ app.use((req, res, next)=>{
     next();
 })
 
-app.use(cors(corsOptions));
-
 app.use(setCorsHeaders);
+
+app.use(cors());
+
+
 
 //routes for workout api
 app.use('/api/workout', workoutRoutes);
