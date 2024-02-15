@@ -11,6 +11,13 @@ const app = express();
 const corsOptions = {
     origin: "http://localhost:3000" // frontend URI (ReactJS)
 }
+
+function setCorsHeaders(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+  }
 //default middleware
 app.use(express.json());
 
@@ -23,7 +30,7 @@ app.use((req, res, next)=>{
 
 app.use(cors(corsOptions));
 
-
+app.use(setCorsHeaders);
 
 //routes for workout api
 app.use('/api/workout', workoutRoutes);
