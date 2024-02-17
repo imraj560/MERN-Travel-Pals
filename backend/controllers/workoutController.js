@@ -47,7 +47,7 @@ const newWorkout = async(req, res) => {
 
 
 /**All workout by user */
-const allWorkout = async(req, res) => {
+const userWorkout = async(req, res) => {
 
     const user_id = req.user._id
 
@@ -175,7 +175,7 @@ const updateWorkout = async(req, res)=>{
 module.exports = {
 
     newWorkout,
-    allWorkout,
+    userWorkout,
     homeWorkout,
     findWorkout,
     deleteWorkout,
