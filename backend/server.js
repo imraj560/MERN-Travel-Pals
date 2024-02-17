@@ -8,9 +8,6 @@ const cors = require('cors')
 const app = express();
 /**Some more changes */
 
-// const corsOptions = {
-//     origin: "http://localhost:3001" // frontend URI (ReactJS)
-// }
 //default middleware
 app.use(express.json());
 
@@ -21,7 +18,7 @@ app.use((req, res, next)=>{
     next();
 })
 
-// app.use(cors(corsOptions));
+
 
 
 

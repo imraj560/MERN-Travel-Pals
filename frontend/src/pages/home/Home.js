@@ -12,7 +12,9 @@ const Home = ()=>{
 
         const fetchApiData = async()=>{
 
+
             const data = await fetch('/api/workout/home',{
+
 
                 method: 'GET',
 

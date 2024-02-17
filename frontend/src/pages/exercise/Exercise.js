@@ -32,6 +32,7 @@ const Exercise = ()=>{
 
                     'Content-Type' : 'application/json',
                     'Authorization' : `Bearer ${user.token}`
+                    
                 }
 
             }).then((response)=>{
