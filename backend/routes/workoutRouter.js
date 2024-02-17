@@ -1,6 +1,6 @@
 const express = require('express');
-const { newWorkout, allWorkout, findWorkout, deleteWorkout, updateWorkout, homeWorkout } = require('../controllers/workoutController');
-// const requireAuth = require('../middleware/requireAuth')
+const { newWorkout, userWorkout, findWorkout, deleteWorkout, updateWorkout, homeWorkout } = require('../controllers/workoutController');
+const requireAuth = require('../middleware/requireAuth')
 const multer = require('multer')
 const router = express.Router();
 
@@ -18,16 +18,17 @@ const storage = multer.diskStorage({
   
 const upload = multer({ storage: storage })
 
-router.get('/all', homeWorkout)
+//get all workouts
+router.get('/home', homeWorkout)
 
 
 /**the below middleware prevents unauthorized access */
-// router.use(requireAuth)
+router.use(requireAuth)
 
 
 /**All routes */
-//GET all your workouts
-router.get('/', allWorkout);
+//GET user workouts
+router.get('/profile', userWorkout);
 
 //GET a single workout
 router.get('/:id', findWorkout);
