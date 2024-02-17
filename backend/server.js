@@ -8,6 +8,11 @@ const cors = require('cors')
 const app = express();
 /**Some more changes */
 
+var corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+
 //default middleware
 app.use(express.json());
 
@@ -21,7 +26,7 @@ app.use((req, res, next)=>{
 
 
 //routes for workout api
-app.use('/api/workout', workoutRoutes);
+app.use('/api/workout', cors(corsOptions), workoutRoutes);
 
 //routes for user Auth
 app.use('/api/user', userRoutes);
