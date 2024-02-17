@@ -15,7 +15,6 @@ const Home = ()=>{
 
             const data = await fetch('/api/workout/home',{
 
-
                 method: 'GET',
 
                 header: {
@@ -35,7 +34,7 @@ const Home = ()=>{
 
             }).catch((error)=>{
 
-                console.log(error)
+                console.log("The error is:", error)
             })
         }
 
