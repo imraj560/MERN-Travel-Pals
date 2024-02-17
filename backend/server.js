@@ -9,7 +9,7 @@ const app = express();
 /**Some more changes */
 
 var corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://65d0952b82ab7272d4b10252--frabjous-druid-23dda0.netlify.app/',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
