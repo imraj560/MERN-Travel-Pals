@@ -9,7 +9,7 @@ const app = express();
 /**Some more changes */
 
 var corsOptions = {
-    origin: 'https://65d2e29db12513d179bdb6e7--moonlit-alfajores-815382.netlify.app',
+    origin: 'https://sage-fox-6c560c.netlify.app',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
