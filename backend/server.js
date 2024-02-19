@@ -29,7 +29,7 @@ app.use((req, res, next)=>{
 app.use('/api/workout', cors(corsOptions), workoutRoutes);
 
 //routes for user Auth
-app.use('/api/user', userRoutes);
+app.use('/api/user', cors(corsOptions), userRoutes);
 
 //Database connect
 mongoose.connect(process.env.MONGO_URI).then(()=>{
