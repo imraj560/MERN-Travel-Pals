@@ -15,7 +15,7 @@ const WorkoutCard = ({props})=>{
     /**Remember server requests are an async function */
     const deleteWorkout = async() => {
 
-        const response = await fetch('/api/workout/'+ props._id, {
+        const response = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/'+ props._id, {
 
             method: 'DELETE',
 
