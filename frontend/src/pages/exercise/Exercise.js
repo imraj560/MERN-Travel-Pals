@@ -26,7 +26,9 @@ const Exercise = ()=>{
 
         const fetchApiData = async()=>{
 
-            let data = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/profile',{
+            // let data = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/profile',{
+
+            let data = await fetch('/api/workout/profile',{ 
 
                 headers:{
 
