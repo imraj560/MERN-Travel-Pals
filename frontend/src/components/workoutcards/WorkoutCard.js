@@ -15,7 +15,7 @@ const WorkoutCard = ({props})=>{
     /**Remember server requests are an async function */
     const deleteWorkout = async() => {
 
-        const response = await fetch('/api/workout/'+ props._id, {
+        const response = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/'+ props._id, {
 
             method: 'DELETE',
 
@@ -47,7 +47,7 @@ const WorkoutCard = ({props})=>{
                 <span style={{marginRight:'10px'}} id='delete' onClick={deleteWorkout}><XSquare size={24}/></span>
                 <span id='edit' ><NavLink style={{textDecoration:'none', color:'white'}} to={'/editform/'+props._id}><Pencil/></NavLink></span>
             </div>
-            <img src={process.env.PUBLIC_URL+"images/"+props.image} />
+            <img src={`images/${props.image}`} alt="img" />
            </div>
            <div id='detail'>
             <p style={{fontSize:'28px', fontWeight:'600'}}>{props.title}</p>

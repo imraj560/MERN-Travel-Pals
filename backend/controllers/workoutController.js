@@ -108,7 +108,7 @@ const deleteWorkout = async(req, res)=>{
     }
 
 
-    fs.unlink(`../frontend/public/images/${image}`, (error)=>{
+    fs.unlink(`./uploads/${image}`, (error)=>{
 
         console.log(error)
         return
@@ -153,7 +153,7 @@ const updateWorkout = async(req, res)=>{
 
         const workout = await Workout.findOneAndUpdate({_id: id}, {title, reps, load, image});
 
-        fs.unlink(`../frontend/public/images/${oldimage}`, (error)=>{
+        fs.unlink(`./uploads/${oldimage}`, (error)=>{
 
                  console.log(error)
                

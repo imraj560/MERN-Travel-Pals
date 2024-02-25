@@ -8,7 +8,7 @@ const router = express.Router();
 /**Multer methods for image upload */
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, '../frontend/public/images')
+      cb(null, './uploads')
       // cb(null, __dirname +'/images')
     },
     filename: function (req, file, cb) {
