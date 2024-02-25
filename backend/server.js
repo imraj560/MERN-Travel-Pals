@@ -27,9 +27,13 @@ app.use((req, res, next)=>{
 
 //routes for workout api
 app.use('/api/workout', cors(corsOptions), workoutRoutes);
+//app.use('/api/workout', workoutRoutes);
 
 //routes for user Auth
 app.use('/api/user', cors(corsOptions), userRoutes);
+//app.use('/api/user', userRoutes);
+
+app.use('/images', cors(corsOptions), express.static('uploads'));
 
 //Database connect
 mongoose.connect(process.env.MONGO_URI).then(()=>{
