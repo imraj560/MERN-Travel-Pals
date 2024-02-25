@@ -47,7 +47,7 @@ const WorkoutCard = ({props})=>{
                 <span style={{marginRight:'10px'}} id='delete' onClick={deleteWorkout}><XSquare size={24}/></span>
                 <span id='edit' ><NavLink style={{textDecoration:'none', color:'white'}} to={'/editform/'+props._id}><Pencil/></NavLink></span>
             </div>
-            <img src={`images/${props.image}`} alt="img" />
+            <img src={`https://exercise-tracker-ax8o.onrender.com/uploads/${props.image}`} alt="img" />
            </div>
            <div id='detail'>
             <p style={{fontSize:'28px', fontWeight:'600'}}>{props.title}</p>
