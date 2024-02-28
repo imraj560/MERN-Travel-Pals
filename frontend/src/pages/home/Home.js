@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { AuthComponent } from '../../components/AuthComponent';
 import HomeWorkoutCard from '../../components/homecards/HomeWorkoutCard';
-
+import { Oval } from 'react-loader-spinner'
 import './Home.css';
 
 const Home = ()=>{
 
     const [workouts, setWorkouts] = useState('');
+    const [loader, setLoader] = useState(true);
 
     useEffect(()=>{
 
@@ -31,7 +32,8 @@ const Home = ()=>{
             }).then((data)=>{
 
                 setWorkouts(data)
-
+                
+                setLoader(false)
                 console.log('Workout Data', workouts)
 
             }).catch((error)=>{
@@ -57,7 +59,23 @@ const Home = ()=>{
             </p>
         </section>
 
+        {loader &&  (
+
+        <Oval
+        visible={true}
+        height="80"
+        width="80"
+        color="black"
+        margin="auto"
+        ariaLabel="oval-loading"
+        wrapperStyle={{}}
+        wrapperClass="loader"
+        />
+        )}
+        
+
         <section id="workout_profiles_grid">
+     
 
         {
                     

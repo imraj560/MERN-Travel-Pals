@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthComponent } from '../../components/AuthComponent';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import {toast} from 'react-toastify'
+import { Oval } from 'react-loader-spinner'
 import './Add.css';
 
 const Add = ()=>{
@@ -17,10 +18,13 @@ const Add = ()=>{
     const [reps, setReps] = useState('');
     const [load, setLoad] = useState('');
     const [error, setError] = useState(null);
+    const [loader, setLoader] = useState(false);
 
     const handleSubmit = async(e)=>{
 
         e.preventDefault();
+
+        setLoader(true)
 
         if(!user){
 
@@ -60,6 +64,7 @@ const Add = ()=>{
         if(!response.ok){
 
             setError(json.error);
+            setLoader(false)
         }
 
         if(response.ok){
@@ -82,7 +87,21 @@ const Add = ()=>{
            <AuthComponent>
              <div id="Add_Form_Container">
 
-                <div id="Form_Container">
+             {loader &&  (
+
+            <Oval
+            visible={true}
+            height="80"
+            width="80"
+            color="black"
+            margin="auto"
+            ariaLabel="oval-loading"
+            wrapperStyle={{}}
+            wrapperClass="loader"
+            />
+            )}
+
+            {!loader && <div id="Form_Container">
 
                     <p>Add Workout</p>
 
@@ -96,7 +115,9 @@ const Add = ()=>{
                         <button type="submit">Create Workout</button>
                     </form>
                    
-                </div>
+                </div>}
+
+                
 
            </div>
            </AuthComponent>
