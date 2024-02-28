@@ -29,7 +29,7 @@ const EditForm = ()=>{
 
         const apiDataFetch = async()=>{
 
-            const data = await fetch(`/api/workout/${params.id}`, {
+            const data = await fetch(`https://exercise-tracker-ax8o.onrender.com/api/workout/${params.id}`, {
 
                   headers:{
 
