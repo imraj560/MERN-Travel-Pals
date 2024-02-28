@@ -2,6 +2,7 @@ import {useState} from 'react'
 import { UseLogin } from '../../hooks/UseLogin';
 import { toast } from 'react-toastify';
 import { NavLink } from 'react-router-dom';
+import { Oval } from 'react-loader-spinner'
 
 import './Login.css'
 
@@ -10,6 +11,7 @@ export const Login = ()=>{
 
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
+   
     
 
     const{error, loading, login} = UseLogin();
@@ -17,6 +19,7 @@ export const Login = ()=>{
     const handleSubmit = async(e)=>{
 
         e.preventDefault();
+        
 
         await login(email, password);
         
@@ -34,7 +37,21 @@ export const Login = ()=>{
        
         <div id="container">
 
-            <div id="signupContainer">
+                {loading &&  (
+
+                <Oval
+                visible={true}
+                height="80"
+                width="80"
+                color="black"
+                margin="auto"
+                ariaLabel="oval-loading"
+                wrapperStyle={{}}
+                wrapperClass="loader"
+                />
+                )}
+
+            {!loading && <div id="signupContainer">
                 <h2>Login Here</h2>
                 
                 <form onSubmit={handleSubmit}>
@@ -51,7 +68,9 @@ export const Login = ()=>{
                 
                     
               
-            </div>
+            </div>}    
+
+            
 
        </div>
         

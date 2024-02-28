@@ -34,6 +34,7 @@ app.use('/api/user', cors(corsOptions), userRoutes);
 //app.use('/api/user', userRoutes);
 
 app.use('/images', cors(corsOptions), express.static('uploads'));
+//app.use('/images', express.static('uploads'));
 
 //Database connect
 mongoose.connect(process.env.MONGO_URI).then(()=>{

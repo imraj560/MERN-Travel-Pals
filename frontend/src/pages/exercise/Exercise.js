@@ -5,6 +5,7 @@ import './Exercise.css';
 import WorkoutCard from '../../components/workoutcards/WorkoutCard';
 import { AuthComponent } from '../../components/AuthComponent';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
+import { Oval } from 'react-loader-spinner'
 
 const Exercise = ()=>{
 
@@ -15,6 +16,7 @@ const Exercise = ()=>{
     const {workouts, dispatch} = UseWorkoutsContext();
     const [search, setSearch] = useState('');
     const [filteredWorkouts, setFilteredWorkouts] = useState()
+    const [loader, setLoader] = useState(true);
 
     console.log('filtered Data', filteredWorkouts)
   
@@ -46,6 +48,7 @@ const Exercise = ()=>{
                 
                 dispatch({type: 'SET_WORKOUTS', payload: data})
                 setFilteredWorkouts(data)
+                setLoader(false)
 
             })
         }
@@ -98,9 +101,21 @@ const Exercise = ()=>{
 
                 <button><NavLink to="/add" style={{textDecoration:'none', color:'black'}}>Add Exercise</NavLink></button>
                 <input type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
-               
+                {loader &&  (
 
-                <div id='gridContainer'>
+                    <Oval
+                    visible={true}
+                    height="80"
+                    width="80"
+                    color="black"
+                    margin="auto"
+                    ariaLabel="oval-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="loader"
+                    />
+                    )}
+
+                {!loader && <div id='gridContainer'>
                 
                     {
                     
@@ -115,7 +130,8 @@ const Exercise = ()=>{
                         })
                     }
 
-                </div>
+                </div>}
+                
                 
                 
                 </div>

@@ -4,6 +4,7 @@ import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { useNavigate } from 'react-router-dom';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import { AuthComponent } from '../../components/AuthComponent';
+import { Oval } from 'react-loader-spinner'
 import './EditForm.css';
 
 const EditForm = ()=>{
@@ -18,6 +19,7 @@ const EditForm = ()=>{
     const [reps, setReps] = useState('');
     const [load, setLoad] = useState('');
     const [error, setError] = useState(null);
+    const [loader, setLoader] = useState(false);
 
     const { user } = UseAuthContext();
 
@@ -27,7 +29,7 @@ const EditForm = ()=>{
 
         const apiDataFetch = async()=>{
 
-            const data = await fetch(`https://exercise-tracker-ax8o.onrender.com/api/workout/${params.id}`, {
+            const data = await fetch(`/api/workout/${params.id}`, {
 
                   headers:{
 
@@ -67,6 +69,8 @@ const EditForm = ()=>{
 
         e.preventDefault();
 
+        setLoader(true)
+
         if(!user){
 
             return
@@ -97,6 +101,7 @@ const EditForm = ()=>{
         if(!response.ok){
 
             setError(json.error);
+            setLoader(false)
         }
 
         if(response.ok){
@@ -118,7 +123,21 @@ const EditForm = ()=>{
             <AuthComponent>
                 <div id="EditContainer">
 
-                <div id="EditFormContainer">
+                {loader &&  (
+
+                    <Oval
+                    visible={true}
+                    height="80"
+                    width="80"
+                    color="black"
+                    margin="auto"
+                    ariaLabel="oval-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="loader"
+                    />
+                    )}
+
+                    {!loader && <div id="EditFormContainer">
 
                     <p>Edit Workout</p>
 
@@ -132,7 +151,9 @@ const EditForm = ()=>{
                         <button type="submit">Save changes</button>
                     </form>
                    
-                </div>
+                </div>}
+
+                
 
            </div>
         

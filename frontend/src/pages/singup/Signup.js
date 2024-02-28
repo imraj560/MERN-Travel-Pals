@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import { UseSignUp } from '../../hooks/UseSignUp';
+import { Oval } from 'react-loader-spinner'
 import './Singup.css'
 import { NavLink } from 'react-router-dom';
 
@@ -26,7 +27,21 @@ export const Signup = ()=>{
        
         <div id="RegisterContainer">
 
-            <div id="RegisterFormContainer">
+            {loading &&  (
+
+            <Oval
+            visible={true}
+            height="80"
+            width="80"
+            color="black"
+            margin="auto"
+            ariaLabel="oval-loading"
+            wrapperStyle={{}}
+            wrapperClass="loader"
+            />
+            )}
+
+            {!loading && <div id="RegisterFormContainer">
                 <h2>Register Here</h2>
                 
                 <form onSubmit={handleSubmit}>
@@ -44,7 +59,7 @@ export const Signup = ()=>{
                 
                     
               
-            </div>
+            </div>}
 
        </div>
         

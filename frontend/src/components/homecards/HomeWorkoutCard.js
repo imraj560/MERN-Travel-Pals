@@ -10,7 +10,7 @@ const HomeWorkoutCard = ({props})=>{
 
         <div key={props._id} id="workoutCard">
            <div id='thumbnail'>
-            <img src={process.env.PUBLIC_URL+"images/"+props.image} />
+           <img src={process.env.PUBLIC_URL+"images/1707306553483deadlift.jpg"} />
            </div>
            <div id='detail'>
             <p style={{fontSize:'28px', fontWeight:'600'}}>{props.title}</p>
