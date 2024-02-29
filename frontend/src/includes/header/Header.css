@@ -30,3 +30,22 @@ header h1{
     cursor: pointer;
 
 }
+
+@media only screen and (max-width: 400px) {
+
+    #logo_title h1{
+
+        font-size: 15px;
+    }
+
+    #nav_links ul li{
+
+        margin-left: 25px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        cursor: pointer;
+    
+    }
+}
+
