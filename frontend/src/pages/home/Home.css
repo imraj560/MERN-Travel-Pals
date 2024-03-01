@@ -19,6 +19,18 @@
     
 }
 
+#message{
+
+    background-color: #cb1c1c;
+    padding:10px 20px;
+}
+
+#message p{
+
+    font-size: 15px;
+    color:white;
+}
+
 section p{
 
     font-size: 25px;
@@ -91,6 +103,12 @@ svg{
     section p{
 
         font-size: 15px;
+    }
+
+    #message p{
+
+        font-size: 11px;
+        color:white;
     }
 
   }

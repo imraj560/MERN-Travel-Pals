@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { AuthComponent } from '../../components/AuthComponent';
 import HomeWorkoutCard from '../../components/homecards/HomeWorkoutCard';
 import { Oval } from 'react-loader-spinner'
+import { ExclamationTriangle } from 'react-bootstrap-icons';
 import './Home.css';
 
 const Home = ()=>{
@@ -53,11 +54,17 @@ const Home = ()=>{
             <p>What your friends are Working on?</p>
         </div>
 
+        <section id="message">
+            <p><ExclamationTriangle size={20}/>Version 1.0 Image upload is awaiting paid disk space service on render.com API</p>
+        </section>
+
          <section id="day_title">
             <p>
                 See What your friends been upto
             </p>
         </section>
+
+       
 
         {loader &&  (
 

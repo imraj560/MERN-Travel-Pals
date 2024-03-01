@@ -6,6 +6,7 @@ import WorkoutCard from '../../components/workoutcards/WorkoutCard';
 import { AuthComponent } from '../../components/AuthComponent';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import { Oval } from 'react-loader-spinner'
+import { ExclamationTriangle } from 'react-bootstrap-icons';
 
 const Exercise = ()=>{
 
@@ -93,7 +94,9 @@ const Exercise = ()=>{
     return (
 
             <AuthComponent>
-
+                   <section id="message">
+                    <p><ExclamationTriangle size={20}/>Version 1.0 Image upload is awaiting paid disk space service on render.com API</p>
+                </section>
                  <div id="exerciseContainer">
 
                  <p style={{marginBottom:'25px', fontSize:'25px', fontWeight:'bold'}}>Hi {user.name}, <span style={{color:'gray',  fontSize:'15px', fontWeight:'bold'}}>Below are your workouts</span></p>
