@@ -29,6 +29,18 @@ section{
     padding: 30px 20px;
 }
 
+#update_message{
+
+    background-color: red;
+    padding: 20px 20px;
+}
+
+#update_message p{
+
+    color: white;
+    font-size: 16px;
+}
+
 #workout_profiles_grid{
     padding: 15px 30px;
     display: grid;
@@ -91,6 +103,12 @@ svg{
     section p{
 
         font-size: 15px;
+    }
+
+    #update_message p{
+
+        color: white;
+        font-size: 12px;
     }
 
   }
