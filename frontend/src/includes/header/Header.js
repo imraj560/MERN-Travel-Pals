@@ -38,7 +38,7 @@ const Header = ()=>{
 
                 {user && (<>
                 <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/exercise">Profile</NavLink></Nav.Link>
-                <Nav.Link><NavLink onClick={handleClick} style={{textDecoration:'none', color:'black'}} to="/singup">LogOut</NavLink></Nav.Link>
+                <Nav.Link><NavLink onClick={handleClick} style={{textDecoration:'none', color:'black'}}>LogOut</NavLink></Nav.Link>
                 </>)}
                 </Nav>
             </Navbar.Collapse>
