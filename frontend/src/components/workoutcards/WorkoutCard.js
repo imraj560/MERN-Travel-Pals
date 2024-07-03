@@ -4,6 +4,9 @@ import { UseAuthContext } from '../../hooks/UseAuthContext';
 import {toast} from 'react-toastify';
 import { ArrowRight, Pencil, PencilFill, PencilSquare, Trash2, Trash3, XSquare } from 'react-bootstrap-icons';
 import { NavLink } from 'react-router-dom';
+import Card from 'react-bootstrap/Card'
+import { Col } from 'react-bootstrap'
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const WorkoutCard = ({props})=>{
 
@@ -14,8 +17,9 @@ const WorkoutCard = ({props})=>{
 
     /**Remember server requests are an async function */
     const deleteWorkout = async() => {
+        // const response = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/'+ props._id, {
 
-        const response = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/'+ props._id, {
+        const response = await fetch('http://localhost:4000/api/workout/'+ props._id, {
 
             method: 'DELETE',
 
@@ -41,21 +45,26 @@ const WorkoutCard = ({props})=>{
 
     return (
 
-        <div key={props._id} id="workoutCard">
+        <Col md={3} className='p-1' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+         <div key={props._id} id="workoutCard" style={{borderRadius:'5px'}}>
            <div id='thumbnail'>
             <div id='action_buttons'>
                 <span style={{marginRight:'10px'}} id='delete' onClick={deleteWorkout}><XSquare size={24}/></span>
                 <span id='edit' ><NavLink style={{textDecoration:'none', color:'white'}} to={'/editform/'+props._id}><Pencil/></NavLink></span>
             </div>
-            <img src={process.env.PUBLIC_URL+"images/1707306553483deadlift.jpg"} />
+            <img src={process.env.PUBLIC_URL+"/images/"+props.image} />
            </div>
            <div id='detail'>
-            <p style={{fontSize:'28px', fontWeight:'600'}}>{props.title}</p>
+            <p style={{fontSize:'20px', fontWeight:'550'}}>{props.title}</p>
             <p>{props.reps} Reps</p>
             <p>{props.load} Kg</p>
             <p>{props.createdAt}</p>
            </div>
         </div>
+        </Col>
+       
+
+        
     )
 }
 

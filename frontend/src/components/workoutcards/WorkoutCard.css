@@ -40,5 +40,10 @@
 #detail{
 
     padding: 20px;
-    line-height: 30px;
+    line-height: 15px;
+}
+
+#detail > p{
+
+    font-size: 13px;
 }

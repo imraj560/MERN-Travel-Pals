@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify'
 import './Header.css';
 import { BoxArrowDownRight } from 'react-bootstrap-icons';
+import {Nav, Navbar, NavDropdown, Container} from 'react-bootstrap'
 const Header = ()=>{
 
     const { logout } = UseLogOut();
@@ -22,29 +23,29 @@ const Header = ()=>{
 
     return (
 
-        <header>
-            <div id="logo_title">
-                <h1><NavLink style={{textDecoration:'none', color:'black'}} to="/">Workout Tracker</NavLink></h1>
-            </div>
-            <div id="nav_links">
+   
 
-                <ul>
-               
+            <Navbar expand="lg" className="bg-body-tertiary">
+            <Container>
+            <Navbar.Brand href="#home"><NavLink style={{textDecoration:'none', color:'black'}} to={'/'}>Fitness Pals</NavLink></Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="me-auto">
                 {!user && (<>
-                    <li><NavLink style={{textDecoration:'none', color:'black'}} to="/login">Login</NavLink></li>
-                    <li><NavLink style={{textDecoration:'none', color:'black'}} to="/signup">Register</NavLink></li>
+                <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/login">Login</NavLink></Nav.Link>
+                <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/signup">Register</NavLink></Nav.Link>
                 </>)}
-                
-                
-                    {user && (<>
-                    <li><NavLink style={{textDecoration:'none', color:'black'}} to="/exercise">Profile</NavLink></li>
-                    <li onClick={handleClick}><BoxArrowDownRight/></li>
-                    </>)}
-                    
-                </ul>
 
-            </div>
-        </header>
+                {user && (<>
+                <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/exercise">Profile</NavLink></Nav.Link>
+                <Nav.Link><NavLink onClick={handleClick} style={{textDecoration:'none', color:'black'}} to="/singup">LogOut</NavLink></Nav.Link>
+                </>)}
+                </Nav>
+            </Navbar.Collapse>
+            </Container>
+            </Navbar>
+
+
     )
 }
 

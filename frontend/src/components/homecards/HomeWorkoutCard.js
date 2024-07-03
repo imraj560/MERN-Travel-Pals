@@ -1,4 +1,7 @@
-import './HomeWorkoutCard.css';
+
+import Card from 'react-bootstrap/Card'
+import { Col } from 'react-bootstrap'
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const HomeWorkoutCard = ({props})=>{
 
@@ -8,17 +11,22 @@ const HomeWorkoutCard = ({props})=>{
 
     return (
 
-        <div key={props._id} id="workoutCard">
-           <div id='thumbnail'>
-           <img src={process.env.PUBLIC_URL+"images/1707306553483deadlift.jpg"} />
-           </div>
-           <div id='detail'>
-            <p style={{fontSize:'28px', fontWeight:'600'}}>{props.title}</p>
-            <p style={{fontSize:'17px'}}>{props.reps} Reps</p>
-            <p style={{fontSize:'17px'}}>{props.load} Kg</p>
-            <p style={{fontSize:'17px'}}>{props.createdAt}</p>
-           </div>
-        </div>
+            <Col md={4} className='p-1' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <Card key={props._id} style={{ width: '100%' }}>
+            <Card.Img style={{height:'320px'}} variant="top" src={process.env.PUBLIC_URL+"/images/"+props.image} />
+            <Card.Body>
+            <Card.Title>{props.title}</Card.Title>
+            <ListGroup className="list-group-flush">
+                <ListGroup.Item>Reps: {props.reps}</ListGroup.Item>
+                <ListGroup.Item>Weight: {props.load} kg</ListGroup.Item>
+                <ListGroup.Item>Date: {props.createdAt}</ListGroup.Item>
+            </ListGroup>
+            </Card.Body>
+            </Card>
+            </Col>
+           
+
+
     )
 }
 

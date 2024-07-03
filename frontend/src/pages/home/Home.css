@@ -12,34 +12,15 @@
     justify-content: center;
 }
 
-#banner  p{
+#banner  h2{
 
     color: white;
+    font-weight: 400;
     font-size: 40px;
     
 }
 
-section p{
 
-    font-size: 25px;
-}
-
-section{
-    width: 100%;
-    padding: 30px 20px;
-}
-
-#update_message{
-
-    background-color: red;
-    padding: 20px 20px;
-}
-
-#update_message p{
-
-    color: white;
-    font-size: 16px;
-}
 
 #workout_profiles_grid{
     padding: 15px 30px;
@@ -95,9 +76,12 @@ svg{
 
     }
 
-    #banner p{
+    #banner  h2{
 
-        font-size: 20px; 
+        color: white;
+        font-weight: 400;
+        font-size: 30px;
+        
     }
 
     section p{
@@ -105,11 +89,6 @@ svg{
         font-size: 15px;
     }
 
-    #update_message p{
-
-        color: white;
-        font-size: 12px;
-    }
 
   }
 

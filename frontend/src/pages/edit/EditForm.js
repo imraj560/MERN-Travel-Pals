@@ -29,7 +29,7 @@ const EditForm = ()=>{
 
         const apiDataFetch = async()=>{
 
-            const data = await fetch(`https://exercise-tracker-ax8o.onrender.com/api/workout/${params.id}`, {
+            const data = await fetch(`http://localhost:4000/api/workout/${params.id}`, {
 
                   headers:{
 
@@ -85,7 +85,7 @@ const EditForm = ()=>{
         formData.append('file',file)
         formData.append('oldimage',oldImage)
 
-        const response = await fetch(`https://exercise-tracker-ax8o.onrender.com/api/workout/${params.id}`, {
+        const response = await fetch(`http://localhost:4000/api/workout/${params.id}`, {
 
             method: 'PATCH',
             body: formData,
