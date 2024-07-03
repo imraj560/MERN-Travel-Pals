@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { AuthComponent } from '../../components/AuthComponent';
 import HomeWorkoutCard from '../../components/homecards/HomeWorkoutCard';
-import { Oval } from 'react-loader-spinner'
-import { ExclamationTriangleFill } from 'react-bootstrap-icons';
 import './Home.css';
+import { Container, Row, Col } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 
 const Home = ()=>{
 
@@ -17,7 +18,7 @@ const Home = ()=>{
 
             // const data = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/home',{
 
-            const data = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/home',{
+            const data = await fetch('http://localhost:4000/api/workout/home',{
 
                 method: 'GET',
 
@@ -50,53 +51,62 @@ const Home = ()=>{
     return (
         <AuthComponent>
 
-         <div id="banner">
-            <p>What your friends are Working on?</p>
-        </div>
+        <Container className='mt-3'>
+            <Row>
+                <Col id="banner" md={12}>
+                    <h2>Wondering what your friends been working on?</h2>
+                </Col>
+            </Row>
 
-        <section id='update_message'>
-            <p><ExclamationTriangleFill />Waiting for paid consistent disk space on Render.com, image display is static in the mean time</p>
-        </section>
+            <Row className='mt-5'>
+                <Col md={12} className='text-center' style={{lineHeight:'30px'}}>
+                    <p>Hi :), <br/> I am Raju, fitness has alaways been a priority for me other than my main profession, because
+                        I know everything is connected to it, if your body is not fit, then your mind will follow suit and
+                        nothing in life will make sense. So no matter what i do I alaways remind myself of my identity by taking
+                        care of my body which i believe gives me back in return to my soul and well being.
+                    </p>
+                </Col>
+            </Row>
 
-         <section id="day_title">
-            <p>
-                See What your friends been upto
-            </p>
-        </section>
+            <Row className='mt-5'>
+                <p>Recent Activities</p>
+              
+
+                {
+                    
+                    workouts && workouts.map((singleWorkout)=>{
+           
+                           return (
+                           
+                               <HomeWorkoutCard key={singleWorkout._id} props={singleWorkout} />
+                           )
+                       })            
+                                   
+                              
+                   }
+
+              
+            </Row>
+           
 
         {loader &&  (
 
-        <Oval
-        visible={true}
-        height="80"
-        width="80"
-        color="black"
-        margin="auto"
-        ariaLabel="oval-loading"
-        wrapperStyle={{}}
-        wrapperClass="loader"
-        />
+            <Button variant="default" disabled>
+            <Spinner
+            as="span"
+            animation="grow"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+            />
+            Loading...
+            </Button>
         )}
-        
+   
+ 
+        </Container>    
 
-        <section id="workout_profiles_grid">
-     
-
-        {
-                    
-         workouts && workouts.map((singleWorkout)=>{
-
-                return (
-                
-                    <HomeWorkoutCard key={singleWorkout._id} props={singleWorkout} />
-                )
-            })            
-                        
-                   
-        }
-
-        </section>
-
+         
         </AuthComponent>
        
        

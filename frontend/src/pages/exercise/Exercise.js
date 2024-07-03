@@ -5,7 +5,9 @@ import './Exercise.css';
 import WorkoutCard from '../../components/workoutcards/WorkoutCard';
 import { AuthComponent } from '../../components/AuthComponent';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
-import { Oval } from 'react-loader-spinner'
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 
 const Exercise = ()=>{
 
@@ -30,7 +32,7 @@ const Exercise = ()=>{
 
             // let data = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/profile',{
 
-            let data = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/profile',{ 
+            let data = await fetch('http://localhost:4000/api/workout/profile',{ 
 
                 headers:{
 
@@ -92,52 +94,79 @@ const Exercise = ()=>{
   
     return (
 
-            <AuthComponent>
+    <AuthComponent>
 
-                 <div id="exerciseContainer">
+     <Container className='mt-5'>
 
-                 <p style={{marginBottom:'25px', fontSize:'25px', fontWeight:'bold'}}>Hi {user.name}, <span style={{color:'gray',  fontSize:'15px', fontWeight:'bold'}}>Below are your workouts</span></p>
+        <Row>
+        <Col md={12}>
+           <h2><NavLink style={{textDecoration:'none', color:'black'}} to={'/'}>Hi {user.name} :)</NavLink></h2>
+        </Col>
+        </Row>
 
+        <Row className='mt-5'>
 
-                <button><NavLink to="/add" style={{textDecoration:'none', color:'black'}}>Add Exercise</NavLink></button>
-                <input type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
-                {loader &&  (
+            <Col md={3} className='p-3'>
+            <Button variant="secondary" size="lg" style={{width:'100%'}}>
+            <NavLink to="/add" style={{textDecoration:'none', color:'black'}}>Add </NavLink>
+            </Button>
+            </Col>
 
-                    <Oval
-                    visible={true}
-                    height="80"
-                    width="80"
-                    color="black"
-                    margin="auto"
-                    ariaLabel="oval-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="loader"
-                    />
-                    )}
+            <Col md={9} className='p-3'>
+            
+            <Form className='p-0'>
+            <Form.Group controlId="exampleForm.ControlInput1" className='w-100'>
+                <Form.Control className='w-100 rounded' type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
+            </Form.Group> 
+            </Form>
+            </Col>
 
-                {!loader && <div id='gridContainer'>
+        </Row>
+       
+        {loader &&  (
+
+            <Button variant="default" disabled>
+            <Spinner
+            as="span"
+            animation="grow"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+            />
+            Loading...
+            </Button>
+            )}
+
+        {!loader && <Row className='mt-4'>
+        
+            {
+            
                 
-                    {
+                
+                filteredWorkouts && filteredWorkouts.map((singleWorkout)=>{
+
+                    return (
                     
-                        
-                        
-                        filteredWorkouts && filteredWorkouts.map((singleWorkout)=>{
+                        <WorkoutCard key={singleWorkout._id} props={singleWorkout} />
+                    )
+                })
+            }
 
-                            return (
-                            
-                                <WorkoutCard key={singleWorkout._id} props={singleWorkout} />
-                            )
-                        })
-                    }
+        </Row>}
 
-                </div>}
-                
-                
-                
-                </div>
 
-            </AuthComponent>
+    </Container>   
+
           
+
+          
+        
+        
+        
+        
+
+    </AuthComponent>
+    
 
 
         

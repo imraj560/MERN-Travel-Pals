@@ -7,6 +7,8 @@ import EditForm from './pages/edit/EditForm';
 import { Signup } from './pages/singup/Signup';
 import { UseAuthContext } from './hooks/UseAuthContext';
 import { Navigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css';
 
 

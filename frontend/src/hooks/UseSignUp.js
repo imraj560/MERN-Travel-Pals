@@ -14,7 +14,7 @@ export const UseSignUp = ()=>{
         setLoading(true)
         setError(null)
        
-        const response = await fetch('https://exercise-tracker-ax8o.onrender.com/api/user/signup', {
+        const response = await fetch('http://localhost:4000/api/user/signup', {
 
             method: 'POST',
             headers: {'Content-Type': 'application/json'},

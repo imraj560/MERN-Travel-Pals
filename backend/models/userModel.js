@@ -43,7 +43,7 @@ userSchema.statics.signup = async function(name, email, password){
 
     if(!validator.isStrongPassword(password)){
 
-        throw Error('Password is too Weak');
+        throw Error('Min 6 Char Uper Lower Symbols');
     }
 
     const exists = await this.findOne({email})

@@ -17,7 +17,7 @@ export const UseLogin = ()=>{
         setLoading(true)
         setError(null)
        
-        const response = await fetch('https://exercise-tracker-ax8o.onrender.com/api/user/login', {
+        const response = await fetch('http://localhost:4000/api/user/login', {
 
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
