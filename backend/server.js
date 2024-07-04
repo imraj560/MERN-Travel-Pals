@@ -9,7 +9,7 @@ const app = express();
 /**Some more changes */
 
 var corsOptions = {
-    origin: 'https://creative-bunny-7517e7.netlify.app/',
+    origin: 'https://creative-bunny-7517e7.netlify.app',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
