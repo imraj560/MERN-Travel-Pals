@@ -85,7 +85,7 @@ const EditForm = ()=>{
         formData.append('file',file)
         formData.append('oldimage',oldImage)
 
-        const response = await fetch(`http://localhost:4000/api/workout/${params.id}`, {
+        const response = await fetch(`https://mern-exercise-tracker-production.up.railway.app/api/workout/${params.id}`, {
 
             method: 'PATCH',
             body: formData,

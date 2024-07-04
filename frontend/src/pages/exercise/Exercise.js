@@ -32,7 +32,7 @@ const Exercise = ()=>{
 
             // let data = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/profile',{
 
-            let data = await fetch('http://localhost:4000/api/workout/profile',{ 
+            let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/profile',{ 
 
                 headers:{
 
