@@ -18,7 +18,7 @@ const Home = ()=>{
 
             // const data = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/home',{
 
-            const data = await fetch('http://localhost:4000/api/workout/home',{
+            const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
 
                 method: 'GET',
 

@@ -19,7 +19,7 @@ const WorkoutCard = ({props})=>{
     const deleteWorkout = async() => {
         // const response = await fetch('https://exercise-tracker-ax8o.onrender.com/api/workout/'+ props._id, {
 
-        const response = await fetch('http://localhost:4000/api/workout/'+ props._id, {
+        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/'+ props._id, {
 
             method: 'DELETE',
 

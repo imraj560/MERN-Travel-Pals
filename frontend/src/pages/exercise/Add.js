@@ -48,7 +48,7 @@ const Add = ()=>{
         // });
 
 
-        const response = await fetch('http://localhost:4000/api/workout/', {
+        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/', {
 
             method: 'POST',
             body: formData,
