@@ -1,6 +1,7 @@
 const Workout = require('../models/workoutModel');
 const mongoose = require('mongoose');
 const fs = require('fs')
+const path = require('path')
 
 
 /**All the functions for the API CRUD functionality */
@@ -21,6 +22,7 @@ const homeWorkout = async(req, res) => {
    
    
 }
+
 
 
 /**Add a single workout */
@@ -172,6 +174,33 @@ const updateWorkout = async(req, res)=>{
 
 }
 
+
+const downloadImage = async(req, res) =>{
+
+
+    const fileName = req.params.filename
+    const filePath = path.join(__dirname, '../uploads', fileName)
+
+    try{
+
+        if(fs.existsSync(filePath)){
+
+            res.sendFile(filePath)
+           
+        }else{
+
+            res.status(404).send('File not found')
+        }
+
+    }catch(error){
+
+        console.log(error)
+    }
+
+    
+}
+
+
 module.exports = {
 
     newWorkout,
@@ -179,5 +208,6 @@ module.exports = {
     homeWorkout,
     findWorkout,
     deleteWorkout,
-    updateWorkout
+    updateWorkout,
+    downloadImage
 }

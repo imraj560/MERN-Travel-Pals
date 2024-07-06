@@ -1,5 +1,5 @@
 const express = require('express');
-const { newWorkout, userWorkout, findWorkout, deleteWorkout, updateWorkout, homeWorkout } = require('../controllers/workoutController');
+const { newWorkout, userWorkout, findWorkout, deleteWorkout, updateWorkout, homeWorkout, downloadImage } = require('../controllers/workoutController');
 const requireAuth = require('../middleware/requireAuth')
 const multer = require('multer')
 const router = express.Router();
@@ -21,7 +21,7 @@ const upload = multer({ storage: storage })
 
 //get all workouts
 router.get('/home', homeWorkout)
-
+router.get('/download/:filename', downloadImage)
 
 /**the below middleware prevents unauthorized access */
 router.use(requireAuth)
@@ -42,6 +42,9 @@ router.delete('/:id', deleteWorkout);
 
 //UPDATE/PATCH a workout
 router.patch('/:id', upload.single('file'), updateWorkout);
+
+//grabing server image
+
 
 
 
