@@ -144,7 +144,7 @@ const EditForm = ()=>{
                     <form onSubmit={handleSubmit}  encType='multipart/form-data'>
                         <input type="text" required value={title} name="title" placeholder="Name your workout" onChange={(e)=> setTitle(e.target.value)} />
                         <p style={{textAlign:'left', fontSize:'14px', marginBottom:'10px', marginLeft:'10px'}}>Edit Workout Image</p>
-                        <img src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+props.image} width={80} height={80} style={{marginLeft:'10PX', marginBottom:'5px'}}/>
+                        <img src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+oldImage} width={80} height={80} style={{marginLeft:'10PX', marginBottom:'5px'}}/>
                         <input type="file" name="file" onChange={(e)=> setFile(e.target.files[0])} />
                         <input type="number" required value={reps} name="reps" placeholder="Enter Reps" onChange={(e)=> setReps(e.target.value)} />
                         <input type="number" required value={load} name="load" placeholder="Enter Weight" onChange={(e)=> setLoad(e.target.value)} />
