@@ -3,12 +3,13 @@ const { newWorkout, userWorkout, findWorkout, deleteWorkout, updateWorkout, home
 const requireAuth = require('../middleware/requireAuth')
 const multer = require('multer')
 const router = express.Router();
+const path = require('path')
 
 
 /**Multer methods for image upload */
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './uploads')
+      cb(null, path.join(__dirname, '../uploads'))
       // cb(null, __dirname +'/images')
     },
     filename: function (req, file, cb) {
@@ -35,7 +36,7 @@ router.get('/profile', userWorkout);
 router.get('/:id', findWorkout);
 
 //POST a new workout
-router.post('/', upload.single('file'), newWorkout);
+router.post('/upload', upload.single('file'), newWorkout);
 
 //DELETE a workout
 router.delete('/:id', deleteWorkout);
