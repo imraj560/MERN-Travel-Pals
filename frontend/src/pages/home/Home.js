@@ -67,7 +67,7 @@ const Home = ()=>{
             </Row>
 
             <Row className='mt-5'>
-                <p>Recent Activities</p>
+                <p>Recent Posts</p>
               
 
                 {
