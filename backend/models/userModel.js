@@ -29,9 +29,9 @@ const userSchema = new Schema({
    
 })
 
-userSchema.statics.signup = async function(name, email, password){
+userSchema.statics.signup = async function(name, email, password, cPassword){
 
-    if(!email || !password || !name){
+    if(!email || !password || !name || !cPassword){
 
         throw Error('All fields must be filled');
     }
@@ -41,16 +41,23 @@ userSchema.statics.signup = async function(name, email, password){
         throw Error('Wrong Email Format');
     }
 
-    if(!validator.isStrongPassword(password)){
-
-        throw Error('Min 6 Char Uper Lower Symbols');
-    }
-
     const exists = await this.findOne({email})
 
     if(exists){
 
         throw Error('This email is already taken');
+    }
+
+    // if(!validator.isStrongPassword(password)){
+
+    //     throw Error('Min 6 Char Uper Lower Symbols');
+    // }
+
+    
+
+    if(password !== cPassword){
+
+        throw Error('Password does not match')
     }
 
     const salt = await bcrypt.genSalt(10);

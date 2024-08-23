@@ -1,35 +1,8 @@
-#RegisterContainer{
+#registerRow{
 
-    width: 100%;
-    height: 100vh;
-    /* background-color: red; */
     display: flex;
-    align-items: center;
+    height: 80vh;
     justify-content: center;
-    text-align: center;
-   
-}
-
-#RegisterFormContainer{
-
-    width: 600px;
-    /* height: 350px; */
-    background-color: #f7f7f7;
-    padding: 30px;
-}
-
-#signupContainer form{
-
-    padding: 0px;
+    align-items: center;
     margin-top: 30px;
-}
-
-.signup_error{
-
-    margin-top: 10px;
-    width: 100%;
-    height: 30px;
-    /* background-color: white; */
-    text-align: left;
-    padding: 5px
-}
+ }

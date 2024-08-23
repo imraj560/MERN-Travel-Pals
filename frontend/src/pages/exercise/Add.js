@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { AuthComponent } from '../../components/AuthComponent';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import {toast} from 'react-toastify'
-import { Oval } from 'react-loader-spinner'
+import { Container, Form, Button, Row, Col} from "react-bootstrap";
+import { Alert } from 'react-bootstrap';
+import { ArrowLeft, ExclamationCircleFill } from 'react-bootstrap-icons';
+import Spinner from 'react-bootstrap/Spinner';
 import './Add.css';
 
 const Add = ()=>{
@@ -15,12 +18,13 @@ const Add = ()=>{
 
     const [title, setTitle] = useState('');
     const[file, setFile] = useState('')
-    const [reps, setReps] = useState('');
-    const [load, setLoad] = useState('');
+    const [wdate, setWdate] = useState('');
+    const [wtime, setWtime] = useState('');
+    const [wtype, setWtype] = useState('');
     const [error, setError] = useState(null);
     const [loader, setLoader] = useState(false);
 
-    const handleSubmit = async(e)=>{
+    const handleForm = async(e)=>{
 
         e.preventDefault();
 
@@ -37,9 +41,10 @@ const Add = ()=>{
         const formData = new FormData();
 
         formData.append('title',title)
-        formData.append('load',load)
-        formData.append('reps',reps)
         formData.append('file',file)
+        formData.append('wdate',wdate)
+        formData.append('wtime',wtime)
+        formData.append('wtype',wtype)
 
         // formData.forEach(element => {
 
@@ -86,41 +91,81 @@ const Add = ()=>{
     return (
 
            <AuthComponent>
-             <div id="Add_Form_Container">
 
-             {loader &&  (
-
-            <Oval
-            visible={true}
-            height="80"
-            width="80"
-            color="black"
-            margin="auto"
-            ariaLabel="oval-loading"
-            wrapperStyle={{}}
-            wrapperClass="loader"
-            />
-            )}
-
-            {!loader && <div id="Form_Container">
-
-                    <p>Add Workout</p>
-
-                    <form onSubmit={handleSubmit} encType='multipart/form-data'>
-                        
-                        <input type="text" required value={title} name="title" placeholder="Name your workout" onChange={(e)=> setTitle(e.target.value)} />
-                        <p style={{textAlign:'left', fontSize:'14px', marginBottom:'10px', marginLeft:'10px'}}>Choose Workout Image</p>
-                        <input type="file" required name="file" onChange={(e)=> setFile(e.target.files[0])} />
-                        <input type="number" required value={reps} name="reps" placeholder="Enter Reps" onChange={(e)=> setReps(e.target.value)} />
-                        <input type="number" required value={load} name="load" placeholder="Enter Weight" onChange={(e)=> setLoad(e.target.value)} />
-                        <button type="submit">Create Workout</button>
-                    </form>
-                   
-                </div>}
-
+            <Container>
+            
+            <Row id="loginRow">
                 
+                <Col className="shadow-sm mb-5 bg-body rounded" style={{padding:'25px 25px 0px 25px', background:'#fbf8f8', borderRadius:'5px'}} md={8}>
+                {loader && 
+                    <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                    </Spinner>
 
-           </div>
+                }
+                    
+                
+                    <h2 style={{fontSize:'20px',fontWeight:'500', marginBottom:'30px'}}>Alright! Lets schedule a workout</h2>
+                    <Form onSubmit={handleForm}>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Workout Name</Form.Label>
+                                <Form.Control required value={title} name="title" placeholder="Name your workout" onChange={(e)=> setTitle(e.target.value)} />
+                                </Form.Group>
+                            </Col>
+                            <Col md={4}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Day?</Form.Label>
+                                <Form.Control required value={wdate} name="wdate" type='date' onChange={(e)=> setWdate(e.target.value)} />
+                                </Form.Group>
+                            </Col>
+                            <Col md={4}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Time?</Form.Label>
+                                <Form.Control required value={wtime} name="wdate" type='time' onChange={(e)=> setWtime(e.target.value)} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+
+                        <Row>
+                            <Col md={6}>
+                                <Form.Group controlId="formFile" className="mb-3">
+                                <Form.Label>Workout Image</Form.Label>
+                                <Form.Control required type="file"  name="file"  onChange={(e)=> setFile(e.target.files[0])} />
+                                </Form.Group>
+                            </Col>
+                            <Col md={6}>
+                                <Form.Group controlId="formFile" className="mb-3">
+                                <Form.Label>Workout Type</Form.Label>
+                                <Form.Select required name='wtype'  onChange={(e)=> setWtype(e.target.value)} aria-label="Default select example" size='md' style={{padding:'14px 10px'}}>
+                                <option>Select a Type</option>
+                                <option value="cardio">Cardio</option>
+                                <option value="calesthenics">Calesthenics</option>
+                                <option value="weight">Weight Trainning</option>
+                                </Form.Select>
+                                </Form.Group>
+                            </Col>
+                    
+                        </Row>
+                       
+
+                      
+                    
+                        <Button type="submit" variant="secondary" style={{borderRadius:'2px', marginTop:'20px'}}>
+                            Post It
+                        </Button>
+
+                    
+                      
+                    </Form>
+                </Col>
+            </Row> 
+                
+        
+    
+            
+            </Container>
            </AuthComponent>
           
         

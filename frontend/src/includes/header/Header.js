@@ -4,7 +4,7 @@ import { UseAuthContext } from '../../hooks/UseAuthContext';
 import { useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify'
 import './Header.css';
-import { BoxArrowDownRight } from 'react-bootstrap-icons';
+import { BoxArrowRight, PersonCircle } from 'react-bootstrap-icons';
 import {Nav, Navbar, NavDropdown, Container} from 'react-bootstrap'
 const Header = ()=>{
 
@@ -37,8 +37,8 @@ const Header = ()=>{
                 </>)}
 
                 {user && (<>
-                <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/exercise">Profile</NavLink></Nav.Link>
-                <Nav.Link><NavLink onClick={handleClick} style={{textDecoration:'none', color:'black'}}>LogOut</NavLink></Nav.Link>
+                <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/exercise"><PersonCircle style={{fontSize:'20PX'}}/></NavLink></Nav.Link>
+                <Nav.Link><NavLink onClick={handleClick} style={{textDecoration:'none', color:'black'}}><BoxArrowRight style={{fontSize:'20PX'}}/></NavLink></Nav.Link>
                 </>)}
                 </Nav>
             </Navbar.Collapse>

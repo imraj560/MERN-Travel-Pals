@@ -9,7 +9,7 @@ export const UseSignUp = ()=>{
     const{dispatch} = UseAuthContext();
     const navigate = useNavigate()
 
-    const signup = async(name, email, password)=>{
+    const signup = async(name, email, password, cPassword)=>{
 
         setLoading(true)
         setError(null)
@@ -19,7 +19,7 @@ export const UseSignUp = ()=>{
 
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({name, email, password})
+            body: JSON.stringify({name, email, password, cPassword})
         })
 
         const json = await response.json();

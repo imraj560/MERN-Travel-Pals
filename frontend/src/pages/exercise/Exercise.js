@@ -8,6 +8,9 @@ import { UseAuthContext } from '../../hooks/UseAuthContext';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import { Container, Row, Col, Form } from 'react-bootstrap';
+import { PersonCircle, PlusCircle, EmojiSmile } from 'react-bootstrap-icons';
+
+
 
 const Exercise = ()=>{
 
@@ -19,6 +22,7 @@ const Exercise = ()=>{
     const [search, setSearch] = useState('');
     const [filteredWorkouts, setFilteredWorkouts] = useState()
     const [loader, setLoader] = useState(true);
+
 
     console.log('filtered Data', filteredWorkouts)
   
@@ -95,11 +99,13 @@ const Exercise = ()=>{
 
     <AuthComponent>
 
+   
+
      <Container className='mt-5'>
 
         <Row>
         <Col md={12}>
-           <h2><NavLink style={{textDecoration:'none', color:'black'}} to={'/'}>Hi {user.name} :)</NavLink></h2>
+           <h2><NavLink style={{textDecoration:'none', color:'black'}} to={'/'}>Hi {user.name} <EmojiSmile/></NavLink></h2>
         </Col>
         </Row>
 
@@ -107,7 +113,7 @@ const Exercise = ()=>{
 
             <Col md={3} className='p-3'>
             <Button variant="secondary" size="lg" style={{width:'100%'}}>
-            <NavLink to="/add" style={{textDecoration:'none', color:'black'}}>Add </NavLink>
+            <NavLink to="/add" style={{textDecoration:'none', color:'black'}}><PlusCircle/> Add </NavLink>
             </Button>
             </Col>
 
