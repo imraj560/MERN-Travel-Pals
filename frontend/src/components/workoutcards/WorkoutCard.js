@@ -2,11 +2,17 @@ import './WorkoutCard.css';
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import {toast} from 'react-toastify';
-import { ArrowRight, Pencil, PencilFill, PencilSquare, Trash2, Trash3, XSquare } from 'react-bootstrap-icons';
+import { Pencil, XSquare } from 'react-bootstrap-icons';
 import { NavLink } from 'react-router-dom';
-import Card from 'react-bootstrap/Card'
 import { Col } from 'react-bootstrap'
-import ListGroup from 'react-bootstrap/ListGroup';
+import { format } from 'date-fns';
+import { Modal } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import { Trash2Fill, ExclamationCircle } from 'react-bootstrap-icons';
+
+import { useState } from 'react';
+
+
 
 const WorkoutCard = ({props})=>{
 
@@ -14,6 +20,12 @@ const WorkoutCard = ({props})=>{
 
     const {dispatch} = UseWorkoutsContext();
     const { user } = UseAuthContext()
+    const [show, setShow] = useState(false)
+
+    /**Modal functions */
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    
 
     /**Remember server requests are an async function */
     const deleteWorkout = async() => {
@@ -37,7 +49,9 @@ const WorkoutCard = ({props})=>{
 
                 dispatch({type:"DELETE_WORKOUT", payload: json});
 
-               toast.error('Workout Deleted');
+                setShow(false)
+
+                toast.error('Workout Deleted');
 
         }
 
@@ -47,10 +61,24 @@ const WorkoutCard = ({props})=>{
     return (
 
         <Col md={3} className='p-1' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title><ExclamationCircle/> Alert</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Sure you want to delete ?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={deleteWorkout}>
+            <Trash2Fill/> Yes
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            No
+          </Button>
+        </Modal.Footer>
+      </Modal>
          <div key={props._id} id="workoutCard" style={{borderRadius:'5px'}}>
            <div id='thumbnail'>
             <div id='action_buttons'>
-                <span style={{marginRight:'10px'}} id='delete' onClick={deleteWorkout}><XSquare size={24}/></span>
+                <span style={{marginRight:'10px'}} id='delete' onClick={handleShow}><XSquare size={24}/></span>
                 <span id='edit' ><NavLink style={{textDecoration:'none', color:'white'}} to={'/editform/'+props._id}><Pencil/></NavLink></span>
             </div>
             <img src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+props.image} />
@@ -58,9 +86,10 @@ const WorkoutCard = ({props})=>{
            </div>
            <div id='detail'>
             <p style={{fontSize:'20px', fontWeight:'550'}}>{props.title}</p>
-            <p>{props.reps} Reps</p>
-            <p>{props.load} Kg</p>
-            <p>{props.createdAt}</p>
+            <p>Day : {format(props.wdate, 'dd, MM, yyyy')}</p>
+            <p>Time : {props.wtime}</p>
+            <p>Type : {props.wtype}</p>
+          
            </div>
         </div>
         </Col>

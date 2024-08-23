@@ -32,11 +32,11 @@ const loginUser = async(req, res)=>{
 /**Register function */
 const signupUser = async(req, res)=>{
 
-    const {name, email, password} = req.body;
+    const {name, email, password, cPassword} = req.body;
 
     try{
 
-        const user = await User.signup(name, email, password)
+        const user = await User.signup(name, email, password, cPassword)
 
         const token = createToken(user._id);
 

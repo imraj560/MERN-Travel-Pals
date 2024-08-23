@@ -4,19 +4,25 @@ const workoutSchema = new Schema({
 
     title:{
 
-        type:'String',
+        type: String,
         required: true
     },
 
-    reps:{
+    wtime:{
 
-        type: Number,
+        type: String,
         required: true
     },
 
-    load:{
+    wdate:{
 
-        type: Number,
+        type: Date,
+        required: true
+    },
+
+    wtype:{
+
+        type: String,
         required: true
     },
 

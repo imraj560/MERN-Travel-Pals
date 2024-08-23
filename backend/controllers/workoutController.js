@@ -33,11 +33,11 @@ const newWorkout = async(req, res) => {
 
    const user_id = req.user._id
 
-   const {title, reps, load} = req.body
+   const {title, wdate, wtime, wtype} = req.body
 
     try{
 
-         const workout = await Workout.create({title, reps, load, image, user_id});
+         const workout = await Workout.create({title, wtime, wdate, wtype, image, user_id});
          res.status(200).json(workout);
 
     }catch(error){
@@ -133,12 +133,12 @@ const updateWorkout = async(req, res)=>{
         res.status(404).error({error: "Invalid mongoose Id"});
     }
 
-    const {title, reps, load, oldimage} = req.body
+    const {title, wtime, wdate, wtype, oldimage} = req.body
 
     //if there is no new image file for edit
     if(!req.file){
 
-        const workout = await Workout.findOneAndUpdate({_id: id}, {title, reps, load});
+        const workout = await Workout.findOneAndUpdate({_id: id}, {title, wtime, wdate, wtype});
 
         if(!workout){
 
@@ -153,7 +153,7 @@ const updateWorkout = async(req, res)=>{
 
         const image = req.file.filename
 
-        const workout = await Workout.findOneAndUpdate({_id: id}, {title, reps, load, image});
+        const workout = await Workout.findOneAndUpdate({_id: id}, {title,  wtime, wdate, wtype, image});
 
         fs.unlink(`./uploads/${oldimage}`, (error)=>{
 
