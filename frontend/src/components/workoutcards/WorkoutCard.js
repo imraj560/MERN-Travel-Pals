@@ -81,8 +81,8 @@ const WorkoutCard = ({props})=>{
                 <span style={{marginRight:'10px'}} id='delete' onClick={handleShow}><XSquare size={24}/></span>
                 <span id='edit' ><NavLink style={{textDecoration:'none', color:'white'}} to={'/editform/'+props._id}><Pencil/></NavLink></span>
             </div>
-            <img src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+props.image} />
-            {/* <img src={"http://localhost:4000/api/workout/download/"+props.image} /> */}
+            {/* <img src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+props.image} /> */}
+            <img src={"http://localhost:4000/api/workout/download/"+props.image} />
            </div>
            <div id='detail'>
             <p style={{fontSize:'20px', fontWeight:'550'}}>{props.title}</p>
