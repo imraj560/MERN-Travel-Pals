@@ -20,6 +20,20 @@
     
 }
 
+#callback_banner{
+
+    padding: 80px 20px;
+    background:url(../../assets/images/community.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+#calendar_banner{
+
+   
+
+}
+
 
 
 #workout_profiles_grid{
