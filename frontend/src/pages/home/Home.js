@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { AuthComponent } from '../../components/AuthComponent';
 import HomeWorkoutCard from '../../components/homecards/HomeWorkoutCard';
 import './Home.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image, Footers } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
-import { Alarm, PeopleFill, PersonArmsUp } from 'react-bootstrap-icons';
+import { Alarm, PeopleFill, PersonArmsUp, Stopwatch, Calendar2DayFill, Compass, PersonCircle, GeoAltFill, TelephoneFill, Facebook, Instagram, Git } from 'react-bootstrap-icons';
+import CalendarImage from '../../../src/assets/images/calendar.png'
+import User2 from '../../../src/assets/images/user2.jpeg'
+import User1 from '../../../src/assets/images/user1.jpeg'
+import User3 from '../../../src/assets/images/user3.jpg'
 
 const Home = ()=>{
 
@@ -21,7 +26,7 @@ const Home = ()=>{
         const fetchApiData = async()=>{
 
                 const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
-                //const data = await fetch('http://localhost:4000/api/workout/home',{
+                // const data = await fetch('http://localhost:4000/api/workout/home',{
 
                 method: 'GET',
 
@@ -124,8 +129,22 @@ const Home = ()=>{
                 
             </Row>
 
+            {loader &&  (
+
+                <Button variant="default" disabled>
+                <Spinner
+                as="span"
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+                />
+                Loading...
+                </Button>
+                )}
+
             <Row className='mt-5'>
-                <p>Recent Schedule</p>
+                <h5>Recent Schedule</h5>
               
 
                 {
@@ -145,7 +164,21 @@ const Home = ()=>{
             </Row>
 
             <Row className='mt-5'>
-                <p>Cardio</p>
+                <Card className="text-center text-white p-0" >
+                    
+                    <Card.Body id="callback_banner">
+                        <Card.Title style={{fontWeight:'bold'}}>DO NOT THINK, JOIN THE COMMUNITY TODAY</Card.Title>
+                        <Card.Text>
+                        Easily find people around you who will join you for a workout
+                        </Card.Text>
+                        <Button variant="secondary"><NavLink style={{textDecoration:'none', color:'white'}} to="/signup">Register</NavLink></Button>
+                    </Card.Body>
+                  
+                </Card>
+            </Row>
+
+            <Row className='mt-5'>
+            <h5>Cardio</h5>
               
 
                 {
@@ -164,8 +197,49 @@ const Home = ()=>{
               
             </Row>
 
+                  
+
+            <Row className='mt-5' style={{padding:'50px 0px'}}>
+            <h5>Find Someone</h5>
+
+            <Col md={6} style={{textAlign:'center', padding:'40px 0px'}}>
+
+                <Image src={CalendarImage} width={500} height={500} />
+
+            </Col>
+
+            <Col md={6} style={{padding:'40px 0px'}}>
+                   <h2>Schedule Your Time</h2>
+                   <p>Find people who are working around you, see if they match your timing, once there is a match, shoot them a message</p>
+                   <Stopwatch style={{fontSize:'30PX', marginRight:'15px'}}/>
+                   <Calendar2DayFill style={{fontSize:'30PX', marginRight:'15px'}}/>
+                   <Compass style={{fontSize:'30PX', marginRight:'10px'}}/>
+                   <Button className='mt-5' style={{display:'block'}} variant="outline-secondary"><NavLink style={{textDecoration:'none', color:'black'}} to="/signup"><b>Register</b></NavLink></Button>
+                   <p>Your friends are waiting</p>
+                   
+
+            </Col>
+
+            </Row>
+
+            <Row style={{backgroundColor:'black'}}>
+            <Col md={4} style={{textAlign:'center', color:'white', padding:'20px 0px'}}>
+                    <PersonCircle style={{fontSize:"40PX"}} />
+                    <p>200 USERS</p>
+                </Col>
+                <Col md={4} style={{textAlign:'center', color:'white',  padding:'20px 0px'}}>
+                <GeoAltFill style={{fontSize:"40PX"}} />
+                <p>40 LOCATIONS</p>
+                </Col>
+                <Col md={4} style={{textAlign:'center', color:'white',  padding:'20px 0px'}}>
+                <TelephoneFill style={{fontSize:"40PX"}} />
+                <p>24HRS SUPPORT</p>
+                </Col>
+
+            </Row>
+
             <Row className='mt-5'>
-                <p>Weights</p>
+            <h5>Weights</h5>
               
 
                 {
@@ -185,8 +259,30 @@ const Home = ()=>{
             </Row>
 
 
+            <Row style={{padding:'80px 0px'}}>
+
+            <h5 className='mb-5'>Our Testimonials</h5>
+
+                <Col md={4} style={{textAlign:'center', padding:'20px 10px'}}>
+                <Image src={User2} roundedCircle width={130} height={130} />
+                    <p>Found an awesome community and workout buddy and never missed a workout till now</p>
+                </Col>
+                <Col md={4} style={{textAlign:'center', padding:'20px 10px'}}>
+                <Image src={User1} roundedCircle width={130} height={130} />
+                <p>Could easily find someone someone near who has the same workout timings and type</p>
+                </Col>
+                <Col md={4} style={{textAlign:'center', padding:'20px 0px'}}>
+                <Image src={User3} roundedCircle width={130} height={130} />
+                <p>Amazing platform if you are looking for a workout partner and accountability coach, it just transformed my life</p>
+                </Col>
+                
+            </Row>
+
+           
+
+
             <Row className='mt-5'>
-                <p>Calisthenics</p>
+            <h5>Calisthenics</h5>
               
 
                 {
@@ -204,24 +300,29 @@ const Home = ()=>{
 
               
             </Row>
+
            
 
-        {loader &&  (
-
-            <Button variant="default" disabled>
-            <Spinner
-            as="span"
-            animation="grow"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-            />
-            Loading...
-            </Button>
-        )}
+      
    
  
-        </Container>    
+        </Container>
+
+        <Container fluid>
+
+            <Row  className='p-5 bg-black mt-5 text-white' style={{display:'flex', justifyContent:'center'}}>
+
+                <Col md={6} style={{textAlign:'center'}}>
+                Copyrights @ Raju 2024 <br/>
+                <Facebook style={{marginRight:'10px'}}/>  <Instagram/>  <Git style={{marginLeft:'10px'}}/>
+                </Col>
+
+            </Row>
+              
+        </Container>
+
+       
+               
 
          
         </AuthComponent>

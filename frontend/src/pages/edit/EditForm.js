@@ -172,7 +172,8 @@ const EditForm = ()=>{
                                 </Form.Group>
                             </Col>
                             <Col md={2}>
-                            <Image src={process.env.PUBLIC_URL+"/images/"+oldImage} width={80} height={80} rounded className='float-start'/>
+                            <Image width={80} height={80} rounded className='float-start' src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+oldImage} />
+                            {/* <Image src={process.env.PUBLIC_URL+"/images/"+oldImage} width={80} height={80} rounded className='float-start'/> */}
                             </Col>
                             <Col md={4}>
                             <Form.Group controlId="formFile" className="mb-3">

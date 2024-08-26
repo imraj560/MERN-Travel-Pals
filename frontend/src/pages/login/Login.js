@@ -69,7 +69,7 @@ export const Login = ()=>{
                     </Form.Group>
                    
                     <Button type="submit" variant="secondary" style={{borderRadius:'2px', marginTop:'20px'}}>
-                        Sign In
+                        SignIn
                     </Button>
 
                    
