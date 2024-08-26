@@ -30,7 +30,9 @@
 
 #calendar_banner{
 
-   
+    background:url(../../assets/images/calendar.png);
+    background-size: cover;
+    background-position: center top;
 
 }
 

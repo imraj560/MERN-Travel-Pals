@@ -26,7 +26,7 @@ const Home = ()=>{
         const fetchApiData = async()=>{
 
                 const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
-                // const data = await fetch('http://localhost:4000/api/workout/home',{
+                //const data = await fetch('http://localhost:4000/api/workout/home',{
 
                 method: 'GET',
 
@@ -204,7 +204,7 @@ const Home = ()=>{
 
             <Col md={6} style={{textAlign:'center', padding:'40px 0px'}}>
 
-                <Image src={CalendarImage} width={500} height={500} />
+                <Image src={CalendarImage} />
 
             </Col>
 

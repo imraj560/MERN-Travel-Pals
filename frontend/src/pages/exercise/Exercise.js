@@ -35,7 +35,7 @@ const Exercise = ()=>{
         const fetchApiData = async()=>{
 
             let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/profile',{ 
-            //let data = await fetch('http://localhost:4000/api/workout/profile',{     
+            // let data = await fetch('http://localhost:4000/api/workout/profile',{     
 
                 headers:{
 
@@ -111,17 +111,17 @@ const Exercise = ()=>{
 
         <Row className='mt-5'>
 
-            <Col md={3} className='p-3'>
-            <Button variant="secondary" size="lg" style={{width:'100%'}}>
+            <Col md={3} className='p-1'>
+            <Button variant="secondary" size="lg" className='w-100'>
             <NavLink to="/add" style={{textDecoration:'none', color:'black'}}><PlusCircle/> Add </NavLink>
             </Button>
             </Col>
 
-            <Col md={9} className='p-3'>
+            <Col md={9} className='p-1'>
             
-            <Form className='p-0'>
+            <Form className='m-0 p-0'>
             <Form.Group controlId="exampleForm.ControlInput1" className='w-100'>
-                <Form.Control className='w-100 rounded' type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
+                <Form.Control className='rounded m-0 w-100' type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
             </Form.Group> 
             </Form>
             </Col>
