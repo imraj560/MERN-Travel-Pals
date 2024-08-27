@@ -20,7 +20,7 @@ const Exercise = ()=>{
     /**Now lets invoke the reducers for global access */
     const {workouts, dispatch} = UseWorkoutsContext();
     const [search, setSearch] = useState('');
-    const [filteredWorkouts, setFilteredWorkouts] = useState()
+    const [filteredWorkouts, setFilteredWorkouts] = useState(workouts)
     const [filterTags, setFilterTags] = useState([]);
     const [loader, setLoader] = useState(true);
 
@@ -113,13 +113,20 @@ const Exercise = ()=>{
 
 
       useEffect(() => {
+
+        if(workouts !== null){
+        
         const newCheckedWorkouts = workouts.filter((workout) =>
           filterTags.length > 0
             ? filterTags.some((filterTag) => workout.wtype.includes(filterTag))
             : workouts
         );
+
         setFilteredWorkouts(newCheckedWorkouts);
-      }, [filteredWorkouts, filterTags]);
+
+    }
+
+      }, [filterTags, workouts]);
 
 
 
@@ -175,6 +182,7 @@ const Exercise = ()=>{
                 inline
                 label="calesthenics"
                 onChange={onCheckChange}
+                value="calesthenics"
               
             />
             </div>
