@@ -8,7 +8,7 @@ import { UseAuthContext } from '../../hooks/UseAuthContext';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import { Container, Row, Col, Form } from 'react-bootstrap';
-import { PersonCircle, PlusCircle, EmojiSmile } from 'react-bootstrap-icons';
+import { PersonCircle, PlusCircle, EmojiSmile, Filter } from 'react-bootstrap-icons';
 
 
 
@@ -21,6 +21,7 @@ const Exercise = ()=>{
     const {workouts, dispatch} = UseWorkoutsContext();
     const [search, setSearch] = useState('');
     const [filteredWorkouts, setFilteredWorkouts] = useState()
+    const [filterTags, setFilterTags] = useState([]);
     const [loader, setLoader] = useState(true);
 
 
@@ -35,7 +36,7 @@ const Exercise = ()=>{
         const fetchApiData = async()=>{
 
             let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/profile',{ 
-            // let data = await fetch('http://localhost:4000/api/workout/profile',{     
+            //let data = await fetch('http://localhost:4000/api/workout/profile',{     
 
                 headers:{
 
@@ -93,6 +94,35 @@ const Exercise = ()=>{
         
     },[search, workouts]);
 
+    const onCheckChange = (event) => {
+
+        if(event.target.checked){
+      
+          setFilterTags((prev)=>[...prev,event.target.value]);
+      
+          
+        }else{
+      
+          setFilterTags(
+            filterTags.filter((filterTag) => filterTag !== event.target.value)
+          )
+      
+        }
+      
+      }
+
+
+      useEffect(() => {
+        const newCheckedWorkouts = workouts.filter((workout) =>
+          filterTags.length > 0
+            ? filterTags.some((filterTag) => workout.wtype.includes(filterTag))
+            : workouts
+        );
+        setFilteredWorkouts(newCheckedWorkouts);
+      }, [filteredWorkouts, filterTags]);
+
+
+
  
   
     return (
@@ -124,6 +154,33 @@ const Exercise = ()=>{
                 <Form.Control className='rounded m-0 w-100' type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
             </Form.Group> 
             </Form>
+
+            <Form className='mt-3 p-0'>
+            <div key="inline-checkbox">
+            <Filter className='float-start'/><br />
+            <Form.Check
+                inline
+                label="Weights"
+                onChange={onCheckChange}
+                value="weight"
+               
+            />
+            <Form.Check 
+                inline
+                label="Cardio"
+                onChange={onCheckChange}
+                value="cardio"
+            />
+            <Form.Check
+                inline
+                label="calesthenics"
+                onChange={onCheckChange}
+              
+            />
+            </div>
+      
+        </Form>
+
             </Col>
 
         </Row>
@@ -162,18 +219,9 @@ const Exercise = ()=>{
 
     </Container>   
 
-          
-
-          
-        
-        
-        
-        
 
     </AuthComponent>
     
-
-
         
     )
 }
