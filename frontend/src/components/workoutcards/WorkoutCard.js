@@ -30,8 +30,8 @@ const WorkoutCard = ({props})=>{
     /**Remember server requests are an async function */
     const deleteWorkout = async() => {
     
-        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/'+ props._id, {
-        //const response = await fetch('http://localhost:4000/api/workout/'+ props._id, {
+        //const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/'+ props._id, {
+        const response = await fetch('http://localhost:4000/api/workout/'+ props._id, {
 
 
             method: 'DELETE',
