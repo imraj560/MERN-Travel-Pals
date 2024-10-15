@@ -1,4 +1,5 @@
 import Header from '../includes/header/Header'
+import Footer from '../includes/footer/Footer'
 
 export const AuthComponent = ({children})=>{
 
@@ -8,6 +9,8 @@ export const AuthComponent = ({children})=>{
         <Header />
 
         {children}
+
+        <Footer/>
         </>
         
 

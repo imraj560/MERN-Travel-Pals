@@ -9,6 +9,7 @@ import { format } from 'date-fns';
 import { Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Trash2Fill, ExclamationCircle } from 'react-bootstrap-icons';
+import { HandThumbsDown, HandThumbsUp, Chat} from 'react-bootstrap-icons';
 
 import { useState } from 'react';
 
@@ -16,7 +17,7 @@ import { useState } from 'react';
 
 const WorkoutCard = ({props})=>{
 
-    const {title, reps, load, image} = props
+  const {title, reps, load, image, _id, likes, dislikes, likesCount, dislikesCount} = props;
 
     const {dispatch} = UseWorkoutsContext();
     const { user } = UseAuthContext()
@@ -30,8 +31,8 @@ const WorkoutCard = ({props})=>{
     /**Remember server requests are an async function */
     const deleteWorkout = async() => {
     
-        //const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/'+ props._id, {
-        const response = await fetch('http://localhost:4000/api/workout/'+ props._id, {
+        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/'+ props._id, {
+        //const response = await fetch('http://localhost:4000/api/workout/'+ props._id, {
 
 
             method: 'DELETE',
@@ -60,7 +61,7 @@ const WorkoutCard = ({props})=>{
 
     return (
 
-        <Col md={3} className='p-1' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <Col md={4} className='p-1' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
             <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title><ExclamationCircle/> Alert</Modal.Title>
@@ -89,6 +90,11 @@ const WorkoutCard = ({props})=>{
             <p>Day : {format(props.wdate, 'dd, MM, yyyy')}</p>
             <p>Time : {props.wtime}</p>
             <p>Type : {props.wtype}</p>
+            <p>
+            <HandThumbsDown size={23} style={{marginRight:'5px'}} color='#a2a6a2'/>{props.dislikesCount}
+            <HandThumbsUp style={{ marginLeft:'18px'}} size={23} color='red'/>{props.likesCount}
+            <Chat style={{cursor:'pointer',  marginLeft:'18px'}} size={23} color='gray'/> 3
+            </p>
           
            </div>
         </div>

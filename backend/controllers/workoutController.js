@@ -1,7 +1,9 @@
 const Workout = require('../models/workoutModel');
 const mongoose = require('mongoose');
 const fs = require('fs')
-const path = require('path')
+const path = require('path');
+const { error } = require('console');
+
 
 
 /**All the functions for the API CRUD functionality */
@@ -11,15 +13,37 @@ const path = require('path')
 
 const homeWorkout = async(req, res) => {
 
+    await Workout.aggregate([
+        {
+          $project: {
+            _id: 1,
+            title: 1,
+            wtime:1,
+            wdate:1,
+            wtype:1,
+            image:1,
+            likes:1,
+            dislikes:1,
+            user_id:1,
+            // If 'friends' doesn't exist, treat it as an empty array
+            likesCount: { $size: { $ifNull: ["$likes", []] } },
+            dislikesCount: { $size: { $ifNull: ["$dislikes", []] } },
 
-    const workouts = await Workout.find({}).sort({_id:-1});
+           
+            
+          }
+        },
+        {
+            $sort:{_id: -1}
+        }
+      ])
+        .then(results => {
+            res.status(200).json(results);
 
-    if(workouts){
-
-         res.status(200).json(workouts);
-    }
-
-   
+        })
+        .catch(err => {
+          console.error(err);
+        });
    
 }
 
@@ -47,15 +71,197 @@ const newWorkout = async(req, res) => {
    
 }
 
+/**Like a post */
+const likePost = async(req, res) => {
+
+    const user_id = req.user._id;
+    const {postId} = req.body
+    const workoutId = await Workout.findById(postId);
+
+    const unique = workoutId.likes.some(likeid => likeid == user_id)
+    if(!unique){
+
+        try{
+        
+            const workout = await Workout.findByIdAndUpdate(postId, {
+                
+                $push:{likes:user_id},  $pull:{dislikes:user_id}
+            }, {new: true})
+
+            const likesCount = workout.likes.length
+            const dislikesCount = workout.dislikes.length
+
+
+                const workoutArray = {'_id':workout._id, 'title': workout.title, 'wtime': workout.wtime,'wdate': workout.wdate, 'wtype':workout.wtype,'image': workout.image,
+                    'likes':workout.likes, 'dislikes':workout.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount}  
+
+                // console.log(workoutArray)    
+                    
+                res.status(200).json({"message":'Post liked','workoutArray':workoutArray})
+
+                
+
+            
+
+        }catch(error){
+
+            res.status(400).json({error:error.message});
+
+        }
+
+    }else{
+
+        const likesCount = workoutId.likes.length
+        const dislikesCount = workoutId.dislikes.length
+        const workoutArray = {'_id':workoutId._id, 'title': workoutId.title, 'wtime': workoutId.wtime,'wdate': workoutId.wdate, 'wtype':workoutId.wtype,'image': workoutId.image,
+            'likes':workoutId.likes, 'dislikes':workoutId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount}  
+        res.status(200).json({"message":'Already Liked','workoutArray':workoutArray})
+
+    }
+
+}
+
+/**Dislike Post */
+const dislikePost = async(req, res) => {
+
+    const user_id = req.user._id;
+    const {postId} = req.body
+    const workoutId = await Workout.findById(postId);
+
+    const unique = workoutId.dislikes.some(likeid => likeid == user_id)
+
+    if(!unique){
+
+        try{
+        
+        const workout = await Workout.findByIdAndUpdate(postId, {
+            
+            $pull:{likes:user_id},  $push:{dislikes:user_id}
+        }, {new: true}) 
+        
+
+        const likesCount = workout.likes.length
+        const dislikesCount = workout.dislikes.length
+
+
+        const workoutArray = {'_id':workout._id, 'title': workout.title, 'wtime': workout.wtime,'wdate': workout.wdate, 'wtype':workout.wtype,'image': workout.image,
+        'likes':workout.likes, 'dislikes':workout.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount}
+
+        res.status(200).json({"message":'Post Disliked','workoutArray':workoutArray})
+
+        }catch(error){
+
+            res.status(400).json({error:error.message});
+
+        }
+    }else{
+
+        const likesCount = workoutId.likes.length
+        const dislikesCount = workoutId.dislikes.length
+        const workoutArray = {'_id':workoutId._id, 'title': workoutId.title, 'wtime': workoutId.wtime,'wdate': workoutId.wdate, 'wtype':workoutId.wtype,'image': workoutId.image,
+            'likes':workoutId.likes, 'dislikes':workoutId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount}  
+        res.status(200).json({"message":'Already Disliked','workoutArray':workoutArray})
+    }
+    
+   
+}
+
+const totalReactions = async(req, res)=>{
+
+   const user_id = await req.user._id;
+   const objectString = `${user_id}`
+
+   await Workout.aggregate([
+
+    {
+        $match: { user_id: objectString }
+    },
+   
+    {
+      $project: {
+
+        totalLikes: { $size: { $ifNull: ["$likes", []] } },
+        totalDislikes: { $size: { $ifNull: ["$dislikes", []] } }
+
+      }
+    },
+    {
+        $group: {
+          _id: null, 
+          totalLikeslength: { $sum: "$totalLikes" },  
+          totalDislikeslength: { $sum: "$totalDislikes" }  
+        }
+      },
+
+      {
+        $project: {
+          _id: 0,  
+           totalLikeslength:1,
+           totalDislikeslength:1,
+
+        }
+      }  
+
+
+  ])
+    .then(results => {
+        res.status(200).json(results);
+        console.log(results)
+
+    })
+    .catch(err => {
+      console.error(err);
+    });
+
+
+
+   
+}
+
+
+
 
 /**All workout by user */
 const userWorkout = async(req, res) => {
 
-    const user_id = req.user._id
+    const user_id = await req.user._id;
+    const objectString = `${user_id}`
+    
+    await Workout.aggregate([
+       
+        {
+          $project: {
+            _id: 1,
+            title: 1,
+            wtime:1,
+            wdate:1,
+            wtype:1,
+            image:1,
+            likes:1,
+            dislikes:1,
+            user_id:1,
+            // If 'friends' doesn't exist, treat it as an empty array
+            likesCount: { $size: { $ifNull: ["$likes", []] } },
+            dislikesCount: { $size: { $ifNull: ["$dislikes", []] } },
 
-    const workouts = await Workout.find({user_id: user_id}).sort({_id: -1});
+          }
+        },
 
-    res.status(200).json(workouts);
+        {
+            $match: { user_id: objectString }
+
+        }
+      ])
+        .then(results => {
+            res.status(200).json(results);
+            console.log(results)
+
+        })
+        .catch(err => {
+          console.error(err);
+        });
+
+   
 }
 
 
@@ -209,5 +415,8 @@ module.exports = {
     findWorkout,
     deleteWorkout,
     updateWorkout,
-    downloadImage
+    downloadImage,
+    likePost,
+    dislikePost,
+    totalReactions
 }

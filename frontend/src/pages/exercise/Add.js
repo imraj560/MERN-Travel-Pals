@@ -82,6 +82,7 @@ const Add = ()=>{
             // setFile('')
             setError(null);
             dispatch({type:'CREATE_WORKOUTS', payload: json});
+            console.log('datajson',json)
             toast.success('Workout Added')
             navigate('/exercise');
         }

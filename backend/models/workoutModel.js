@@ -32,6 +32,18 @@ const workoutSchema = new Schema({
         required: true
     },
 
+    likes:[
+
+        {type:String, unique:true, default:[]}
+
+    ],
+
+    dislikes:[
+        
+        {type:String, unique:true, default:[]}
+
+    ]
+    ,
     user_id:{
 
         type: String,

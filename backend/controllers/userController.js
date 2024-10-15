@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const sendVerificationEmail = require('../email/emailVerification')
 
 const jwt = require('jsonwebtoken');
 
@@ -6,6 +7,22 @@ const createToken = (_id)=>{
 
     return jwt.sign({_id}, process.env.SECRET, {expiresIn:'3d'});
 }
+
+const test = async (req, res)=>{
+
+    try{
+
+        await sendVerificationEmail();
+        res.status(200).json({msg:"Hello your mail has been sent"})
+
+    }catch(error){
+
+        res.status(400).json({error:error.message})
+
+    }
+}
+
+
 
 
 /**Login function */
@@ -29,6 +46,7 @@ const loginUser = async(req, res)=>{
 }
 
 
+
 /**Register function */
 const signupUser = async(req, res)=>{
 
@@ -48,4 +66,4 @@ const signupUser = async(req, res)=>{
     }
 }
 
-module.exports = {loginUser, signupUser};
+module.exports = {loginUser, signupUser, test};
