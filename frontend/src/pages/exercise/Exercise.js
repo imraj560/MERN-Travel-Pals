@@ -6,6 +6,7 @@ import WorkoutCard from '../../components/workoutcards/WorkoutCard';
 import { AuthComponent } from '../../components/AuthComponent';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import Button from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
 import Spinner from 'react-bootstrap/Spinner';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import { PersonCircle, PlusCircle, EmojiSmile, Filter } from 'react-bootstrap-icons';
@@ -23,6 +24,8 @@ const Exercise = ()=>{
     const [filteredWorkouts, setFilteredWorkouts] = useState(workouts)
     const [filterTags, setFilterTags] = useState([]);
     const [loader, setLoader] = useState(true);
+    const [likes, setLikes] = useState('');
+    const [dislikes, setDislikes] = useState('');
 
 
     console.log('filtered Data', filteredWorkouts)
@@ -51,10 +54,36 @@ const Exercise = ()=>{
 
             }).then((data)=>{
 
-                
                 dispatch({type: 'SET_WORKOUTS', payload: data})
-                setFilteredWorkouts(data)
                 setLoader(false)
+               console.log('UserProfile',data)
+
+            })
+        }
+
+        const fetchtotalReactions = async()=>{
+
+            let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/total',{ 
+            //let data = await fetch('http://localhost:4000/api/workout/total',{     
+
+                headers:{
+
+                    'Content-Type' : 'application/json',
+                    'Authorization' : `Bearer ${user.token}`
+                    
+                }
+
+            }).then((response)=>{
+
+                return response.json();
+
+            }).then((data)=>{
+
+               
+               console.log('Reactions',data[0].totalLikeslength)
+
+               setLikes(data[0].totalLikeslength)
+               setDislikes(data[0].totalDislikeslength)
 
             })
         }
@@ -62,6 +91,7 @@ const Exercise = ()=>{
         if(user){
 
              fetchApiData();
+             fetchtotalReactions();
         }
        
 
@@ -207,22 +237,47 @@ const Exercise = ()=>{
             </Button>
             )}
 
-        {!loader && <Row className='mt-4'>
-        
-            {
-            
-                
-                
-                filteredWorkouts && filteredWorkouts.map((singleWorkout)=>{
+        <Row>
 
-                    return (
+            <Col md={3} style={{padding:"5px"}}>
+
+            <Button variant="danger" style={{width:"48%", marginRight:'4px'}}>
+            Likes <Badge bg="secondary">{likes}</Badge>
+            <span className="visually-hidden">unread messages</span>
+            </Button>
+
+            <Button variant="primary" style={{width:'48%'}}>
+            Dislikes <Badge bg="secondary">{dislikes}</Badge>
+            <span className="visually-hidden">unread messages</span>
+            </Button>
+
+
+            </Col>
+
+            <Col md={9}>
+
+                {!loader && <Row className='mt-4'>
+                
+                {
+                
                     
-                        <WorkoutCard key={singleWorkout._id} props={singleWorkout} />
-                    )
-                })
-            }
+                    
+                    filteredWorkouts && filteredWorkouts.map((singleWorkout)=>{
 
-        </Row>}
+                        return (
+                        
+                            <WorkoutCard key={singleWorkout._id} props={singleWorkout} />
+                        )
+                    })
+                }
+
+                 </Row>}
+
+            </Col>
+            
+        </Row>    
+
+       
 
 
     </Container>   

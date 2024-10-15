@@ -11,22 +11,25 @@ import CalendarImage from '../../../src/assets/images/calendar.png'
 import User2 from '../../../src/assets/images/user2.jpeg'
 import User1 from '../../../src/assets/images/user1.jpeg'
 import User3 from '../../../src/assets/images/user3.jpg'
+import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
+import { WorkoutsContext } from '../../context/WorkoutsContext';
 
 const Home = ()=>{
 
-    const [workouts, setWorkouts] = useState([]);
+   
     const [recdata, setRecdata] = useState([]);
     const [cardio, setCardio] = useState([]);
     const [cal, setCal] = useState([]);
     const [weight, setWeight] = useState([]);
     const [loader, setLoader] = useState(true);
+    const {workouts, dispatch} = UseWorkoutsContext();
 
     useEffect(()=>{
 
         const fetchApiData = async()=>{
 
                 const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
-                // const data = await fetch('http://localhost:4000/api/workout/home',{
+                //const data = await fetch('http://localhost:4000/api/workout/home',{
 
                 method: 'GET',
 
@@ -40,12 +43,10 @@ const Home = ()=>{
                 return response.json()
 
             }).then((data)=>{
-
-                setWorkouts(data)
-                setRecdata(data.slice(0,4))
-                
+               
+                dispatch({type: 'SET_WORKOUTS', payload: data})
                 setLoader(false)
-                console.log('Workout Data', workouts)
+               
 
             }).catch((error)=>{
 
@@ -55,39 +56,45 @@ const Home = ()=>{
 
         fetchApiData()
 
+
+
+
+
     }, [])
 
     useEffect(()=>{
 
-        const cardioData = workouts.filter((workout)=>{
-          
-        return workout.wtype.toLowerCase().includes('cardio');
-      
-        })
-      
-    setCardio(cardioData.slice(0 ,4));
+        if(workouts !== null){
 
-    const calData = workouts.filter((workout)=>{
+            setRecdata(workouts.slice(0,4))
+
+            const cardioData = workouts.filter((workout)=>{
+            
+            return workout.wtype.toLowerCase().includes('cardio');
         
-        return workout.wtype.toLowerCase().includes('calesthenics');
-        
-        })
-        
-        setCal(calData.slice(0 ,4));
+            })
+            
+            setCardio(cardioData.slice(0 ,4));
+
+            const calData = workouts.filter((workout)=>{
+                
+                return workout.wtype.toLowerCase().includes('calesthenics');
+                
+                })
+                
+                setCal(calData.slice(0 ,4));
 
 
-    const weightData = workouts.filter((workout)=>{
-    
-        return workout.wtype.toLowerCase().includes('weight');
-        
-        })
-        
-        setWeight(weightData.slice(0 ,4));
+            const weightData = workouts.filter((workout)=>{
+            
+                return workout.wtype.toLowerCase().includes('weight');
+                
+                })
+                
+                setWeight(weightData.slice(0 ,4));
+            
+        }
 
-        
-      
-        
-      
         
       
        },[workouts])
@@ -177,7 +184,7 @@ const Home = ()=>{
                 </Card>
             </Row>
 
-            <Row className='mt-5'>
+            <Row className='mt-4'>
             <h5>Cardio</h5>
               
 
@@ -199,7 +206,7 @@ const Home = ()=>{
 
                   
 
-            <Row className='mt-5' style={{padding:'50px 0px'}}>
+            <Row className='mt-4' style={{padding:'50px 0px'}}>
             <h5>Find Someone</h5>
 
             <Col md={6} style={{textAlign:'center', padding:'40px 0px'}}>
@@ -214,7 +221,7 @@ const Home = ()=>{
                    <Stopwatch style={{fontSize:'30PX', marginRight:'15px'}}/>
                    <Calendar2DayFill style={{fontSize:'30PX', marginRight:'15px'}}/>
                    <Compass style={{fontSize:'30PX', marginRight:'10px'}}/>
-                   <Button className='mt-5' style={{display:'block'}} variant="outline-secondary"><NavLink style={{textDecoration:'none', color:'black'}} to="/signup"><b>Register</b></NavLink></Button>
+                   <Button className='mt-5' style={{display:'block'}} variant="outline-secondary"><NavLink style={{textDecoration:'none', color:'black'}} to="/signup"><b>Find</b></NavLink></Button>
                    <p>Your friends are waiting</p>
                    
 
@@ -238,7 +245,7 @@ const Home = ()=>{
 
             </Row>
 
-            <Row className='mt-5'>
+            <Row className='mt-4'>
             <h5>Weights</h5>
               
 
@@ -259,7 +266,7 @@ const Home = ()=>{
             </Row>
 
 
-            <Row style={{padding:'80px 0px'}}>
+            <Row style={{padding:'60px 0px'}}>
 
             <h5 className='mb-5'>Our Testimonials</h5>
 
@@ -281,7 +288,7 @@ const Home = ()=>{
            
 
 
-            <Row className='mt-5'>
+            <Row className='mt-4'>
             <h5>Calisthenics</h5>
               
 
@@ -308,18 +315,7 @@ const Home = ()=>{
  
         </Container>
 
-        <Container fluid>
-
-            <Row  className='p-5 bg-black mt-5 text-white' style={{display:'flex', justifyContent:'center'}}>
-
-                <Col md={6} style={{textAlign:'center'}}>
-                Copyrights @ Raju 2024 <br/>
-                <Facebook style={{marginRight:'10px'}}/>  <Instagram/>  <Git style={{marginLeft:'10px'}}/>
-                </Col>
-
-            </Row>
-              
-        </Container>
+       
 
        
                
