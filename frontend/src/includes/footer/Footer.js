@@ -8,8 +8,9 @@ const Footer = ()=>{
     return(
 
       <footer>
-        <Container style={{padding:'0px'}}>
-          <Row style={{textAlign:'left'}}>
+        <Container>
+          
+          <Row style={{textAlign:'left', padding:'0px 10px'}}>
             <Col md={12} lg={3} sm={12} style={{padding:'15px 0px'}}>
             <h6 style={{fontWeight:'600'}}>&copy; 2022 Raju Ahmed, Inc</h6>
             </Col>

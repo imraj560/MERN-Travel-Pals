@@ -93,7 +93,7 @@ const WorkoutCard = ({props})=>{
             <p>
             <HandThumbsDown size={23} style={{marginRight:'5px'}} color='#a2a6a2'/>{props.dislikesCount}
             <HandThumbsUp style={{ marginLeft:'18px'}} size={23} color='red'/>{props.likesCount}
-            <Chat style={{cursor:'pointer',  marginLeft:'18px'}} size={23} color='gray'/> 3
+            <Chat style={{marginLeft:'18px'}} size={23} color='gray'/> 3
             </p>
           
            </div>

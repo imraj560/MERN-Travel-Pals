@@ -5,7 +5,7 @@ footer{
     font-size: 16px;
     padding: 40px 0px;
     /* height: 250px; */
-    width: 100vw;
+    /* width: 100%; */
     text-align: center;
     
 }
@@ -19,6 +19,8 @@ footer{
 
   }
 
+
+  
 
 /* footer > p{
 

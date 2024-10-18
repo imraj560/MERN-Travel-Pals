@@ -1,12 +1,9 @@
 const Workout = require('../models/workoutModel');
+const Comment = require('../models/commentModel')
 const mongoose = require('mongoose');
 const fs = require('fs')
 const path = require('path');
 const { error } = require('console');
-
-
-
-/**All the functions for the API CRUD functionality */
 
 
 /**All workout  */
@@ -68,6 +65,56 @@ const newWorkout = async(req, res) => {
 
         res.status(400).json({error:error.message});
     }
+   
+}
+
+/**Add a single comment */
+const postComment = async(req, res) => {
+
+    const user_id = req.user._id;
+    const {comment, postId} = req.body;
+
+    try{
+
+      
+        const postComment = await Comment.create({user_id, comment, postId});
+
+        if(postComment){
+
+            res.status(200).json({'message':'Comment Added', postComment}) 
+        }
+        
+
+    }catch(error){
+
+        res.status(400).json({error})
+    }
+
+
+   
+}
+
+/**Get comments */
+const getComment =  async(req, res)=>{
+
+    const {id} = req.params;
+
+    try{
+
+        const comments = await Comment.find({postId : id})
+
+        if(comments){
+
+            res.status(200).json({comments})
+
+          
+        }
+
+    }catch(error){
+
+        res.status(400).json({error})
+    }
+
    
 }
 
@@ -418,5 +465,7 @@ module.exports = {
     downloadImage,
     likePost,
     dislikePost,
-    totalReactions
+    totalReactions,
+    postComment,
+    getComment
 }
