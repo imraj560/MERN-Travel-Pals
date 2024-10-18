@@ -33,7 +33,7 @@ const Exercise = ()=>{
 
     const { user } = UseAuthContext()
 
-    /**Api call to get Workout Data */
+    /**Get workout data */
     useEffect(()=>{
 
         const fetchApiData = async()=>{
@@ -55,6 +55,7 @@ const Exercise = ()=>{
             }).then((data)=>{
 
                 dispatch({type: 'SET_WORKOUTS', payload: data})
+                console.log('workoutscontextdata', workouts)
                 setLoader(false)
                console.log('UserProfile',data)
 
@@ -63,8 +64,8 @@ const Exercise = ()=>{
 
         const fetchtotalReactions = async()=>{
 
-            let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/total',{ 
-            //let data = await fetch('http://localhost:4000/api/workout/total',{     
+            //let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/total',{ 
+            let data = await fetch('http://localhost:4000/api/workout/total',{     
 
                 headers:{
 
