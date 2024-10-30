@@ -21,6 +21,7 @@ const Add = ()=>{
     const [wdate, setWdate] = useState('');
     const [wtime, setWtime] = useState('');
     const [wtype, setWtype] = useState('');
+    const [location, setLocation] = useState('');
     const [error, setError] = useState(null);
     const [loader, setLoader] = useState(false);
 
@@ -45,6 +46,7 @@ const Add = ()=>{
         formData.append('wdate',wdate)
         formData.append('wtime',wtime)
         formData.append('wtype',wtype)
+        formData.append('location',location)
 
         // formData.forEach(element => {
 
@@ -130,13 +132,13 @@ const Add = ()=>{
                         </Row>
 
                         <Row>
-                            <Col md={6}>
+                            <Col md={4}>
                                 <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Workout Image</Form.Label>
                                 <Form.Control required type="file"  name="file"  onChange={(e)=> setFile(e.target.files[0])} />
                                 </Form.Group>
                             </Col>
-                            <Col md={6}>
+                            <Col md={4}>
                                 <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Workout Type</Form.Label>
                                 <Form.Select required name='wtype'  onChange={(e)=> setWtype(e.target.value)} aria-label="Default select example" size='md' style={{padding:'14px 10px'}}>
@@ -145,6 +147,12 @@ const Add = ()=>{
                                 <option value="calesthenics">Calesthenics</option>
                                 <option value="weight">Weight Trainning</option>
                                 </Form.Select>
+                                </Form.Group>
+                            </Col>
+                            <Col md={4}>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Location / Gym</Form.Label>
+                                <Form.Control placeholder='place of workout' required value={location} name="location" type='location' onChange={(e)=> setLocation(e.target.value)} />
                                 </Form.Group>
                             </Col>
                     

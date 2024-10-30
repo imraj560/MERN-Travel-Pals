@@ -10,20 +10,27 @@ const CommentSchema = new Schema({
    
     replies:[
         
-        {type:String, ref:'Reply'}
+        {type: String, ref:'Reply'}
 
     ]
     ,
     user_id:{
 
         type: String,
-        required: true
+        required: true,
+        ref:'User'
     },
 
     postId:{
 
         type: String,
         required: true
+    },
+
+    name:{
+
+        type:String,
+        required:true
     }
     
 }, {timestamps: true})

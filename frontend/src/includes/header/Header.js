@@ -4,7 +4,7 @@ import { UseAuthContext } from '../../hooks/UseAuthContext';
 import { useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify'
 import './Header.css';
-import { BoxArrowRight, PersonCircle } from 'react-bootstrap-icons';
+import { PersonFillSlash, PersonCircle } from 'react-bootstrap-icons';
 import {Nav, Navbar, NavDropdown, Container} from 'react-bootstrap'
 const Header = ()=>{
 
@@ -30,15 +30,16 @@ const Header = ()=>{
             <Navbar.Brand href="#home"><NavLink style={{textDecoration:'none', color:'black'}} to={'/'}>Fitness Pals</NavLink></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
+                <Nav className="ms-auto">
+                <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/find">Find</NavLink></Nav.Link>
                 {!user && (<>
                 <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/login">Login</NavLink></Nav.Link>
                 <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/signup">Register</NavLink></Nav.Link>
                 </>)}
 
                 {user && (<>
-                <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/exercise"><PersonCircle style={{fontSize:'20PX'}}/></NavLink></Nav.Link>
-                <Nav.Link><NavLink onClick={handleClick} style={{textDecoration:'none', color:'black'}}><BoxArrowRight style={{fontSize:'20PX'}}/></NavLink></Nav.Link>
+                <Nav.Link><NavLink style={{textDecoration:'none', color:'black', fontSize:'16px'}} to="/exercise">Profile</NavLink></Nav.Link>
+                <Nav.Link><NavLink onClick={handleClick} style={{textDecoration:'none', color:'black'}}><PersonFillSlash style={{fontSize:'23PX'}}/></NavLink></Nav.Link>
                 </>)}
                 </Nav>
             </Navbar.Collapse>

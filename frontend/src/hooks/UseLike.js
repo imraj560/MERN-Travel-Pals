@@ -10,10 +10,14 @@ export const useLike = () =>  {
     const [message, setMessage] = useState('');
     const { user } = UseAuthContext()
     const {workouts, dispatch} = UseWorkoutsContext();
+    const [loading, setLoading] = useState(null)
    
 
 
     const like = async(postId)=>{
+
+        setLoading(true)
+
         const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/like',{
         //const response = await fetch('http://localhost:4000/api/workout/like', {
 
@@ -37,11 +41,13 @@ export const useLike = () =>  {
             dispatch({type:'UPDATE_WORKOUT', payload: json.workoutArray});
             
             toast.success(json.message)
+
+            setLoading(false)
            
         }
     }
 
-    return {like,error}
+    return {like,error,loading}
 
 
 }
