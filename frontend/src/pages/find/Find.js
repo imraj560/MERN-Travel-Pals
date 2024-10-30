@@ -10,21 +10,24 @@ import './Find.css'
 
 const Find = ()=>{
     const {workouts, dispatch} = UseWorkoutsContext();
-    const [loader, setLoader] = useState(true);
+    const [loader, setLoader] = useState(false);
     const [sdate, setSdate] = useState('');
     const [fdate, setFdate] = useState('');
     const [type, setType] = useState('');
     const [message, setMessage] = useState('');
     const [locations, setLocations] = useState('');
     const [filterdata, setFilterdata] = useState(workouts);
+    const [locationlist, setLocationlist] = useState([]);
    
 
     useEffect(()=>{
 
         const fetchApiData = async()=>{
 
-               //const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
-               const data = await fetch('http://localhost:4000/api/workout/home',{
+                setLoader(true)
+
+               const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
+               //const data = await fetch('http://localhost:4000/api/workout/home',{
 
                 method: 'GET',
 
@@ -50,6 +53,39 @@ const Find = ()=>{
         }
 
         fetchApiData()
+
+
+        const locationList = async()=>{
+            const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/location',{
+            //const data = fetch('http://localhost:4000/api/workout/location',{
+                
+                method: 'GET',
+
+                header: {
+
+                    'Content-Type':'application/json'
+                }
+
+
+            }).then((response)=>{
+
+                return response.json()
+
+            }).then((data)=>{
+               
+                
+               setLocationlist(data)
+
+            }).catch((error)=>{
+
+                console.log("The error is:", error)
+            })
+
+
+            
+        }
+
+        locationList()
 
 
 
@@ -127,11 +163,11 @@ const Find = ()=>{
                         <select required id="inputState" onChange={(e)=> setLocations(e.target.value)} class="form-select" style={{height:"53px"}}>
                         <option selected>Choose Location</option>
                         {
-                            workouts && workouts.map((singleLocation)=>{
+                            locationlist && locationlist.map((singleLocation)=>{
 
                                 return (
 
-                                     <option value={singleLocation.location}>{singleLocation.location}</option>
+                                     <option value={singleLocation._id}>{singleLocation._id}</option>
                                 )
                             })
                         }

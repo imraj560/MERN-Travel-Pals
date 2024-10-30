@@ -487,6 +487,34 @@ const findWorkout = async(req, res)=>{
 
 }
 
+/**location list */
+
+const locationList = async(req, res)=>{
+
+    await Workout.aggregate([
+        {
+          $group: {
+            
+            _id: "$location",
+           
+            
+          }
+        },
+        {
+            $sort:{_id: -1}
+        }
+      ])
+        .then(results => {
+            res.status(200).json(results);
+
+        })
+        .catch(err => {
+          console.error(err);
+        });
+
+
+}
+
 
 /**Delete a workout */
 const deleteWorkout = async(req, res)=>{
@@ -621,5 +649,6 @@ module.exports = {
     replyComment,
     getReply,
     destroyReply,
-    totalTypes
+    totalTypes,
+    locationList
 }
