@@ -1,5 +1,5 @@
 const express = require('express');
-const {totalTypes, destroyReply, getReply, newWorkout, userWorkout, findWorkout, deleteWorkout, updateWorkout, homeWorkout, downloadImage, likePost, dislikePost, totalReactions, postComment, getComment, destroyComment, replyComment} = require('../controllers/workoutController');
+const {locationList, totalTypes, destroyReply, getReply, newWorkout, userWorkout, findWorkout, deleteWorkout, updateWorkout, homeWorkout, downloadImage, likePost, dislikePost, totalReactions, postComment, getComment, destroyComment, replyComment} = require('../controllers/workoutController');
 const requireAuth = require('../middleware/requireAuth')
 const multer = require('multer')
 const router = express.Router();
@@ -24,6 +24,7 @@ router.get('/home', homeWorkout)
 router.get('/download/:filename', downloadImage)
 router.get('/commentlist/:id', getComment)
 router.get('/replylist/:id', getReply)
+router.get('/location',locationList)
 
 
 
