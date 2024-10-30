@@ -14,6 +14,7 @@ import User3 from '../../../src/assets/images/user3.jpg'
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { WorkoutsContext } from '../../context/WorkoutsContext';
 
+
 const Home = ()=>{
 
    
@@ -221,7 +222,7 @@ const Home = ()=>{
                    <Stopwatch style={{fontSize:'30PX', marginRight:'15px'}}/>
                    <Calendar2DayFill style={{fontSize:'30PX', marginRight:'15px'}}/>
                    <Compass style={{fontSize:'30PX', marginRight:'10px'}}/>
-                   <Button className='mt-5' style={{display:'block'}} variant="outline-secondary"><NavLink style={{textDecoration:'none', color:'black'}} to="/signup"><b>Find</b></NavLink></Button>
+                   <Button className='mt-5' style={{display:'block'}} variant="outline-secondary"><NavLink style={{textDecoration:'none', color:'black'}} to="/find"><b>Find</b></NavLink></Button>
                    <p>Your friends are waiting</p>
                    
 

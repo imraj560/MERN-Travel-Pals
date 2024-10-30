@@ -87,13 +87,13 @@ const WorkoutCard = ({props})=>{
            </div>
            <div id='detail'>
             <p style={{fontSize:'20px', fontWeight:'550'}}>{props.title}</p>
-            <p>Day : {format(props.wdate, 'dd, MM, yyyy')}</p>
+            <p>Day : {format(props.wdate, 'MMM dd, yyyy')}</p>
             <p>Time : {props.wtime}</p>
             <p>Type : {props.wtype}</p>
             <p>
-            <HandThumbsDown size={23} style={{marginRight:'5px'}} color='#a2a6a2'/>{props.dislikesCount}
-            <HandThumbsUp style={{ marginLeft:'18px'}} size={23} color='red'/>{props.likesCount}
-            <Chat style={{marginLeft:'18px'}} size={23} color='gray'/> 3
+            <HandThumbsDown size={17} style={{marginRight:'5px'}} color='#a2a6a2'/>{props.dislikesCount}
+            <HandThumbsUp style={{ marginLeft:'18px'}} size={17} color='green'/>{props.likesCount}
+            <Chat style={{marginLeft:'18px'}} size={17} color='gray'/> 3
             </p>
           
            </div>

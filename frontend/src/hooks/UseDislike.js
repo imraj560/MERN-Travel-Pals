@@ -9,8 +9,12 @@ export const useDislike = () =>  {
     const [errorr, setErrorr] = useState(null);
     const { user } = UseAuthContext()
     const {workouts, dispatch} = UseWorkoutsContext();
+    const [lloading, setLLoading] = useState(null)
 
     const dislike = async(postId)=>{
+
+        setLLoading(true)
+
         const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/dislike',{
         //const response = await fetch('http://localhost:4000/api/workout/dislike', {
 
@@ -35,10 +39,12 @@ export const useDislike = () =>  {
             dispatch({type:'UPDATE_WORKOUT', payload: json.workoutArray});
             
             toast.success(json.message)
+
+            setLLoading(false)
         }
     }
 
-    return {dislike, errorr}
+    return {dislike, errorr, lloading}
 
 
 }

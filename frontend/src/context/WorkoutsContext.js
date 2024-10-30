@@ -45,7 +45,7 @@ export const WorkoutsContextProvider = ({children}) => {
         workouts:null
     })
     
-    console.log('Context Fired', state);
+  
     
 
     return (

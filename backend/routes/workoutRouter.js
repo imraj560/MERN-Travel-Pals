@@ -1,5 +1,5 @@
 const express = require('express');
-const { newWorkout, userWorkout, findWorkout, deleteWorkout, updateWorkout, homeWorkout, downloadImage, likePost, dislikePost, totalReactions, postComment, getComment} = require('../controllers/workoutController');
+const {totalTypes, destroyReply, getReply, newWorkout, userWorkout, findWorkout, deleteWorkout, updateWorkout, homeWorkout, downloadImage, likePost, dislikePost, totalReactions, postComment, getComment, destroyComment, replyComment} = require('../controllers/workoutController');
 const requireAuth = require('../middleware/requireAuth')
 const multer = require('multer')
 const router = express.Router();
@@ -23,6 +23,8 @@ const upload = multer({ storage: storage })
 router.get('/home', homeWorkout)
 router.get('/download/:filename', downloadImage)
 router.get('/commentlist/:id', getComment)
+router.get('/replylist/:id', getReply)
+
 
 
 /**the below middleware prevents unauthorized access */
@@ -31,12 +33,24 @@ router.use(requireAuth)
 
 /**All routes */
 
-/**get comment */
+/**Destroy Reply */
+router.delete('/deleteReply/:id', destroyReply)
+
+/**Reply Comment */
+router.post('/reply', replyComment)
+
+/**Delete Comment */
+router.delete('/deleteComment/:id', destroyComment)
 
 /**Add comment */
 router.post('/comment', postComment)
+
 /**Total Reactions */
 router.get('/total', totalReactions)
+
+/**Total types */
+router.get('/types', totalTypes)
+
 //POST a workout like
 router.put('/like', likePost);
 

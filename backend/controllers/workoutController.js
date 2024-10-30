@@ -1,5 +1,7 @@
 const Workout = require('../models/workoutModel');
 const Comment = require('../models/commentModel')
+const User = require('../models/userModel')
+const Reply = require('../models/replyModel')
 const mongoose = require('mongoose');
 const fs = require('fs')
 const path = require('path');
@@ -22,6 +24,7 @@ const homeWorkout = async(req, res) => {
             likes:1,
             dislikes:1,
             user_id:1,
+            location:1,
             // If 'friends' doesn't exist, treat it as an empty array
             likesCount: { $size: { $ifNull: ["$likes", []] } },
             dislikesCount: { $size: { $ifNull: ["$dislikes", []] } },
@@ -54,11 +57,11 @@ const newWorkout = async(req, res) => {
 
    const user_id = req.user._id
 
-   const {title, wdate, wtime, wtype} = req.body
+   const {title, wdate, wtime, wtype, location} = req.body
 
     try{
 
-         const workout = await Workout.create({title, wtime, wdate, wtype, image, user_id});
+         const workout = await Workout.create({title, wtime, wdate, wtype, image, user_id, location});
          res.status(200).json(workout);
 
     }catch(error){
@@ -76,8 +79,9 @@ const postComment = async(req, res) => {
 
     try{
 
+        const name = await User.findById(user_id).select('name -_id');
       
-        const postComment = await Comment.create({user_id, comment, postId});
+        const postComment = await Comment.create({user_id, comment, postId, name:name.name});
 
         if(postComment){
 
@@ -116,6 +120,128 @@ const getComment =  async(req, res)=>{
     }
 
    
+}
+
+const destroyComment = async(req, res)=>{
+
+   const {id} = req.params;//commentId
+   const user_id = req.user._id;
+
+   const comDel = await Comment.findOne({_id:id}).select('user_id');
+
+   if(comDel.user_id == user_id){
+
+       if(!mongoose.Types.ObjectId.isValid(id)){
+
+        return res.status(404).json({error: 'Invalid mongoId'});
+        }
+
+        const comments = await Comment.findOneAndDelete({_id: id});
+        const reply = await Reply.deleteMany({commentId: id});
+
+        if(comments && reply){
+
+            const message = "Comment Deleted";
+           res.status(200).json({message, comments})
+        }
+        
+   }else{
+
+   
+          const message = "Invalid Auth";
+          res.status(400).json({message})
+        
+   }
+
+   
+}
+
+/**Post Reply */
+const replyComment = async(req, res)=>{
+
+    const {commentId, content} = req.body;
+    const user_id = req.user._id;
+   
+
+    try{
+        
+        const name = await User.findById(user_id).select('name -_id');
+        const reply = await Reply.create({commentId, content, user_id, name:name.name});
+
+        if(reply){
+
+            await Comment.findByIdAndUpdate(commentId, {$push: {replies: reply._id} });
+            const message = "Reply Posted";
+            res.status(200).json({message, reply})
+        }
+
+    }catch(error){
+
+        res.status(400).json({error});
+    }
+    
+
+   
+
+
+   
+
+}
+
+
+/**Get reply */
+const getReply =  async(req, res)=>{
+
+    const {id} = req.params;
+
+    try{
+
+        const reply = await Reply.find({commentId : id})
+
+        if(reply){
+
+            res.status(200).json({reply})
+
+          
+        }
+
+    }catch(error){
+
+        res.status(400).json({error})
+    }
+
+   
+}
+
+const destroyReply = async(req, res)=>{
+
+    const {id} = req.params;//ReplyId
+    const user_id = req.user._id;
+ 
+    const repDel = await Reply.findOne({_id:id}).select('user_id');
+ 
+    if(repDel.user_id == user_id){
+ 
+        if(!mongoose.Types.ObjectId.isValid(id)){
+ 
+         return res.status(404).json({error: 'Invalid mongoId'});
+         }
+ 
+         const reply = await Reply.findOneAndDelete({_id: id});
+ 
+         if(reply){
+ 
+             const message = "Reply Deleted";
+            res.status(200).json({message, reply})
+         }
+         
+    }else{
+ 
+    
+           const message = "Invalid Auth";
+           res.status(400).json({message})
+         
+    }
 }
 
 /**Like a post */
@@ -265,6 +391,32 @@ const totalReactions = async(req, res)=>{
    
 }
 
+/**Count Types */
+const totalTypes = async(req, res)=>{
+
+    const user_id = req.user._id;
+
+        const weight = await Workout.countDocuments({['wtype']: 'weight'})
+        const calesthenics = await Workout.countDocuments({['wtype']: 'calesthenics'})
+        const cardio = await Workout.countDocuments({['wtype']: 'cardio'})
+
+        const arrayData = [];
+
+        arrayData.push(weight, calesthenics, cardio)
+
+       
+
+            res.status(200).json({arrayData})
+            console.log(arrayData)
+            
+        
+
+    
+
+  
+    
+}
+
 
 
 
@@ -346,10 +498,7 @@ const deleteWorkout = async(req, res)=>{
         return res.status(404).error({error: 'Invalid mongoose Id'})
     }
 
-    const {image} = await Workout.findOne({_id: id}).select('image')
-
-   
-
+    const {image} = await Workout.findOne({_id: id}).select('image');
    
     const workout = await Workout.findOneAndDelete({_id: id});
     
@@ -386,12 +535,12 @@ const updateWorkout = async(req, res)=>{
         res.status(404).error({error: "Invalid mongoose Id"});
     }
 
-    const {title, wtime, wdate, wtype, oldimage} = req.body
+    const {title, wtime, wdate, wtype, oldimage, location} = req.body
 
     //if there is no new image file for edit
     if(!req.file){
 
-        const workout = await Workout.findOneAndUpdate({_id: id}, {title, wtime, wdate, wtype});
+        const workout = await Workout.findOneAndUpdate({_id: id}, {title, wtime, wdate, wtype, location});
 
         if(!workout){
 
@@ -467,5 +616,10 @@ module.exports = {
     dislikePost,
     totalReactions,
     postComment,
-    getComment
+    getComment,
+    destroyComment,
+    replyComment,
+    getReply,
+    destroyReply,
+    totalTypes
 }

@@ -18,6 +18,7 @@ const EditForm = ()=>{
     const [wtime, setWtime] = useState('');
     const [wtype, setWtype] = useState('');
     const [title, setTitle] = useState('');
+    const [location, setLocation] = useState('');
     const[file, setFile] = useState(null)
     const[oldImage, setOldImage] = useState('')
     const [error, setError] = useState(null);
@@ -54,6 +55,7 @@ const EditForm = ()=>{
                 setWdate(fdate);
                 setWtime(data.wtime);
                 setWtype(data.wtype);
+                setLocation(data.location);
                 setOldImage(data.image);
                 setFile(data.image);
 
@@ -91,6 +93,7 @@ const EditForm = ()=>{
         formData.append('wdate',wdate)
         formData.append('wtime',wtime)
         formData.append('wtype',wtype)
+        formData.append('location',location)
         formData.append('file',file)
         formData.append('oldimage',oldImage)
 
@@ -142,7 +145,9 @@ const EditForm = ()=>{
                     
                 
                     <h2 style={{fontSize:'20px',fontWeight:'500', marginBottom:'30px'}}>Alright! Lets edit your schedule</h2>
-                    <Form onSubmit={handleSubmit}>
+                    {!loader && (
+
+                        <Form onSubmit={handleSubmit}>
                         <Row>
                             <Col md={4}>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -188,23 +193,32 @@ const EditForm = ()=>{
                             </Col>
                     
                         </Row>
-                        <Col md={6}>
+                        <Col md={4}>
+
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Location</Form.Label>
+                            <Form.Control value={location} name="location" type='text' onChange={(e)=> setLocation(e.target.value)} />
+                            </Form.Group>
+                            
                                 
-                            </Col>
+                        </Col>
                         <Row>
                             
                         </Row>
-                       
+                    
 
-                      
+                    
                     
                         <Button type="submit" variant="secondary" style={{borderRadius:'2px', marginTop:'20px'}}>
                             Edit Post
                         </Button>
 
                     
-                      
+                    
                     </Form>
+
+                    )}
+                    
                 </Col>
             </Row> 
                 

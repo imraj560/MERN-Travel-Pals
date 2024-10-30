@@ -48,9 +48,14 @@ const workoutSchema = new Schema({
 
         type: String,
         required: true
-    }
+    },
+    location:{
+
+        type: String,
+        required: true
+    },
     
 }, {timestamps: true})
 
-module.exports = mongoose.model('workout', workoutSchema);
+module.exports = mongoose.model('Workout', workoutSchema);
 

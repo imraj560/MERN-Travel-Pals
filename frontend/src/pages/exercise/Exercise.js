@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import LineChart from '../../components/charts/LineChart';
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { NavLink } from 'react-router-dom';
 import './Exercise.css';
@@ -9,7 +10,8 @@ import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import Spinner from 'react-bootstrap/Spinner';
 import { Container, Row, Col, Form } from 'react-bootstrap';
-import { PersonCircle, PlusCircle, EmojiSmile, Filter } from 'react-bootstrap-icons';
+import { PersonCircle, PlusCircle, EmojiSmile, Filter, Line } from 'react-bootstrap-icons';
+import { setDate } from 'date-fns';
 
 
 
@@ -26,12 +28,17 @@ const Exercise = ()=>{
     const [loader, setLoader] = useState(true);
     const [likes, setLikes] = useState('');
     const [dislikes, setDislikes] = useState('');
+    const [chartdata, setChartdata] = useState([])
 
 
-    console.log('filtered Data', filteredWorkouts)
-  
+
+   
 
     const { user } = UseAuthContext()
+
+    /**GET TOTAL TYPES */
+
+
 
     /**Get workout data */
     useEffect(()=>{
@@ -64,8 +71,8 @@ const Exercise = ()=>{
 
         const fetchtotalReactions = async()=>{
 
-            //let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/total',{ 
-            let data = await fetch('http://localhost:4000/api/workout/total',{     
+            let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/total',{ 
+            //let data = await fetch('http://localhost:4000/api/workout/total',{     
 
                 headers:{
 
@@ -94,6 +101,34 @@ const Exercise = ()=>{
              fetchApiData();
              fetchtotalReactions();
         }
+
+        /**Get total types */
+        const typesData = async()=>{
+
+            let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/types',{ 
+            //let data = await fetch('http://localhost:4000/api/workout/types',{     
+
+                headers:{
+
+                    'Content-Type' : 'application/json',
+                    'Authorization' : `Bearer ${user.token}`
+                    
+                }
+
+            }).then((response)=>{
+
+                return response.json();
+
+            }).then((data)=>{
+
+                setChartdata(data.arrayData)
+
+            })
+        }
+
+        typesData()
+
+     
        
 
     }, [dispatch])
@@ -243,14 +278,19 @@ const Exercise = ()=>{
             <Col md={3} style={{padding:"5px"}}>
 
             <Button variant="danger" style={{width:"48%", marginRight:'4px'}}>
-            Likes <Badge bg="secondary">{likes}</Badge>
+            Likes {loader && (<Spinner size='sm' animation="border" variant="warning" />)}<Badge bg="secondary"> {likes}</Badge>
             <span className="visually-hidden">unread messages</span>
             </Button>
 
             <Button variant="primary" style={{width:'48%'}}>
-            Dislikes <Badge bg="secondary">{dislikes}</Badge>
+            Dislikes{loader && (<Spinner size='sm' animation="border" variant="warning" />)} <Badge bg="secondary">{dislikes}</Badge>
             <span className="visually-hidden">unread messages</span>
             </Button>
+
+            <h5 style={{marginTop:"20px"}}>Current Trend</h5>
+
+            {/**Line starts here */}
+            <LineChart chartdata={chartdata}/>
 
 
             </Col>
