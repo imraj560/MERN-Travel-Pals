@@ -109,3 +109,17 @@ svg{
   }
 
 
+  @media only screen and (max-width: 770px) {
+  
+
+   #find{
+    text-align: center;
+   }
+
+   #findBtn{
+    margin: 0 auto;
+   }
+
+  }
+
+

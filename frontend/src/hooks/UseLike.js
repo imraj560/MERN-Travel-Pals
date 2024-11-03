@@ -36,7 +36,7 @@ export const useLike = () =>  {
         if(response.ok){
             setError(null);
 
-            console.log('WDATA',json.workoutArray)
+            // console.log('WDATA',json.workoutArray)
 
             dispatch({type:'UPDATE_WORKOUT', payload: json.workoutArray});
             
