@@ -34,9 +34,11 @@ export const useDislike = () =>  {
 
             setErrorr(null);
 
-            console.log('WDATA',json.workoutArray)
+            // console.log('WDATA',json.workoutArray)
 
             dispatch({type:'UPDATE_WORKOUT', payload: json.workoutArray});
+
+            // console.log('updated workout state', json.workoutArray)
             
             toast.success(json.message)
 

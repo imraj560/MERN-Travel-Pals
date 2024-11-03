@@ -216,13 +216,13 @@ const Home = ()=>{
 
             </Col>
 
-            <Col md={6} style={{padding:'40px 0px'}}>
+            <Col id="find" md={6} style={{padding:'40px 0px'}}>
                    <h2>Schedule Your Time</h2>
                    <p>Find people who are working around you, see if they match your timing, once there is a match, shoot them a message</p>
                    <Stopwatch style={{fontSize:'30PX', marginRight:'15px'}}/>
                    <Calendar2DayFill style={{fontSize:'30PX', marginRight:'15px'}}/>
                    <Compass style={{fontSize:'30PX', marginRight:'10px'}}/>
-                   <Button className='mt-5' style={{display:'block'}} variant="outline-secondary"><NavLink style={{textDecoration:'none', color:'black'}} to="/find"><b>Find</b></NavLink></Button>
+                   <Button id="findBtn" className='mt-5' style={{display:'block'}} variant="outline-secondary"><NavLink style={{textDecoration:'none', color:'black'}} to="/find"><b>Find</b></NavLink></Button>
                    <p>Your friends are waiting</p>
                    
 

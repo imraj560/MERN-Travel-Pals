@@ -24,7 +24,7 @@ const Find = ()=>{
 
         const fetchApiData = async()=>{
 
-                setLoader(true)
+               
 
                const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
                //const data = await fetch('http://localhost:4000/api/workout/home',{
@@ -43,6 +43,7 @@ const Find = ()=>{
             }).then((data)=>{
                
                 dispatch({type: 'SET_WORKOUTS', payload: data})
+                setFilterdata(workouts)
                 setLoader(false)
                
 
@@ -91,7 +92,9 @@ const Find = ()=>{
 
 
 
-    }, [dispatch])
+    }, [])
+
+    /**Filter starts from here */
 
     const handleFilter = (e)=>{
 
@@ -124,7 +127,7 @@ const Find = ()=>{
 
                  setLoader(false)
                  setMessage('')
-                 setFilterdata(newFilter)
+                 dispatch({type: 'SET_WORKOUTS', payload: newFilter})
              }
 
             
@@ -158,7 +161,7 @@ const Find = ()=>{
                         <label for="inputEmail4" class="form-label">To</label>
                         <input value={fdate} onChange={(e)=> setFdate(e.target.value)} required type="date" class="form-control" id="inputEmail4" />
                     </Col>
-                    <Col md={3} style={{padding:'0 2px'}}>
+                    <Col md={3} style={{padding:'0 2px'}} id="location">
                         <label for="inputState" class="form-label">Choose Location</label>
                         <select required id="inputState" onChange={(e)=> setLocations(e.target.value)} class="form-select" style={{height:"53px"}}>
                         <option selected>Choose Location</option>
@@ -175,7 +178,7 @@ const Find = ()=>{
                         </select>
                     </Col>
 
-                    <Col md={3} style={{padding:'0 2px'}}>
+                    <Col id='type' md={3} style={{padding:'0 2px'}} >
                         <label for="inputState" class="form-label">Workout Type</label>
                         <select required id="inputState" onChange={(e)=> setType(e.target.value)} class="form-select" style={{height:'53px'}}>
                         <option selected>Workout Type</option>
@@ -212,7 +215,7 @@ const Find = ()=>{
 
                 {
                     
-                    filterdata && filterdata.map((singleWorkout)=>{
+                    workouts && workouts.map((singleWorkout)=>{
            
                            return (
                            

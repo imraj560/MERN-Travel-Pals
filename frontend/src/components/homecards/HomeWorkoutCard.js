@@ -52,6 +52,7 @@ const HomeWorkoutCard = ({props})=>{
 
     } 
 
+
     const handleShow = () => {
 
       setShow(true);
@@ -184,7 +185,7 @@ const HomeWorkoutCard = ({props})=>{
     if(user){
 
         const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/deleteComment/'+id, {
-          //const response = await fetch('http://localhost:4000/api/workout/deleteComment/'+id, {
+        //const response = await fetch('http://localhost:4000/api/workout/deleteComment/'+id, {
 
 
                 method: 'DELETE',
@@ -233,6 +234,7 @@ const HomeWorkoutCard = ({props})=>{
    const toggleComponent = (id) => {
 
     setShowid((prevId) => (prevId === id ? null : id));
+
 
   };
 
