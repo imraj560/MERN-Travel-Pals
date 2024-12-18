@@ -1,12 +1,16 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { UseLogin } from '../../hooks/UseLogin';
+import { UseAuthContext } from '../../hooks/UseAuthContext';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { NavLink } from 'react-router-dom';
 import { Oval } from 'react-loader-spinner'
 import { Alert } from 'react-bootstrap';
 import { Container, Form, Group, Button, Row, Col } from "react-bootstrap";
-import { ArrowLeft, ExclamationCircleFill } from 'react-bootstrap-icons';
+import { ArrowLeft, ExclamationCircleFill, Google} from 'react-bootstrap-icons';
+import { jwtDecode } from "jwt-decode";
 import Spinner from 'react-bootstrap/Spinner';
+
 
 
 import './Login.css'
@@ -16,6 +20,9 @@ export const Login = ()=>{
 
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
+    const [userData, setUserData] = useState(null);
+    const{dispatch} = UseAuthContext();
+    const navigate = useNavigate();
    
     
 
@@ -36,6 +43,31 @@ export const Login = ()=>{
 
       
     }
+
+
+
+    // const googleSuccess = (response)=>{
+
+    //     const decodedToken = jwtDecode(response.credential)
+    //     const name = decodedToken.name
+    //     const email = decodedToken.email;
+    //     const token = response.credential;
+
+    //     const user = {"name":name, "email":email, "token":token}
+
+    //     localStorage.setItem('user', JSON.stringify(user));
+    //     dispatch({type: 'LOGIN', payload:user})
+    //     toast.success('Successfully Logged In')
+    //     navigate('/')
+
+
+    // }
+
+    // const googleError = ()=>{
+
+
+    // }
+
 
     return (
 
@@ -71,6 +103,20 @@ export const Login = ()=>{
                     <Button type="submit" variant="secondary" style={{borderRadius:'2px', marginTop:'20px'}}>
                         SignIn
                     </Button>
+
+                   <Row className='mt-3'>
+                    {/* <GoogleLogin 
+                    size='large' width='20px' onSuccess={googleSuccess} shape='pill' theme='filled_black'
+                    onError={googleError}/> */}
+
+                    <Button variant='dark' style={{width:'40%'}}>
+                         <Google/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='https://mern-exercise-tracker-production.up.railway.app/auth/google'>Google</a>
+                    </Button>
+                   
+
+
+                   </Row>
+                   
 
                    
                     {error  &&

@@ -93,6 +93,9 @@ const Exercise = ()=>{
                setLikes(data[0].totalLikeslength)
                setDislikes(data[0].totalDislikeslength)
 
+            }).catch((error)=>{
+
+                console.log(error)
             })
         }
 
@@ -222,38 +225,38 @@ const Exercise = ()=>{
 
             <Col md={9} className='p-1'>
             
-            <Form className='m-0 p-0'>
-            <Form.Group controlId="exampleForm.ControlInput1" className='w-100'>
-                <Form.Control className='rounded m-0 w-100' type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
-            </Form.Group> 
-            </Form>
+                        <Form className='m-0 p-0'>
+                        <Form.Group controlId="exampleForm.ControlInput1" className='w-100'>
+                            <Form.Control className='rounded m-0 w-100' type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
+                        </Form.Group> 
+                        </Form>
 
-            <Form className='mt-3 p-0'>
-            <div key="inline-checkbox">
-            <Filter className='float-start'/><br />
-            <Form.Check
-                inline
-                label="Weights"
-                onChange={onCheckChange}
-                value="weight"
-               
-            />
-            <Form.Check 
-                inline
-                label="Cardio"
-                onChange={onCheckChange}
-                value="cardio"
-            />
-            <Form.Check
-                inline
-                label="calesthenics"
-                onChange={onCheckChange}
-                value="calesthenics"
-              
-            />
-            </div>
-      
-        </Form>
+                        <Form className='mt-3 p-0'>
+                        <div key="inline-checkbox">
+                        <Filter className='float-start'/><br />
+                        <Form.Check
+                            inline
+                            label="Weights"
+                            onChange={onCheckChange}
+                            value="weight"
+                        
+                        />
+                        <Form.Check 
+                            inline
+                            label="Cardio"
+                            onChange={onCheckChange}
+                            value="cardio"
+                        />
+                        <Form.Check
+                            inline
+                            label="calesthenics"
+                            onChange={onCheckChange}
+                            value="calesthenics"
+                        
+                        />
+                        </div>
+                
+                        </Form>
 
             </Col>
 
@@ -278,12 +281,12 @@ const Exercise = ()=>{
             <Col md={3} style={{padding:"5px"}}>
 
             <Button variant="danger" style={{width:"48%", marginRight:'4px'}}>
-            Likes {loader && (<Spinner size='sm' animation="border" variant="warning" />)}<Badge bg="secondary"> {likes}</Badge>
+            Likes {loader && (<Spinner size='sm' animation="border" variant="warning" />)} {likes}
             <span className="visually-hidden">unread messages</span>
             </Button>
 
             <Button variant="primary" style={{width:'48%'}}>
-            Dislikes{loader && (<Spinner size='sm' animation="border" variant="warning" />)} <Badge bg="secondary">{dislikes}</Badge>
+            Dislikes{loader && (<Spinner size='sm' animation="border" variant="warning" />)} {dislikes}
             <span className="visually-hidden">unread messages</span>
             </Button>
 

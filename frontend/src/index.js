@@ -6,6 +6,7 @@ import { CommentsContextProvider } from './context/CommentsContext';
 import { ReplyContextProvider } from './context/ReplyContext';
 import { LikesContextProvider } from './context/LikesContext';
 import { ToastContainer } from 'react-toastify';
+import { CookiesProvider } from 'react-cookie';
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
@@ -20,7 +21,9 @@ root.render(
           <CommentsContextProvider>
             <ReplyContextProvider>
               <ToastContainer/>
-                <App />
+              <CookiesProvider>
+                 <App />
+              </CookiesProvider>
             </ReplyContextProvider>
        </CommentsContextProvider>
        </LikesContextProvider>
