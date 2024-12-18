@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthComponent } from '../../components/AuthComponent';
 import HomeWorkoutCard from '../../components/homecards/HomeWorkoutCard';
 import './Home.css';
@@ -13,6 +14,9 @@ import User1 from '../../../src/assets/images/user1.jpeg'
 import User3 from '../../../src/assets/images/user3.jpg'
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { WorkoutsContext } from '../../context/WorkoutsContext';
+import { UseAuthContext } from '../../hooks/UseAuthContext';
+import { toast } from 'react-toastify';
+import { useCookies } from 'react-cookie';
 
 
 const Home = ()=>{
@@ -24,8 +28,35 @@ const Home = ()=>{
     const [weight, setWeight] = useState([]);
     const [loader, setLoader] = useState(true);
     const {workouts, dispatch} = UseWorkoutsContext();
+    const [cookies, setCookie] = useCookies(['user']);
+    const {user, dispatch:authDispatch} = UseAuthContext();
+    
+
+    const navigate = useNavigate()
 
     useEffect(()=>{
+
+        if (!user) {
+
+            const getCookies = ()=>{
+
+                if(cookies.user && cookies.user !== ''){
+
+                const userr = {"name":cookies.user.username, "email":cookies.user.email, "token":cookies.user.token}
+                authDispatch({type: 'LOGIN', payload:userr})
+                toast.success('Successfully Logged In')
+                navigate('/')
+
+                }
+
+            }
+
+            getCookies()  
+           
+        }
+
+        
+
 
         const fetchApiData = async()=>{
 

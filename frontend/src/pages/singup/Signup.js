@@ -5,7 +5,7 @@ import './Singup.css'
 import { NavLink } from 'react-router-dom';
 import { Container, Form, Button, Row, Col} from "react-bootstrap";
 import { Alert } from 'react-bootstrap';
-import { ArrowLeft, ExclamationCircleFill } from 'react-bootstrap-icons';
+import { ArrowLeft, ExclamationCircleFill, Google } from 'react-bootstrap-icons';
 import Spinner from 'react-bootstrap/Spinner';
 
 
@@ -74,6 +74,16 @@ export const Signup = ()=>{
                     <Button type="submit" variant="secondary" style={{borderRadius:'2px', marginTop:'20px'}}>
                         SignUp
                     </Button>
+                     <Row className='mt-3'>
+                        {/* <GoogleLogin 
+                        size='large' width='20px' onSuccess={googleSuccess} shape='pill' theme='filled_black'
+                        onError={googleError}/> */}
+    
+                        <Button variant='dark' style={{width:'40%'}}>
+                        <Google/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='https://mern-exercise-tracker-production.up.railway.app/auth/google'>Google</a>
+                        </Button>
+                                       
+                    </Row>
                     {error  &&
                     
                     <Alert variant='dark' style={{marginTop:'20px'}}>

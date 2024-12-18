@@ -19,6 +19,19 @@ button{
 
 }
 
+#chart-container {
+    width: 100%; /* Full width of its parent */
+    height: 400px; /* Set desired height for the chart */
+    display: block;
+  }
+  
+  /* Make the canvas stretch to the container size */
+  #myChart {
+    width: 100%; /* Stretch to 100% width of container */
+    height: 100%; /* Match the container's height */
+    display: block; /* Prevent unwanted inline gaps */
+  }
+
 label{
 
     margin-left: 10px;
