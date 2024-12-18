@@ -13,7 +13,13 @@ router.get('/google',
     (req,res)=>{
 
       console.log(req.user)
-      res.cookie('user',req.user);
+      res.cookie('user',req.user, {
+        httpOnly: true, // Ensures cookies are only accessible via HTTP(S)
+        secure: true,   // Ensures cookies are sent only over HTTPS
+        sameSite: "strict", // Prevents cross-site request forgery (CSRF)
+        maxAge: 24 * 60 * 60 * 1000, // 1 day
+
+      });
       res.redirect('https://creative-bunny-7517e7.netlify.app')
 
     }
