@@ -15,7 +15,15 @@ export const UseLogOut = ()=>{
         localStorage.removeItem('user');
 
         /**Remove Cookie */
-        removeCookie('user');
+        const clearCookie = async () => {
+            // await fetch("http://localhost:4000/auth/clear-cookie", {
+            await fetch("https://mern-exercise-tracker-production.up.railway.app/auth/clear-cookie", {
+              credentials: "include",
+            });
+            console.log("Cookie cleared");
+          };
+
+        clearCookie()  
 
         /**dispatch context */
         dispatch({type:'LOGOUT'})

@@ -1,6 +1,6 @@
 require('dotenv').config();
-
 const express = require('express');
+const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose');
 const workoutRoutes = require('./routes/workoutRouter');
 const userRoutes = require('./routes/userRouter');
@@ -8,10 +8,11 @@ const googleRoutes = require('./routes/googleAuth')
 const passport = require('./middleware/passport')
 const cors = require('cors')
 const app = express();
+app.use(cookieParser());
 /**Some more changes */
 
 var corsOptions = {
-    origin: 'https://creative-bunny-7517e7.netlify.app', //main fileddf//
+    origin: 'https://creative-bunny-7517e7.netlify.app', //main fileddf//d
     //origin: 'http://localhost:3000',
     credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204

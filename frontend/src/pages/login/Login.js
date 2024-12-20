@@ -45,30 +45,6 @@ export const Login = ()=>{
     }
 
 
-
-    // const googleSuccess = (response)=>{
-
-    //     const decodedToken = jwtDecode(response.credential)
-    //     const name = decodedToken.name
-    //     const email = decodedToken.email;
-    //     const token = response.credential;
-
-    //     const user = {"name":name, "email":email, "token":token}
-
-    //     localStorage.setItem('user', JSON.stringify(user));
-    //     dispatch({type: 'LOGIN', payload:user})
-    //     toast.success('Successfully Logged In')
-    //     navigate('/')
-
-
-    // }
-
-    // const googleError = ()=>{
-
-
-    // }
-
-
     return (
 
         <Container>
@@ -111,6 +87,7 @@ export const Login = ()=>{
 
                     <Button variant='dark' style={{width:'40%'}}>
                          <Google/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='https://mern-exercise-tracker-production.up.railway.app/auth/google'>Google</a>
+                         {/* <Google/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='http://localhost:4000/auth/google'>Google</a> */}
                     </Button>
                    
 
