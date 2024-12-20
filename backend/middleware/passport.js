@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
@@ -14,10 +15,11 @@ const createToken = (_id)=>{
 passport.use(
   new GoogleStrategy(
     {
-      clientID: "191257029905-fo9127ofo2rsiqh5265213s3o78vh36q.apps.googleusercontent.com",
-    clientSecret: "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",
-    callbackURL: "https://mern-exercise-tracker-production.up.railway.app/auth/google/callback",
-    scope:["profile", "email"]
+      clientID: `${process.env.GOOGLE_CLIENT_ID}`,
+      clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
+      callbackURL: "https://mern-exercise-tracker-production.up.railway.app/auth/google/callback",
+      //callbackURL: "http://localhost:4000/auth/google/callback",
+      scope:["profile", "email"]
     },
     async(accessToken, refreshToken, profile, done) => {
 

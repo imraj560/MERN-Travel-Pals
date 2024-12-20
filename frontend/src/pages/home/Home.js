@@ -36,26 +36,43 @@ const Home = ()=>{
 
     useEffect(()=>{
 
+        
         if (!user) {
 
-            const getCookies = ()=>{
+            let fetchGoogle = async()=>{
 
-                if(cookies.user && cookies.user !== ''){
+            let data = await fetch("https://mern-exercise-tracker-production.up.railway.app/auth/protected", {
+            // let data = await fetch("http://localhost:4000/auth/protected", {
 
-                const userr = {"name":cookies.user.username, "email":cookies.user.email, "token":cookies.user.token}
-                authDispatch({type: 'LOGIN', payload:userr})
-                toast.success('Successfully Logged In')
-                navigate('/')
+                credentials: "include",
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                    
+                    const userr = {"name":data.user.username, "email":data.user.email, "token":data.user.token}
+                    // console.log(userr)
+                    authDispatch({type: 'LOGIN', payload:userr})
+                    toast.success(`Hi ${data.user.username}`)
+                    console.log('raju')
+                    
 
-                }
+                }).catch((error)=>{
 
+                    console.log(error)
+                })  
+           
             }
 
-            getCookies()  
-           
+            fetchGoogle()
+
+         
         }
 
-        
+
+
+    }, [])
+
+    useEffect(()=>{
 
 
         const fetchApiData = async()=>{
