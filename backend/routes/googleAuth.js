@@ -38,7 +38,12 @@ router.get('/google',
   });
 
   router.get("/clear-cookie", (req, res) => {
-    res.clearCookie("user");
+    
+    res.clearCookie("user", {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+    });
     res.send("Cookie has been cleared!");
   });
 
