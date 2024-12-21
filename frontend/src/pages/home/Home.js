@@ -16,7 +16,7 @@ import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { WorkoutsContext } from '../../context/WorkoutsContext';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import { toast } from 'react-toastify';
-import { useCookies } from 'react-cookie';
+
 
 
 const Home = ()=>{
@@ -34,51 +34,14 @@ const Home = ()=>{
 
     const navigate = useNavigate()
 
-    useEffect(()=>{
-
-        
-        if (!user) {
-
-            let fetchGoogle = async()=>{
-
-            let data = await fetch("https://mern-exercise-tracker-production.up.railway.app/auth/protected", {
-            //let data = await fetch("http://localhost:4000/auth/protected", {
-
-                credentials: "include",
-              })
-                .then((res) => res.json())
-                .then((data) => {
-                    
-                    const userr = {"name":data.user.username, "email":data.user.email, "token":data.user.token}
-                    // console.log(userr)
-                    authDispatch({type: 'LOGIN', payload:userr})
-                    // toast.success(`Hi ${data.user.username}`)
-                    console.log('raju')
-                    
-
-                }).catch((error)=>{
-
-                    console.log(error)
-                })  
-           
-            }
-
-            fetchGoogle()
-
-         
-        }
-
-
-
-    }, [])
 
     useEffect(()=>{
 
 
         const fetchApiData = async()=>{
 
-               const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
-               //const data = await fetch('http://localhost:4000/api/workout/home',{
+               //const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
+               const data = await fetch('http://localhost:4000/api/workout/home',{
 
                 method: 'GET',
 
