@@ -42,7 +42,7 @@ const Home = ()=>{
             let fetchGoogle = async()=>{
 
             let data = await fetch("https://mern-exercise-tracker-production.up.railway.app/auth/protected", {
-            // let data = await fetch("http://localhost:4000/auth/protected", {
+            //let data = await fetch("http://localhost:4000/auth/protected", {
 
                 credentials: "include",
               })
@@ -52,7 +52,7 @@ const Home = ()=>{
                     const userr = {"name":data.user.username, "email":data.user.email, "token":data.user.token}
                     // console.log(userr)
                     authDispatch({type: 'LOGIN', payload:userr})
-                    toast.success(`Hi ${data.user.username}`)
+                    // toast.success(`Hi ${data.user.username}`)
                     console.log('raju')
                     
 
