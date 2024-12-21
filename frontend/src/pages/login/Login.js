@@ -80,20 +80,7 @@ export const Login = ()=>{
                         SignIn
                     </Button>
 
-                   <Row className='mt-3'>
-                    {/* <GoogleLogin 
-                    size='large' width='20px' onSuccess={googleSuccess} shape='pill' theme='filled_black'
-                    onError={googleError}/> */}
-
-                    <Button variant='dark' style={{width:'40%'}}>
-                         <Google/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='https://mern-exercise-tracker-production.up.railway.app/auth/google'>Google</a>
-                         {/* <Google/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='http://localhost:4000/auth/google'>Google</a> */}
-                    </Button>
-                   
-
-
-                   </Row>
-                   
+                  
 
                    
                     {error  &&
