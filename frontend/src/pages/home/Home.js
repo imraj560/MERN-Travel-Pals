@@ -51,7 +51,7 @@ const Home = ()=>{
                 .then((data) => {
                     
                     const userr = {"name":data.user.username, "email":data.user.email, "token":data.user.token}
-                    // console.log(userr)
+                    console.log(userr)
                     authDispatch({type: 'LOGIN', payload:userr})
                   
                     

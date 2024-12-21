@@ -15,7 +15,7 @@ router.get('/google',
       res.cookie('user',req.user, {
         httpOnly: true, // Ensures cookies are only accessible via HTTP(S)
         secure: true,   // Ensures cookies are sent only over HTTPS
-        sameSite: "strict", // Prevents cross-site request forgery (CSRF)
+        sameSite: "None", // Prevents cross-site request forgery (CSRF)
 
         
 
