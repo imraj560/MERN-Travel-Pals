@@ -10,6 +10,7 @@ import { Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Trash2Fill, ExclamationCircle } from 'react-bootstrap-icons';
 import { HandThumbsDown, HandThumbsUp, Chat} from 'react-bootstrap-icons';
+import { FcLike, FcDislike } from "react-icons/fc";
 
 import { useState } from 'react';
 
@@ -91,8 +92,8 @@ const WorkoutCard = ({props})=>{
             <p>Time : {props.wtime}</p>
             <p>Type : {props.wtype}</p>
             <p>
-            <HandThumbsDown size={17} style={{marginRight:'5px'}} color='#a2a6a2'/>{props.dislikesCount}
-            <HandThumbsUp style={{ marginLeft:'18px'}} size={17} color='green'/>{props.likesCount}
+            <FcLike size={17} style={{marginRight:'5px'}} color='#a2a6a2'/>{props.dislikesCount}
+            <FcDislike style={{ marginLeft:'18px'}} size={17} color='green'/>{props.likesCount}
             <Chat style={{marginLeft:'18px'}} size={17} color='gray'/> 3
             </p>
           

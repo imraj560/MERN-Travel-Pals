@@ -18,6 +18,7 @@ import Row from 'react-bootstrap/Row';
 import { UseCommentsContext } from '../../hooks/UseCommentsContext';
 import Spinner from 'react-bootstrap/Spinner';
 import Reply from '../reply/Reply';
+import { FcLike, FcDislike } from "react-icons/fc";
 
 
 
@@ -326,9 +327,9 @@ const HomeWorkoutCard = ({props})=>{
                 <ListGroup.Item style={{border:"none"}}>Day: {format(props.wdate, 'yyyy-dd-MM')}</ListGroup.Item>
                 <ListGroup.Item style={{border:"none"}}>Time: {props.wtime}</ListGroup.Item>
                 <ListGroup.Item>Type: {props.wtype}</ListGroup.Item>
-                <ListGroup.Item style={{background:'#454545', color:'white', padding:'12px'}}>
-                    <HandThumbsUp onClick={handleLike} style={{cursor:'pointer'}} size={20} color='#159996'/>{props.likesCount}
-                    <HandThumbsDown onClick={handleDislike} size={20} style={{cursor:'pointer', marginLeft:'20px'}} color='#a2a6a2'/>{props.dislikesCount}
+                <ListGroup.Item style={{background:'white', color:'black', padding:'12px'}}>
+                    <FcLike onClick={handleLike} style={{cursor:'pointer'}} size={20} color='#159996'/>{props.likesCount}
+                    <FcDislike onClick={handleDislike} size={20} style={{cursor:'pointer', marginLeft:'20px'}} color='#a2a6a2'/>{props.dislikesCount}
                     <ChatDotsFill onClick={handleShow} style={{cursor:'pointer',  marginLeft:'20px'}} size={20} color='gray'/>
                     {(loading || lloading) && (
 
