@@ -6,7 +6,7 @@
     height: 500px;
     background:url(../../assets/images/banner.jpg);
     background-size: cover;
-    background-position: center center;
+    background-position: right right;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,10 +22,10 @@
 
 #callback_banner{
 
-    padding: 80px 20px;
+    padding: 120px 20px;
     background:url(../../assets/images/community.jpg);
     background-size: cover;
-    background-position: center center;
+    background-position: center top;
 }
 
 #calendar_banner{
