@@ -80,6 +80,11 @@ export const Login = ()=>{
                         SignIn
                     </Button>
 
+                    <Button variant='dark' style={{width:'40%', marginTop:'10px'}}>
+                         <Google/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='https://mern-exercise-tracker-production.up.railway.app/auth/google'>Google</a>
+                         {/* <Google/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='http://localhost:4000/auth/google'>Google</a> */}
+                        </Button>
+
                   
 
                    

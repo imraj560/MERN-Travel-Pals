@@ -28,11 +28,50 @@ const Home = ()=>{
     const [weight, setWeight] = useState([]);
     const [loader, setLoader] = useState(true);
     const {workouts, dispatch} = UseWorkoutsContext();
-    const [cookies, setCookie] = useCookies(['user']);
     const {user, dispatch:authDispatch} = UseAuthContext();
+
+    
     
 
     const navigate = useNavigate()
+
+    useEffect(()=>{
+
+        
+        if (!user) {
+
+            let fetchGoogle = async()=>{
+
+            let data = await fetch("https://mern-exercise-tracker-production.up.railway.app/auth/protected", {
+            //let data = await fetch("http://localhost:4000/auth/protected", {
+
+                credentials: "include",
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                    
+                    const userr = {"name":data.user.username, "email":data.user.email, "token":data.user.token}
+                    // console.log(userr)
+                    authDispatch({type: 'LOGIN', payload:userr})
+                  
+                    
+
+                }).catch((error)=>{
+
+                    console.log(error)
+                })  
+           
+            }
+
+            fetchGoogle()
+
+         
+        }
+
+
+
+    }, [])
+
 
 
     useEffect(()=>{
@@ -40,8 +79,8 @@ const Home = ()=>{
 
         const fetchApiData = async()=>{
 
-               //const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
-               const data = await fetch('http://localhost:4000/api/workout/home',{
+               const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
+               //const data = await fetch('http://localhost:4000/api/workout/home',{
 
                 method: 'GET',
 
