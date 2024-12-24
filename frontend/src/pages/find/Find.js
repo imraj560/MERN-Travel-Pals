@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import HomeWorkoutCard from "../../components/homecards/HomeWorkoutCard";
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { format, set } from 'date-fns';
+import {APIProvider, Map, MapCameraChangedEvent, Marker} from '@vis.gl/react-google-maps';
 import './Find.css'
 
 const Find = ()=>{
@@ -145,10 +146,30 @@ const Find = ()=>{
 
            
 
-            <Container className="px -4">
+            <Container className="px -4 mt-5">
            
-                <Row id="find_banner">
-                    <p>Find Someone</p>
+                <Row>
+
+                    <p>Recent Workout Places</p>
+
+                    <Map
+                    style={{width: '100vw', height: '50vh'}}
+                    defaultCenter={{lat: 45.48556, lng: -73.62780}}
+                    defaultZoom={12}
+                    gestureHandling={'greedy'}
+                    disableDefaultUI={true}
+                    />
+
+                    <Marker
+                    position={{lat :45.49548909989325, lng: -73.57798567418627}}
+                    clickable={true}
+                    />
+
+                    <Marker
+                    position={{lat:45.5024672813017, lng: -73.56973598768127}}
+                    clickable={true}
+                    />
+                   
                 </Row>
 
                 <form onSubmit={handleFilter} style={{padding:'0px'}}> 

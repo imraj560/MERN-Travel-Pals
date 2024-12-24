@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { CookiesProvider } from 'react-cookie';
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
+import {APIProvider} from '@vis.gl/react-google-maps';
 import App from './App';
 
 
@@ -21,9 +22,9 @@ root.render(
           <CommentsContextProvider>
             <ReplyContextProvider>
               <ToastContainer/>
-              <CookiesProvider>
+                  <APIProvider apiKey={'AIzaSyBi39B05xIVqJkoDR6j8OB3SaiCWDQYFGA'}>
                  <App />
-              </CookiesProvider>
+                 </APIProvider>
             </ReplyContextProvider>
        </CommentsContextProvider>
        </LikesContextProvider>

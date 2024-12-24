@@ -4,11 +4,10 @@ import Card from 'react-bootstrap/Card'
 import { Col } from 'react-bootstrap'
 import ListGroup from 'react-bootstrap/ListGroup';
 import { format, set } from 'date-fns';
-import { HandThumbsDown, HandThumbsUp, ChatFill, ChatDotsFill, CheckLg, Trash3Fill, PersonDash, ChatQuote, ChatSquareText, ReplyFill} from 'react-bootstrap-icons';
+import { ChatDotsFill, CheckLg, Trash3Fill, PersonDash, ChatQuote, ChatSquareText, ReplyFill} from 'react-bootstrap-icons';
 import { useLike } from '../../hooks/UseLike';
 import { useDislike } from '../../hooks/UseDislike';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
-import { UseLikesContext } from '../../hooks/UseLikesContext';
 import {toast} from 'react-toastify'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
@@ -19,6 +18,13 @@ import { UseCommentsContext } from '../../hooks/UseCommentsContext';
 import Spinner from 'react-bootstrap/Spinner';
 import Reply from '../reply/Reply';
 import { FcLike, FcDislike } from "react-icons/fc";
+import { WiDaySunny } from "react-icons/wi";
+import { IoTimerSharp } from "react-icons/io5";
+import { FiType } from "react-icons/fi";
+import './HomeWorkoutCard.css'
+
+
+
 
 
 
@@ -318,15 +324,15 @@ const HomeWorkoutCard = ({props})=>{
                 </Modal>
                 {/**End of Modal */}    
                   
-            <Card key={props._id} style={{ width: '100%', borderRadius:'0px', borderColor:'white' }}>
+            <Card id="homeCard" key={props._id} style={{ width: '100%', borderRadius:'0px', borderColor:'white' }}>
             <Card.Img style={{height:'320px'}} variant="top" src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+props.image} />
             {/* <Card.Img style={{height:'320px', borderRadius:'0px'}} variant="top" src={"http://localhost:4000/api/workout/download/"+props.image} /> */}
             <Card.Body style={{padding:'0px'}}>
             <Card.Title style={{padding:'10px 15px',color:'black', fontWeight:'500'}}>{props.title}</Card.Title>
             <ListGroup className="list-group-flush" >
-                <ListGroup.Item style={{border:"none"}}>Day: {format(props.wdate, 'yyyy-dd-MM')}</ListGroup.Item>
-                <ListGroup.Item style={{border:"none"}}>Time: {props.wtime}</ListGroup.Item>
-                <ListGroup.Item>Type: {props.wtype}</ListGroup.Item>
+                <ListGroup.Item style={{border:"none", fontSize:'15PX'}}><WiDaySunny/> {format(props.wdate, 'yyyy-dd-MM')}</ListGroup.Item>
+                <ListGroup.Item style={{border:"none", fontSize:'15PX'}}><IoTimerSharp/> {props.wtime}</ListGroup.Item>
+                <ListGroup.Item><FiType/>{props.wtype}</ListGroup.Item>
                 <ListGroup.Item style={{background:'white', color:'black', padding:'12px'}}>
                     <FcLike onClick={handleLike} style={{cursor:'pointer'}} size={20} color='#159996'/>{props.likesCount}
                     <FcDislike onClick={handleDislike} size={20} style={{cursor:'pointer', marginLeft:'20px'}} color='#a2a6a2'/>{props.dislikesCount}

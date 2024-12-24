@@ -7,7 +7,7 @@ import './Home.css';
 import { Container, Row, Col, Card, Image, Footers } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
-import { Alarm, PeopleFill, PersonArmsUp, Stopwatch, Calendar2DayFill, Compass, PersonCircle, GeoAltFill, TelephoneFill, Facebook, Instagram, Git } from 'react-bootstrap-icons';
+import { Alarm, PeopleFill, PersonArmsUp, PersonCircle, GeoAltFill, TelephoneFill, Facebook, Instagram, Git } from 'react-bootstrap-icons';
 import CalendarImage from '../../../src/assets/images/calendar.png'
 import User2 from '../../../src/assets/images/user2.jpeg'
 import User1 from '../../../src/assets/images/user1.jpeg'
@@ -16,6 +16,9 @@ import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { WorkoutsContext } from '../../context/WorkoutsContext';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import { toast } from 'react-toastify';
+import {APIProvider, Map, MapCameraChangedEvent, Marker} from '@vis.gl/react-google-maps';
+import { FaBusinessTime, FaSmileBeam } from "react-icons/fa";
+
 
 
 
@@ -221,20 +224,6 @@ const Home = ()=>{
               
             </Row>
 
-            <Row className='mt-5'>
-                <Card className="text-center text-white p-0" >
-                    
-                    <Card.Body id="callback_banner">
-                        <Card.Title style={{fontWeight:'bold'}}>DO NOT THINK, JOIN THE COMMUNITY TODAY</Card.Title>
-                        <Card.Text>
-                        Easily find people around you who will join you for a workout
-                        </Card.Text>
-                        <Button variant="secondary"><NavLink style={{textDecoration:'none', color:'white'}} to="/signup">Register</NavLink></Button>
-                    </Card.Body>
-                  
-                </Card>
-            </Row>
-
             <Row className='mt-4'>
             <h5>Cardio</h5>
               
@@ -258,40 +247,40 @@ const Home = ()=>{
                   
 
             <Row className='mt-4' style={{padding:'50px 0px'}}>
-            <h5>Find Someone</h5>
+            <h5>Recent WorkOut Locations</h5>
 
-            <Col md={6} style={{textAlign:'center', padding:'40px 0px'}}>
+            <Map
+                style={{width: '100vw', height: '50vh'}}
+                defaultCenter={{lat: 45.48556, lng: -73.62780}}
+                defaultZoom={10}
+                gestureHandling={'greedy'}
+                disableDefaultUI={true}
+            />
 
-                <Image src={CalendarImage} />
+            <Marker
+            position={{lat :45.49548909989325, lng: -73.57798567418627}}
+            clickable={true}
+            />
 
-            </Col>
-
-            <Col id="find" md={6} style={{padding:'40px 0px'}}>
-                   <h2>Schedule Your Time</h2>
-                   <p>Find people who are working around you, see if they match your timing, once there is a match, shoot them a message</p>
-                   <Stopwatch style={{fontSize:'30PX', marginRight:'15px'}}/>
-                   <Calendar2DayFill style={{fontSize:'30PX', marginRight:'15px'}}/>
-                   <Compass style={{fontSize:'30PX', marginRight:'10px'}}/>
-                   <Button id="findBtn" className='mt-5' style={{display:'block'}} variant="outline-secondary"><NavLink style={{textDecoration:'none', color:'black'}} to="/find"><b>Find</b></NavLink></Button>
-                   <p>Your friends are waiting</p>
-                   
-
-            </Col>
+            <Marker
+            position={{lat:45.5024672813017, lng: -73.56973598768127}}
+            clickable={true}
+            />
 
             </Row>
 
-            <Row style={{backgroundColor:'black'}}>
-            <Col md={4} style={{textAlign:'center', color:'white', padding:'20px 0px'}}>
-                    <PersonCircle style={{fontSize:"40PX"}} />
-                    <p>200 USERS</p>
+            <Row style={{backgroundColor:'white'}}>
+            <Col md={4} style={{textAlign:'center', color:'black', padding:'20px 0px'}}>
+                    <FaBusinessTime style={{fontSize:"40PX"}} />
+                    <p>TIME FREEDOM</p>
                 </Col>
-                <Col md={4} style={{textAlign:'center', color:'white',  padding:'20px 0px'}}>
+                <Col md={4} style={{textAlign:'center', color:'black',  padding:'20px 0px'}}>
                 <GeoAltFill style={{fontSize:"40PX"}} />
-                <p>40 LOCATIONS</p>
+                <p>LOTS OF LOCATIONS</p>
                 </Col>
-                <Col md={4} style={{textAlign:'center', color:'white',  padding:'20px 0px'}}>
-                <TelephoneFill style={{fontSize:"40PX"}} />
-                <p>24HRS SUPPORT</p>
+                <Col md={4} style={{textAlign:'center', color:'black',  padding:'20px 0px'}}>
+                <FaSmileBeam style={{fontSize:"40PX"}} />
+                <p>FRIENDLY CROWD</p>
                 </Col>
 
             </Row>

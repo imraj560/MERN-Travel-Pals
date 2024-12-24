@@ -6,6 +6,7 @@ import {toast} from 'react-toastify'
 import './Header.css';
 import { PersonFillSlash, PersonCircle } from 'react-bootstrap-icons';
 import {Nav, Navbar, NavDropdown, Container} from 'react-bootstrap'
+import { GeoAltFill } from 'react-bootstrap-icons';
 const Header = ()=>{
 
     const { logout } = UseLogOut();
@@ -31,7 +32,7 @@ const Header = ()=>{
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
-                <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/find">Find</NavLink></Nav.Link>
+                <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/find"><GeoAltFill/> Find</NavLink></Nav.Link>
                 {!user && (<>
                 <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/login">Login</NavLink></Nav.Link>
                 <Nav.Link><NavLink style={{textDecoration:'none', color:'black'}} to="/signup">Register</NavLink></Nav.Link>
