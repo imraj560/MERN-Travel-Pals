@@ -8,6 +8,7 @@ import { Oval } from 'react-loader-spinner'
 import { Alert } from 'react-bootstrap';
 import { Container, Form, Group, Button, Row, Col } from "react-bootstrap";
 import { ArrowLeft, ExclamationCircleFill, Google} from 'react-bootstrap-icons';
+import { FcGoogle } from "react-icons/fc";
 import { jwtDecode } from "jwt-decode";
 import Spinner from 'react-bootstrap/Spinner';
 
@@ -76,12 +77,12 @@ export const Login = ()=>{
                         <Form.Control onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="Enter Password" />
                     </Form.Group>
                    
-                    <Button type="submit" variant="secondary" style={{borderRadius:'2px', marginTop:'20px'}}>
+                    <Button type="submit" variant="default" style={{borderRadius:'0px', border:'1px solid black', marginTop:'20px'}}>
                         SignIn
                     </Button>
 
-                    <Button variant='dark' style={{width:'40%', marginTop:'10px'}}>
-                         <Google/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='https://mern-exercise-tracker-production.up.railway.app/auth/google'>Google</a>
+                    <Button variant='dark' style={{width:'40%', marginTop:'10px', borderRadius:'0px'}}>
+                         <FcGoogle/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='https://mern-exercise-tracker-production.up.railway.app/auth/google'>Google</a>
                          {/* <Google/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='http://localhost:4000/auth/google'>Google</a> */}
                         </Button>
 
