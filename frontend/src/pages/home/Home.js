@@ -16,8 +16,20 @@ import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { WorkoutsContext } from '../../context/WorkoutsContext';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import { toast } from 'react-toastify';
-import {APIProvider, Map, MapCameraChangedEvent, Marker} from '@vis.gl/react-google-maps';
+import {APIProvider, Map, MapCameraChangedEvent, Marker, APILoadingStatus} from '@vis.gl/react-google-maps';
 import { FaBusinessTime, FaSmileBeam } from "react-icons/fa";
+import { FaMountainSun } from "react-icons/fa6";
+import { GiTreeBranch } from "react-icons/gi";
+import { IoIosWater } from "react-icons/io";
+import imageOne from '../../../src/assets/images/imageOne.jpg'
+import imageTwo from '../../assets/images/imageTwo.jpg'
+import imageThree from '../../assets/images/imageThree.jpg'
+import bangladesh from '../../assets/images/bangladesh.jpg'
+import turkey from '../../assets/images/turkey.jpg'
+import scotland from '../../assets/images/scotland.jpg'
+
+
+
 
 
 
@@ -26,6 +38,7 @@ const Home = ()=>{
 
    
     const [recdata, setRecdata] = useState([]);
+    const[mapdata, setMapdata] = useState([]);
     const [cardio, setCardio] = useState([]);
     const [cal, setCal] = useState([]);
     const [weight, setWeight] = useState([]);
@@ -120,74 +133,89 @@ const Home = ()=>{
 
         if(workouts !== null){
 
-            setRecdata(workouts.slice(0,4))
-
-            const cardioData = workouts.filter((workout)=>{
-            
-            return workout.wtype.toLowerCase().includes('cardio');
-        
-            })
-            
-            setCardio(cardioData.slice(0 ,4));
-
-            const calData = workouts.filter((workout)=>{
-                
-                return workout.wtype.toLowerCase().includes('calesthenics');
-                
-                })
-                
-                setCal(calData.slice(0 ,4));
-
-
-            const weightData = workouts.filter((workout)=>{
-            
-                return workout.wtype.toLowerCase().includes('weight');
-                
-                })
-                
-                setWeight(weightData.slice(0 ,4));
-            
+            setRecdata(workouts.slice(0,12))
+            setMapdata(workouts);
+          
         }
 
         
       
        },[workouts])
-      
+
+       
        
 
     return (
         <AuthComponent>
 
-        <Container className='mt-3'>
-            <Row>
-                <Col id="banner" md={12}>
-                    <h2>Find a workout buddy who matches your schedule</h2>
-                </Col>
-            </Row>
+        <Container>
+            <Row id="banner"></Row>
 
-            <Row className='mt-5'>
-                <Col md={12} className='text-center' style={{lineHeight:'30px'}}>
-                    <p>Hi :), <br/> I am Raju, fitness has alaways been a priority for me other than my main profession, because
-                        I know everything is connected to it, if your body is not fit, then your mind will follow suit and
-                        nothing in life will make sense. This app will help you find people around you who has the same workout routine as yours
-                    </p>
-                </Col>
-            </Row>
 
-            <Row style={{padding:'30px 0px'}}>
-                <Col md={4} style={{textAlign:'center', padding:'20px 0px'}}>
-                    <Alarm style={{fontSize:"40PX"}} />
-                    <p>Sync Time</p>
+            <Row id="call_one">
+
+                <Col md={6} id="call_one_heading">
+
+                <h1>Join our Vibrant Travel Community</h1>
+
                 </Col>
-                <Col md={4} style={{textAlign:'center', padding:'20px 0px'}}>
-                <PeopleFill style={{fontSize:"40PX"}} />
-                <p>Find Community</p>
+
+                <Col md={6} id="call_one_text">
+
+                 <p>Discover Variety of places to visit. Connect with like minded individuals and elevate your travel journey</p>
+                 <Button id="button_one"><NavLink style={{textDecoration:'none', color:'white'}} to="/signup">Join</NavLink></Button> 
+                 <Button id="button_two"><NavLink style={{textDecoration:'none', color:'black'}} to="/find">Find</NavLink></Button>
+                 
+
                 </Col>
-                <Col md={4} style={{textAlign:'center', padding:'20px 0px'}}>
-                <PersonArmsUp style={{fontSize:"40PX"}} />
-                <p>Workout Buddy</p>
-                </Col>
+               
                 
+            </Row>
+
+            <Row id="explore">
+
+                <p>Explore</p>
+                <h2>Discover The Perfect Place For You To Visit Today</h2>
+                <p>Our community offers various places to visit. From the rural places of Malaysia to blue seas of the Carribean. We have places listed for
+                    everyone
+                </p>
+
+            </Row>
+
+            <Row id="service">
+
+                <Col class="service_col" md={6} sm={12} lg={4}>
+                <Image src={imageOne} fluid />
+                <FaMountainSun style={{fontSize:'40px', marginBottom:'15px', marginTop:'20px'}}/>
+                <h2 class="service_heading">Beautiful Mountains To Hike</h2>
+                <p>Boost your endurance and cardiovascular health with our beautiful hiking session</p>
+                </Col>
+
+                <Col class="service_col" md={6} sm={12} lg={4}>
+                <Image src={imageTwo} fluid />
+                <GiTreeBranch style={{fontSize:'40px', marginBottom:'15px', marginTop:'20px'}}/>
+                <h2 class="service_heading">Lush Green Vegetation To Stroll</h2>
+                <p>Boost your endurance and cardiovascular health with our beautiful hiking session</p>
+                </Col>
+
+                <Col class="service_col" md={6} sm={12} lg={4}>
+                <Image src={imageThree} fluid />
+                <IoIosWater style={{fontSize:'40px', marginBottom:'15px', marginTop:'20px'}}/>
+                <h2 class="service_heading">Amazing Nature Around You</h2>
+                <p>Boost your endurance and cardiovascular health with our beautiful hiking session</p>
+                </Col>
+
+                
+            </Row>
+
+            <Row id="service_button_row">
+                <Button id="service_button"><NavLink style={{textDecoration:'none', color:'white'}} to="/find">Find A Place</NavLink></Button>
+            </Row>
+
+            <Row id="gallery_title">
+                <p>Gallery</p>
+                <h2>We Have A Collection Of Amazing Places For You</h2>
+                <p>We have an amazing collection of places which people of all around the world has posted</p>
             </Row>
 
             {loader &&  (
@@ -205,12 +233,11 @@ const Home = ()=>{
                 )}
 
             <Row className='mt-5'>
-                <h5>Recent Schedule</h5>
               
 
                 {
                     
-                    recdata && recdata.map((singleWorkout)=>{
+                     recdata.map((singleWorkout)=>{
            
                            return (
                            
@@ -224,129 +251,157 @@ const Home = ()=>{
               
             </Row>
 
-            <Row className='mt-4'>
-            <h5>Cardio</h5>
-              
+       
 
-                {
-                    
-                    cardio && cardio.map((singleWorkout)=>{
-           
-                           return (
-                           
-                               <HomeWorkoutCard key={singleWorkout._id} props={singleWorkout} />
-                           )
-                       })            
-                                   
-                              
-                   }
+            <Row id="map_title_div">
 
-              
+                <Col md={6}>
+                    <h2 id="map_title_heading">Recent WorkOut Locations</h2>
+                    <p style={{marginBottom:'0px'}}>All your recently updated Locations</p>
+                </Col>
+
+                <Col md={6} style={{height:'100%', marginTop:'auto'}}>
+
+                <Button id="map_title_button" style={{width:'20%', float:'end'}}><NavLink style={{textDecoration:'none', color:'white'}} to="/find">Gallery</NavLink></Button>
+
+                </Col>
+                
+
             </Row>
 
                   
 
-            <Row className='mt-4' style={{padding:'50px 0px'}}>
-            <h5>Recent WorkOut Locations</h5>
+            <Row id="googleMap">
 
             <Map
-                style={{width: '100vw', height: '50vh'}}
+                style={{width: '100%', height: '50vh'}}
                 defaultCenter={{lat: 45.48556, lng: -73.62780}}
                 defaultZoom={10}
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}
-            />
-
-            <Marker
-            position={{lat :45.49548909989325, lng: -73.57798567418627}}
-            clickable={true}
-            />
-
-            <Marker
-            position={{lat:45.5024672813017, lng: -73.56973598768127}}
-            clickable={true}
-            />
-
-            </Row>
-
-            <Row style={{backgroundColor:'white'}}>
-            <Col md={4} style={{textAlign:'center', color:'black', padding:'20px 0px'}}>
-                    <FaBusinessTime style={{fontSize:"40PX"}} />
-                    <p>TIME FREEDOM</p>
-                </Col>
-                <Col md={4} style={{textAlign:'center', color:'black',  padding:'20px 0px'}}>
-                <GeoAltFill style={{fontSize:"40PX"}} />
-                <p>LOTS OF LOCATIONS</p>
-                </Col>
-                <Col md={4} style={{textAlign:'center', color:'black',  padding:'20px 0px'}}>
-                <FaSmileBeam style={{fontSize:"40PX"}} />
-                <p>FRIENDLY CROWD</p>
-                </Col>
-
-            </Row>
-
-            <Row className='mt-4'>
-            <h5>Weights</h5>
-              
+            >
 
                 {
-                    
-                    weight && weight.map((singleWorkout)=>{
-           
-                           return (
-                           
-                               <HomeWorkoutCard key={singleWorkout._id} props={singleWorkout} />
-                           )
-                       })            
-                                   
-                              
-                   }
 
-              
+                 mapdata.map((singleMap, index)=>{
+                        
+                    return (
+                    
+                        <Marker key={index} position={{lat:Number(singleMap.location_lat), lng:Number(singleMap.location_lng)}} />
+                    )
+                })     
+
+                }  
+                
+
+            </Map>
+
+
+            
+
+               
+
+
+           
+
+          
+
             </Row>
 
 
-            <Row style={{padding:'60px 0px'}}>
+            <Row id="testimonial_div_title">
 
-            <h5 className='mb-5'>Our Testimonials</h5>
+                <h2>Peoples Opinion</h2>
+                <p>Some thoughts from your users reagarding our community</p>
 
-                <Col md={4} style={{textAlign:'center', padding:'20px 10px'}}>
+            </Row>
+
+
+
+
+
+            <Row id="testimonial">
+
+
+                <Col  md={6} sm={12} lg={4} style={{textAlign:'center', padding:'20px 10px'}} >
                 <Image src={User2} roundedCircle width={130} height={130} />
+                    <h2 class="name_title">Raju Ahmed</h2>
                     <p>Found an awesome community and workout buddy and never missed a workout till now</p>
                 </Col>
-                <Col md={4} style={{textAlign:'center', padding:'20px 10px'}}>
+                <Col  md={6} sm={12} lg={4} style={{textAlign:'center', padding:'20px 10px'}}>
                 <Image src={User1} roundedCircle width={130} height={130} />
+                <h2 class="name_title">Islam Makhachev</h2>
                 <p>Could easily find someone someone near who has the same workout timings and type</p>
                 </Col>
-                <Col md={4} style={{textAlign:'center', padding:'20px 0px'}}>
+                <Col  md={6} sm={12} lg={4} style={{textAlign:'center', padding:'20px 0px'}}>
                 <Image src={User3} roundedCircle width={130} height={130} />
-                <p>Amazing platform if you are looking for a workout partner and accountability coach, it just transformed my life</p>
+                <h2 class="name_title">Mahruf Ahmad</h2>
+                <p>Amazing platform if you are looking for a workout partner and accountability coach</p>
                 </Col>
                 
             </Row>
 
-           
+            <Row id="favourite_div_title">
 
+            <h2>Favourite Locations</h2>
+            <p>Some of your most visited Places</p>
 
-            <Row className='mt-4'>
-            <h5>Calisthenics</h5>
-              
-
-                {
-                    
-                    cal && cal.map((singleWorkout)=>{
-           
-                           return (
-                           
-                               <HomeWorkoutCard key={singleWorkout._id} props={singleWorkout} />
-                           )
-                       })            
-                                   
-                              
-                   }
-
-              
             </Row>
+
+
+            <Row id="favourite">
+
+                <Col  md={6} sm={12} lg={4}>
+
+                <Card style={{ width: '100%' }}>
+                <Card.Img variant="top" src={bangladesh} />
+                <Card.Body>
+                    <Card.Title style={{fontFamily:"Poppins", fontWeight:"600", fontSize:'30PX'}}>Bangladesh</Card.Title>
+                    <Card.Text>
+                    Some quick example text to build on the card title and make up the
+                    bulk of the card's content.
+                    </Card.Text>
+                   
+                </Card.Body>
+                </Card>
+                
+                </Col>
+
+                <Col  md={6} sm={12} lg={4}>
+
+                <Card style={{ width: '100%' }}>
+                <Card.Img variant="top" src={turkey} />
+                <Card.Body>
+                    <Card.Title style={{fontFamily:"Poppins", fontWeight:"600", fontSize:'30PX'}}>Turkey</Card.Title>
+                    <Card.Text>
+                    Turkey was home to several ancient places & civilizations, including the Hittitess
+                    </Card.Text>
+                   
+                </Card.Body>
+                </Card>
+                
+                </Col>
+
+                <Col  md={6} sm={12} lg={4}>
+
+                <Card style={{ width: '100%' }}>
+                <Card.Img variant="top" src={scotland} />
+                <Card.Body>
+                    <Card.Title style={{fontFamily:"Poppins", fontWeight:"600", fontSize:'30PX'}}>Scotland</Card.Title>
+                    <Card.Text>
+                    Glasgow stands out as a cultural and musical hub for the whole world
+                    </Card.Text>
+                   
+                </Card.Body>
+                </Card>
+                
+                </Col>
+
+               
+
+            </Row>
+
+           
 
            
 

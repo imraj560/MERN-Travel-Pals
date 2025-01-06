@@ -19,7 +19,7 @@ const LineChart = ({chartdata}) => {
 
   // Data and configuration for the chart
   const data = {
-    labels: ['Weights','Calisthenics','Cardio'],
+    labels: ['Vacation','Restaurant','Hiking'],
     datasets: [
       {
         label: 'Type Trend',

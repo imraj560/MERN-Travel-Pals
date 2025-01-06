@@ -7,18 +7,22 @@ import HomeWorkoutCard from "../../components/homecards/HomeWorkoutCard";
 import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
 import { format, set } from 'date-fns';
 import {APIProvider, Map, MapCameraChangedEvent, Marker} from '@vis.gl/react-google-maps';
+import { MdOutlineRefresh } from "react-icons/md";
+
 import './Find.css'
 
 const Find = ()=>{
     const {workouts, dispatch} = UseWorkoutsContext();
+    const[mapdata, setMapdata] = useState([]);
     const [loader, setLoader] = useState(false);
-    const [sdate, setSdate] = useState('');
-    const [fdate, setFdate] = useState('');
     const [type, setType] = useState('');
     const [message, setMessage] = useState('');
     const [locations, setLocations] = useState('');
     const [filterdata, setFilterdata] = useState(workouts);
     const [locationlist, setLocationlist] = useState([]);
+    const [search, setSearch] = useState('');
+    const [lat, setLat] = useState('');
+    const [lng, setLng] = useState('')
    
 
     useEffect(()=>{
@@ -43,9 +47,13 @@ const Find = ()=>{
 
             }).then((data)=>{
                
-                dispatch({type: 'SET_WORKOUTS', payload: data})
-                setFilterdata(workouts)
-                setLoader(false)
+                if(workouts !== null){
+
+                    dispatch({type: 'SET_WORKOUTS', payload: data})
+                    setFilterdata(workouts)
+                    setLoader(false)
+                }
+                
                
 
             }).catch((error)=>{
@@ -95,50 +103,103 @@ const Find = ()=>{
 
     }, [])
 
-    /**Filter starts from here */
 
-    const handleFilter = (e)=>{
+    /**Refresh Fiter */
 
-        setLoader(true)
+    const refreshFilter=()=>{
 
-        e.preventDefault();
-     
-
-        if(workouts !== null ){
-
-             const newFilter = workouts.filter((workout)=>{
-
-                const workoutDate = format(workout.wdate, 'yyyy-MM-dd')  
-               
-                return workout.wtype == type  && workout.location == locations && workoutDate >= sdate && workoutDate <= fdate;
-
-             })
-
-             if(newFilter == ''){
-               
-              setLoader(false)
-              setMessage('Nobody with your schedule')
-              setTimeout(() => {
-                setMessage('');
-              }, 2000);
-
-              return;
-
-             }else{
-
-                 setLoader(false)
-                 setMessage('')
-                 dispatch({type: 'SET_WORKOUTS', payload: newFilter})
-             }
-
-            
-        }
-
-      
+        setFilterdata(workouts)
 
     }
 
 
+
+
+  
+    /**Search Function */
+
+    const onSearchChange = (event)=>{
+
+        const searchFilterString = event.target.value.toLocaleLowerCase();
+        setSearch(searchFilterString);
+
+        
+    }
+
+     
+
+    useEffect(()=>{
+    
+        if(workouts !== null){
+
+            const filteredWorkouts = workouts.filter((workout)=>{
+
+            return workout.title.toLocaleLowerCase().includes(search);
+
+           
+
+          })
+
+      
+    
+            setFilterdata(filteredWorkouts)
+
+       
+
+        }
+
+        
+
+        
+    },[search, workouts]);
+
+    
+      /**Googel maps filter */    
+      const mapFilter = (lat, lng) => {
+
+        setLat(lat)
+        setLng(lng)
+
+        
+    
+        
+    }
+
+    useEffect(()=>{
+
+
+      if(lat && lng !== ''){
+
+        const markerData = workouts.filter((workout)=>{
+
+            return workout.location_lat == lat && workout.location_lng == lng;
+        })
+
+        setFilterdata(markerData)
+
+      }
+
+
+    },[lat,lng, workouts])
+
+
+    useEffect(()=>{
+
+        if(type !== ''){
+
+            const typeData = workouts.filter((workout)=>{
+
+                return workout.wtype == type;
+            })
+
+            setFilterdata(typeData)
+        }
+
+        
+
+    },[type, workouts])
+
+   
 
     return (
 
@@ -148,73 +209,70 @@ const Find = ()=>{
 
             <Container className="px -4 mt-5">
            
-                <Row>
+                <Row id="find_google_row">
 
-                    <p>Recent Workout Places</p>
+                    <h2>Location of Visited Places</h2>
+                    <p><span style={{fontWeight:'600', fontSize:'20px'}}>Click</span> on the location markers to find your ideal location</p>
 
                     <Map
-                    style={{width: '100vw', height: '50vh'}}
+                    style={{width: '100%', height: '50vh'}}
                     defaultCenter={{lat: 45.48556, lng: -73.62780}}
                     defaultZoom={12}
                     gestureHandling={'greedy'}
                     disableDefaultUI={true}
-                    />
+                    >
 
-                    <Marker
-                    position={{lat :45.49548909989325, lng: -73.57798567418627}}
-                    clickable={true}
-                    />
 
-                    <Marker
-                    position={{lat:45.5024672813017, lng: -73.56973598768127}}
-                    clickable={true}
-                    />
+                            {
+
+                            filterdata && filterdata.map((singleMap, index)=>{
+                                
+                            return (
+                            
+                                <Marker
+                                 key={index}
+                                 position={{lat:Number(singleMap.location_lat), lng:Number(singleMap.location_lng)}} 
+                                 clickable={true}
+                                 onClick={() => mapFilter(singleMap.location_lat, singleMap.location_lng)}
+                                 id="map"
+                                 />
+                            )
+                            })     
+
+                            }  
+
+                    </Map>
+
+                   
                    
                 </Row>
 
-                <form onSubmit={handleFilter} style={{padding:'0px'}}> 
-                <Row style={{padding:'20px 0px', width:'100%'}}> 
-                     <Col md={2} style={{padding:'0 2px'}}>
-                        <label for="inputEmail4" class="form-label">From</label>
-                        <input required type="date" value={sdate} onChange={(e)=> setSdate(e.target.value)} class="form-control" id="inputEmail4" />
+             
+                <Row id="find_filter_row"> 
+                     <Col md={6}>
+                        <label for="inputEmail4" class="form-label">Search name</label>
+                        <input className='rounded m-0 w-100' placeholder="Search Location" style={{width:'100%', marginLeft:'0PX'}} required type="search" name="search" id="search" value={search} onChange={onSearchChange} class="form-control" />
                     </Col>
-                    <Col md={2} style={{padding:'0 2px'}}>
-                        <label for="inputEmail4" class="form-label">To</label>
-                        <input value={fdate} onChange={(e)=> setFdate(e.target.value)} required type="date" class="form-control" id="inputEmail4" />
-                    </Col>
-                    <Col md={3} style={{padding:'0 2px'}} id="location">
-                        <label for="inputState" class="form-label">Choose Location</label>
-                        <select required id="inputState" onChange={(e)=> setLocations(e.target.value)} class="form-select" style={{height:"53px"}}>
-                        <option selected>Choose Location</option>
-                        {
-                            locationlist && locationlist.map((singleLocation)=>{
+                   
 
-                                return (
-
-                                     <option value={singleLocation._id}>{singleLocation._id}</option>
-                                )
-                            })
-                        }
-                        
-                        </select>
-                    </Col>
-
-                    <Col id='type' md={3} style={{padding:'0 2px'}} >
-                        <label for="inputState" class="form-label">Workout Type</label>
-                        <select required id="inputState" onChange={(e)=> setType(e.target.value)} class="form-select" style={{height:'53px'}}>
-                        <option selected>Workout Type</option>
-                        <option value="cardio">Cardio</option>
-                        <option value="calesthenics">Calisthenics</option>
-                        <option value="weight">Weight Trainning</option>
+                    <Col md={4} >
+                        <label for="inputState" class="form-label">Vacation Type</label>
+                        <select className='rounded m-0 w-100' required onChange={(e)=> setType(e.target.value)} class="form-select" style={{height:'45px', paddingLeft:'10PX'}}>
+                        <option selected>Vacation Type</option>
+                        <option value="vacation">Vacation</option>
+                        <option value="restaurant">Restaurant</option>
+                        <option value="hiking">Hiking</option>
                         </select>
                     </Col>
 
                     <Col md={2} style={{padding:'0 2px'}}>
-                       <Button type="submit" style={{width:'100%', marginTop:'31px',height:'53px'}}>Filter</Button>
+                       <Button id="refresh_sort" onClick={refreshFilter} type="submit">
+                        <MdOutlineRefresh style={{marginRight:'5PX'}}/> 
+                        RefreshSort</Button>
                     </Col>
                    
                 </Row>
-                </form>
+              
 
                 {loader &&  (
 
@@ -236,7 +294,7 @@ const Find = ()=>{
 
                 {
                     
-                    workouts && workouts.map((singleWorkout)=>{
+                    filterdata && filterdata.map((singleWorkout)=>{
            
                            return (
                            

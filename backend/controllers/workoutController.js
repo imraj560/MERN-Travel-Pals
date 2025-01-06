@@ -24,7 +24,8 @@ const homeWorkout = async(req, res) => {
             likes:1,
             dislikes:1,
             user_id:1,
-            location:1,
+            location_lat:1,
+            location_lng:1,
             // If 'friends' doesn't exist, treat it as an empty array
             likesCount: { $size: { $ifNull: ["$likes", []] } },
             dislikesCount: { $size: { $ifNull: ["$dislikes", []] } },
@@ -57,16 +58,20 @@ const newWorkout = async(req, res) => {
 
    const user_id = req.user._id
 
-   const {title, wdate, wtime, wtype, location} = req.body
+   const {title, wdate, wtype, location_lat, location_lng} = req.body;
+
+   
 
     try{
 
-         const workout = await Workout.create({title, wtime, wdate, wtype, image, user_id, location});
+         const workout = await Workout.create({title, wdate, wtype, image, user_id, location_lat, location_lng});
          res.status(200).json(workout);
 
     }catch(error){
 
         res.status(400).json({error:error.message});
+
+        console.log(error.message)
     }
    
 }
@@ -265,8 +270,9 @@ const likePost = async(req, res) => {
             const dislikesCount = workout.dislikes.length
 
 
-                const workoutArray = {'_id':workout._id, 'title': workout.title, 'wtime': workout.wtime,'wdate': workout.wdate, 'wtype':workout.wtype,'image': workout.image,
-                    'likes':workout.likes, 'dislikes':workout.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount}  
+                const workoutArray = {'_id':workout._id, 'title': workout.title,'wdate': workout.wdate, 'wtype':workout.wtype,'image': workout.image,
+                    'likes':workout.likes, 'dislikes':workout.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':workout.location_lat,
+                'location_lng':workout.location_lng}  
 
                 // console.log(workoutArray)    
                     
@@ -286,8 +292,10 @@ const likePost = async(req, res) => {
 
         const likesCount = workoutId.likes.length
         const dislikesCount = workoutId.dislikes.length
-        const workoutArray = {'_id':workoutId._id, 'title': workoutId.title, 'wtime': workoutId.wtime,'wdate': workoutId.wdate, 'wtype':workoutId.wtype,'image': workoutId.image,
-            'likes':workoutId.likes, 'dislikes':workoutId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount}  
+        const workoutArray = {'_id':workoutId._id, 'title': workoutId.title,'wdate': workoutId.wdate, 'wtype':workoutId.wtype,'image': workoutId.image,
+        'likes':workoutId.likes, 'dislikes':workoutId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':workoutId.location_lat,
+        'location_lng':workoutId.location_lng} 
+
         res.status(200).json({"message":'Already Liked','workoutArray':workoutArray})
 
     }
@@ -317,8 +325,9 @@ const dislikePost = async(req, res) => {
         const dislikesCount = workout.dislikes.length
 
 
-        const workoutArray = {'_id':workout._id, 'title': workout.title, 'wtime': workout.wtime,'wdate': workout.wdate, 'wtype':workout.wtype,'image': workout.image,
-        'likes':workout.likes, 'dislikes':workout.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount}
+        const workoutArray = {'_id':workout._id, 'title': workout.title,'wdate': workout.wdate, 'wtype':workout.wtype,'image': workout.image,
+        'likes':workout.likes, 'dislikes':workout.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':workout.location_lat,
+        'location_lng':workout.location_lng}
 
         res.status(200).json({"message":'Post Disliked','workoutArray':workoutArray})
 
@@ -331,8 +340,10 @@ const dislikePost = async(req, res) => {
 
         const likesCount = workoutId.likes.length
         const dislikesCount = workoutId.dislikes.length
-        const workoutArray = {'_id':workoutId._id, 'title': workoutId.title, 'wtime': workoutId.wtime,'wdate': workoutId.wdate, 'wtype':workoutId.wtype,'image': workoutId.image,
-            'likes':workoutId.likes, 'dislikes':workoutId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount}  
+        const workoutArray = {'_id':workoutId._id, 'title': workoutId.title,'wdate': workoutId.wdate, 'wtype':workoutId.wtype,'image': workoutId.image,
+        'likes':workoutId.likes, 'dislikes':workoutId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':workoutId.location_lat,
+        'location_lng':workoutId.location_lng}  
+        
         res.status(200).json({"message":'Already Disliked','workoutArray':workoutArray})
     }
     
@@ -396,13 +407,13 @@ const totalTypes = async(req, res)=>{
 
     const user_id = req.user._id;
 
-        const weight = await Workout.countDocuments({['wtype']: 'weight'})
-        const calesthenics = await Workout.countDocuments({['wtype']: 'calesthenics'})
-        const cardio = await Workout.countDocuments({['wtype']: 'cardio'})
+        const vacation = await Workout.countDocuments({['wtype']: 'vacation'})
+        const restaurant = await Workout.countDocuments({['wtype']: 'restaurant'})
+        const hiking = await Workout.countDocuments({['wtype']: 'hiking'})
 
         const arrayData = [];
 
-        arrayData.push(weight, calesthenics, cardio)
+        arrayData.push(vacation, restaurant, hiking)
 
        
 
@@ -439,7 +450,8 @@ const userWorkout = async(req, res) => {
             likes:1,
             dislikes:1,
             user_id:1,
-            // If 'friends' doesn't exist, treat it as an empty array
+            location_lat:1,
+            location_lng:1,
             likesCount: { $size: { $ifNull: ["$likes", []] } },
             dislikesCount: { $size: { $ifNull: ["$dislikes", []] } },
 
@@ -563,12 +575,12 @@ const updateWorkout = async(req, res)=>{
         res.status(404).error({error: "Invalid mongoose Id"});
     }
 
-    const {title, wtime, wdate, wtype, oldimage, location} = req.body
+    const {title, wdate, wtype, oldimage, location_lat, location_lng} = req.body
 
     //if there is no new image file for edit
     if(!req.file){
 
-        const workout = await Workout.findOneAndUpdate({_id: id}, {title, wtime, wdate, wtype, location});
+        const workout = await Workout.findOneAndUpdate({_id: id}, {title, wdate, wtype, location_lat, location_lng});
 
         if(!workout){
 
@@ -583,7 +595,7 @@ const updateWorkout = async(req, res)=>{
 
         const image = req.file.filename
 
-        const workout = await Workout.findOneAndUpdate({_id: id}, {title,  wtime, wdate, wtype, image});
+        const workout = await Workout.findOneAndUpdate({_id: id}, {title, wdate, wtype, image});
 
         fs.unlink(`./uploads/${oldimage}`, (error)=>{
 
