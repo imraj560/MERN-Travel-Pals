@@ -8,11 +8,6 @@ const workoutSchema = new Schema({
         required: true
     },
 
-    wtime:{
-
-        type: String,
-        required: true
-    },
 
     wdate:{
 
@@ -49,7 +44,14 @@ const workoutSchema = new Schema({
         type: String,
         required: true
     },
-    location:{
+
+    location_lat:{
+
+        type: String,
+        required: true
+    },
+
+    location_lng:{
 
         type: String,
         required: true
