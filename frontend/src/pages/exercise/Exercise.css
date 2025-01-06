@@ -1,3 +1,33 @@
+#profile_header > h2{
+
+  font-weight: 600;
+  font-size: 40px;
+}
+
+#profile_add_button{
+
+  background: black;
+  color:white;
+  border-radius: 0px;
+}
+
+#profileCol1{
+
+  padding:0px 10px;
+}
+
+#profileCol2{
+
+  padding:0px 10px;
+}
+
+#profileDisplay{
+
+  margin: 0px;
+}
+
+
+
 #exerciseContainer{
 
     width: 100%;
@@ -52,7 +82,7 @@ input[type="search"]{
     height: 45px;
     border: 1px solid #f5e2e2;
     margin-left: 15px;
-    border-radius: 3px;
+    border-radius: 0px;
     padding: 0px 15px;
     width: 300px;
 }

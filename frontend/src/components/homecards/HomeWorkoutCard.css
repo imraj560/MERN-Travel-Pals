@@ -15,6 +15,30 @@
     transition: 0.3s;
 }
 
+#likeIcon:hover{
+
+    transform: translateY(-10px) scale(1.05) rotate(360deg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+}
+
+#dislikeIcon:hover{
+
+    transform: translateY(-10px) scale(1.05) rotate(360deg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+}
+
+#home_card_title{
+
+    padding: 10px 15px;
+    color: black;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+
+
 #thumbnail{
     position: relative;
     width: 100%;

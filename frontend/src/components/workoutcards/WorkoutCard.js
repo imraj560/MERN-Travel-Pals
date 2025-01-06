@@ -18,7 +18,7 @@ import { useState } from 'react';
 
 const WorkoutCard = ({props})=>{
 
-  const {title, reps, load, image, _id, likes, dislikes, likesCount, dislikesCount} = props;
+  const {title, image, _id, likes, dislikes, likesCount, dislikesCount} = props;
 
     const {dispatch} = UseWorkoutsContext();
     const { user } = UseAuthContext()
@@ -62,7 +62,7 @@ const WorkoutCard = ({props})=>{
 
     return (
 
-        <Col md={4} className='p-1' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <Col md={4} sm={6} lg={4} className='p-1' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
             <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title><ExclamationCircle/> Alert</Modal.Title>
@@ -89,12 +89,11 @@ const WorkoutCard = ({props})=>{
            <div id='detail'>
             <p style={{fontSize:'20px', fontWeight:'550'}}>{props.title}</p>
             <p>Day : {format(props.wdate, 'MMM dd, yyyy')}</p>
-            <p>Time : {props.wtime}</p>
             <p>Type : {props.wtype}</p>
             <p>
-            <FcLike size={17} style={{marginRight:'5px'}} color='#a2a6a2'/>{props.dislikesCount}
-            <FcDislike style={{ marginLeft:'18px'}} size={17} color='green'/>{props.likesCount}
-            <Chat style={{marginLeft:'18px'}} size={17} color='gray'/> 3
+            <FcLike size={22} style={{marginRight:'5px'}} color='#a2a6a2'/>{props.dislikesCount}
+            <FcDislike style={{ marginLeft:'18px'}} size={22} color='green'/>{props.likesCount}
+            <Chat style={{marginLeft:'18px'}} size={22} color='gray'/> 3
             </p>
           
            </div>

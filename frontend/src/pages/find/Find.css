@@ -1,25 +1,55 @@
-#find_banner{
+#find_google_row > h2{
+
+    font-weight: 600;
+    font-size: 40px;
+}
+
+
+#find_filter_row{
+
+    margin-top: 50px;
+}
+
+#refresh_sort{
 
     width: 100%;
-    height: 15%;
-    background-color: rgb(243 241 241);
-}
-
-#find_banner > p{
-
-    text-align: center;
-    line-height: 120px;
-    font-size: 20px;
+    border-radius: 0px;
+    margin-top: 31px;
+    height: 45px;
+    background: black;
+    color:white;
 }
 
 
-@media only screen and (max-width: 770px) {
+@media only screen and (max-width: 992px) {
   
+    #refresh_sort{
+
+        width: 100%;
+        border-radius: 0px;
+        margin-top: 31px;
+        height: 45px;
+        background: black;
+        color:white;
+        font-size: 12px;
+    }
+
 
     #location{
 
         margin: 14px 0px;
 
+    }
+
+  }
+
+
+  @media only screen and (max-width: 570px) {
+
+    #find_google_row > h2{
+
+        font-weight: 600;
+        font-size: 30px;
     }
 
   }

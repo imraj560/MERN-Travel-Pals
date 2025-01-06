@@ -17,8 +17,8 @@ const Footer = ()=>{
             <Col md={12} lg={3} sm={12} style={{padding:'15px 0px'}}>
             <h4 style={{fontWeight:'600'}}>Pages</h4>
             <ul style={{padding:'0px', lineHeight:'30px', listStyleType:'none'}}>
-              <li>Gym Locations</li>
-              <li>Products</li>
+              <li>Locations</li>
+              <li>Restaurants</li>
               <li>About Us</li>
             </ul>
             </Col>

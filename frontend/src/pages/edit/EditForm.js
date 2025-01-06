@@ -7,6 +7,7 @@ import { AuthComponent } from '../../components/AuthComponent';
 import Spinner from 'react-bootstrap/Spinner';
 import { Container, Form, Button, Row, Col, Image} from "react-bootstrap";
 import { format } from 'date-fns';
+import {APIProvider, Map, MapCameraChangedEvent, Marker} from '@vis.gl/react-google-maps';
 import './EditForm.css';
 
 const EditForm = ()=>{
@@ -19,6 +20,8 @@ const EditForm = ()=>{
     const [wtype, setWtype] = useState('');
     const [title, setTitle] = useState('');
     const [location, setLocation] = useState('');
+    const [location_lng, setLocation_lng] = useState('');
+    const [location_lat, setLocation_lat] = useState('')
     const[file, setFile] = useState(null)
     const[oldImage, setOldImage] = useState('')
     const [error, setError] = useState(null);
@@ -55,7 +58,9 @@ const EditForm = ()=>{
                 setWdate(fdate);
                 setWtime(data.wtime);
                 setWtype(data.wtype);
-                setLocation(data.location);
+                setLocation(data.location_lng + ' : '+ data.location_lat);
+                setLocation_lat(data.location_lat)
+                setLocation_lng(data.location_lng)
                 setOldImage(data.image);
                 setFile(data.image);
 
@@ -93,7 +98,9 @@ const EditForm = ()=>{
         formData.append('wdate',wdate)
         formData.append('wtime',wtime)
         formData.append('wtype',wtype)
-        formData.append('location',location)
+        formData.append('location_lat',location_lat)
+        formData.append('location_lng',location_lng)
+        // formData.append('location',location)
         formData.append('file',file)
         formData.append('oldimage',oldImage)
 
@@ -131,11 +138,44 @@ const EditForm = ()=>{
 
             <AuthComponent>
 
-<Container>
+            <Container>
+
+            <Row id="add_heading">
+            <h2>Edit Location</h2>
+            <p>Lets Add Your Details</p>
+            </Row>   
             
-            <Row id="loginRow">
+            <Row id="add_row">
+
+                <Col md={6} id="map_input">
+                <h2>Location</h2>
+                <p>Edit Location Coordinates</p>
+
+                    <Map
+                    style={{width: '100%', height: '50vh'}}
+                    defaultCenter={{lat: 45.48556, lng: -73.62780}}
+                    defaultZoom={10}
+                    onClick={(e)=> {
+                        
+                        setLocation(JSON.stringify(e.detail.latLng))
+                        setLocation_lat(JSON.stringify(e.detail.latLng.lat))
+                        setLocation_lng(JSON.stringify(e.detail.latLng.lng))
+                        
+                    }}
+                    gestureHandling={'greedy'}
+                    disableDefaultUI={true}
+                    >
+
+                    <Marker position={{lat:Number(location_lat), lng:Number(location_lng)}} />
+                    </Map>    
                 
-                <Col className="shadow-sm mb-5 bg-body rounded" style={{padding:'25px 25px 0px 25px', background:'#fbf8f8', borderRadius:'5px'}} md={8}>
+                                  
+                
+                </Col>
+                
+                <Col id="add_form" md={6}>
+                <h2>Some Basic Data</h2>
+                <p>Just Formality</p>
                 {loader && 
                     <Spinner animation="border" role="status">
                     <span className="visually-hidden">Loading...</span>
@@ -143,28 +183,20 @@ const EditForm = ()=>{
 
                 }
                     
-                
-                    <h2 style={{fontSize:'20px',fontWeight:'500', marginBottom:'30px'}}>Alright! Lets edit your schedule</h2>
                     {!loader && (
 
-                        <Form onSubmit={handleSubmit}>
+                        <Form onSubmit={handleSubmit}  style={{padding:'0px'}}>
                         <Row>
-                            <Col md={4}>
+                            <Col md={6}>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Workout Name</Form.Label>
+                                <Form.Label>Location Name</Form.Label>
                                 <Form.Control value={title} name="title" placeholder="Name your workout" onChange={(e)=> setTitle(e.target.value)} />
                                 </Form.Group>
                             </Col>
-                            <Col md={4}>
+                            <Col md={6}>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Day?</Form.Label>
                                 <Form.Control value={wdate} name="wdate" type='date' onChange={(e)=> setWdate(e.target.value)} />
-                                </Form.Group>
-                            </Col>
-                            <Col md={4}>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Time?</Form.Label>
-                                <Form.Control value={wtime} name="wdate" type='time' onChange={(e)=> setWtime(e.target.value)} />
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -176,24 +208,28 @@ const EditForm = ()=>{
                                 <Form.Control type="file"  name="file"  onChange={(e)=> setFile(e.target.files[0])} />
                                 </Form.Group>
                             </Col>
-                            <Col md={2}>
-                            <Image width={80} height={80} rounded className='float-start' src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+oldImage} />
-                            {/* <Image src={process.env.PUBLIC_URL+"/images/"+oldImage} width={80} height={80} rounded className='float-start'/> */}
+                            <Col md={6}>
+                            {/* <Image width={80} height={80} rounded className='float-start' src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+oldImage} /> */}
+                            <Image src={process.env.PUBLIC_URL+"/images/"+oldImage} width={100} height={80} rounded className='float-start'/>
                             </Col>
-                            <Col md={4}>
+
+                        </Row> 
+
+                        <Row>   
+                            <Col md={6}>
                             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Workout Type</Form.Label>
                                 <Form.Select name='wtype' value={wtype}  onChange={(e)=> setWtype(e.target.value)} aria-label="Default select example" size='md' style={{padding:'14px 10px'}}>
-                                <option>Select a Type</option>
-                                <option value="cardio">Cardio</option>
-                                <option value="calesthenics">Calesthenics</option>
-                                <option value="weight">Weight Trainning</option>
+                                <option>{wtype}</option>
+                                <option value="hiking">Hiking</option>
+                                <option value="restaurant">Restaurant</option>
+                                <option value="vacation">Vacation</option>
                                 </Form.Select>
                                 </Form.Group>
                             </Col>
                     
-                        </Row>
-                        <Col md={4}>
+                      
+                        <Col md={6}>
 
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Location</Form.Label>
@@ -202,17 +238,21 @@ const EditForm = ()=>{
                             
                                 
                         </Col>
-                        <Row>
-                            
                         </Row>
-                    
+                            
+                       
 
                     
                     
-                        <Button type="submit" variant="secondary" style={{borderRadius:'2px', marginTop:'20px'}}>
-                            Edit Post
-                        </Button>
+                       <Row>
+                        <Col md={12}>
 
+                        <Button type="submit" variant="secondary" style={{borderRadius:'0px', marginTop:'20px', background:"black", color:'white'}}>
+                            Edit
+                        </Button >
+                        </Col>
+                        
+                      </Row>
                     
                     
                     </Form>
