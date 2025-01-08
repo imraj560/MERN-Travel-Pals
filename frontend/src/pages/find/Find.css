@@ -44,6 +44,15 @@
   }
 
 
+  @media only screen and (max-width: 768px) {
+
+    #search{
+
+        margin-bottom: 15px;
+    }
+  }
+
+
   @media only screen and (max-width: 570px) {
 
     #find_google_row > h2{

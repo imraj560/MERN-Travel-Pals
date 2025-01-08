@@ -3,22 +3,20 @@ import { Container, Row, Col, Card, Image, Footers } from 'react-bootstrap';
 import Button from "react-bootstrap/Button";
 import Spinner from 'react-bootstrap/Spinner';
 import { useState, useEffect } from "react";
-import HomeWorkoutCard from "../../components/homecards/HomeWorkoutCard";
-import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
-import { format, set } from 'date-fns';
+import HomePlaceCard from "../../components/homecards/HomePlaceCard";
+import { UsePlaceContext } from '../../hooks/UsePlaceContext';
 import {APIProvider, Map, MapCameraChangedEvent, Marker} from '@vis.gl/react-google-maps';
 import { MdOutlineRefresh } from "react-icons/md";
-
 import './Find.css'
 
 const Find = ()=>{
-    const {workouts, dispatch} = UseWorkoutsContext();
+    const {place, dispatch} = UsePlaceContext();
     const[mapdata, setMapdata] = useState([]);
     const [loader, setLoader] = useState(false);
     const [type, setType] = useState('');
     const [message, setMessage] = useState('');
     const [locations, setLocations] = useState('');
-    const [filterdata, setFilterdata] = useState(workouts);
+    const [filterdata, setFilterdata] = useState(place);
     const [locationlist, setLocationlist] = useState([]);
     const [search, setSearch] = useState('');
     const [lat, setLat] = useState('');
@@ -31,8 +29,8 @@ const Find = ()=>{
 
                
 
-               const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
-               //const data = await fetch('http://localhost:4000/api/workout/home',{
+               const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/home',{
+               //const data = await fetch('http://localhost:4000/api/place/home',{
 
                 method: 'GET',
 
@@ -47,10 +45,10 @@ const Find = ()=>{
 
             }).then((data)=>{
                
-                if(workouts !== null){
+                if(place !== null){
 
-                    dispatch({type: 'SET_WORKOUTS', payload: data})
-                    setFilterdata(workouts)
+                    dispatch({type: 'SET_PLACE', payload: data})
+                    setFilterdata(place)
                     setLoader(false)
                 }
                 
@@ -66,8 +64,8 @@ const Find = ()=>{
 
 
         const locationList = async()=>{
-            const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/location',{
-            //const data = fetch('http://localhost:4000/api/workout/location',{
+            const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/location',{
+            //const data = fetch('http://localhost:4000/api/place/location',{
                 
                 method: 'GET',
 
@@ -108,14 +106,10 @@ const Find = ()=>{
 
     const refreshFilter=()=>{
 
-        setFilterdata(workouts)
+        setFilterdata(place)
 
     }
 
-
-
-
-  
     /**Search Function */
 
     const onSearchChange = (event)=>{
@@ -130,28 +124,23 @@ const Find = ()=>{
 
     useEffect(()=>{
     
-        if(workouts !== null){
+        if(place !== null){
 
-            const filteredWorkouts = workouts.filter((workout)=>{
+            const filteredPlace = place.filter((single_place)=>{
 
-            return workout.title.toLocaleLowerCase().includes(search);
+            return single_place.title.toLocaleLowerCase().includes(search);
 
-           
 
           })
-
-      
     
-            setFilterdata(filteredWorkouts)
-
-       
+            setFilterdata(filteredPlace) 
 
         }
 
         
 
         
-    },[search, workouts]);
+    },[search, place]);
 
     
       /**Googel maps filter */    
@@ -159,9 +148,7 @@ const Find = ()=>{
 
         setLat(lat)
         setLng(lng)
-
-        
-    
+   
         
     }
 
@@ -170,9 +157,9 @@ const Find = ()=>{
 
       if(lat && lng !== ''){
 
-        const markerData = workouts.filter((workout)=>{
+        const markerData = place.filter((single_place)=>{
 
-            return workout.location_lat == lat && workout.location_lng == lng;
+            return single_place.location_lat == lat && single_place.location_lng == lng;
         })
 
         setFilterdata(markerData)
@@ -180,16 +167,16 @@ const Find = ()=>{
       }
 
 
-    },[lat,lng, workouts])
+    },[lat,lng, place])
 
 
     useEffect(()=>{
 
         if(type !== ''){
 
-            const typeData = workouts.filter((workout)=>{
+            const typeData = place.filter((single_place)=>{
 
-                return workout.wtype == type;
+                return single_place.wtype == type;
             })
 
             setFilterdata(typeData)
@@ -197,7 +184,7 @@ const Find = ()=>{
 
         
 
-    },[type, workouts])
+    },[type, place])
 
    
 
@@ -294,11 +281,11 @@ const Find = ()=>{
 
                 {
                     
-                    filterdata && filterdata.map((singleWorkout)=>{
+                    filterdata && filterdata.map((singlePlace)=>{
            
                            return (
                            
-                               <HomeWorkoutCard key={singleWorkout._id} props={singleWorkout} />
+                               <HomePlaceCard key={singlePlace._id} props={singlePlace} />
                            )
                        })            
                                    

@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose');
-const workoutRoutes = require('./routes/workoutRouter');
+const placeRoutes = require('./routes/placeRouter');
 const userRoutes = require('./routes/userRouter');
 const googleRoutes = require('./routes/googleAuth')
 const passport = require('./middleware/passport')
@@ -35,7 +35,7 @@ app.use((req, res, next)=>{
 app.use('/auth', cors(corsOptions), googleRoutes);
 
 //routes for workout api
-app.use('/api/workout', cors(corsOptions), workoutRoutes);
+app.use('/api/place', cors(corsOptions), placeRoutes);
 //app.use('/api/workout', workoutRoutes);
 
 //routes for user Auth

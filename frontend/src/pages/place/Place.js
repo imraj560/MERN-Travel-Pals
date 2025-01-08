@@ -1,56 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import LineChart from '../../components/charts/LineChart';
-import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
+import { UsePlaceContext } from '../../hooks/UsePlaceContext';
 import { NavLink } from 'react-router-dom';
-import './Exercise.css';
-import WorkoutCard from '../../components/workoutcards/WorkoutCard';
+import './Place.css';
+import PlaceCard from '../../components/placecard/PlaceCard';
 import { AuthComponent } from '../../components/AuthComponent';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import Button from 'react-bootstrap/Button';
-import Badge from 'react-bootstrap/Badge';
 import Spinner from 'react-bootstrap/Spinner';
 import { Container, Row, Col, Form } from 'react-bootstrap';
-import { PersonCircle, PlusCircle, EmojiSmile, Filter, Line } from 'react-bootstrap-icons';
+import { PlusCircle, EmojiSmile, Filter } from 'react-bootstrap-icons';
 import { FcLike, FcDislike } from "react-icons/fc";
-import { setDate } from 'date-fns';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import {APIProvider, Map, MapCameraChangedEvent, Marker} from '@vis.gl/react-google-maps';
 
 
 
-const Exercise = ()=>{
+const Place = ()=>{
 
     /**We have used use state for local access of data */
     // const [workouts, setWorkout] = useState([]);
 
     /**Now lets invoke the reducers for global access */
-    const {workouts, dispatch} = UseWorkoutsContext();
+    const {place, dispatch} = UsePlaceContext();
     const [search, setSearch] = useState('');
-    const [filteredWorkouts, setFilteredWorkouts] = useState(workouts)
+    const [filteredPlace, setFilteredPlace] = useState(place)
     const [filterTags, setFilterTags] = useState([]);
     const [loader, setLoader] = useState(true);
     const [likes, setLikes] = useState('');
     const [dislikes, setDislikes] = useState('');
     const [chartdata, setChartdata] = useState([])
-
-
-
-   
-
     const { user } = UseAuthContext()
 
-    /**GET TOTAL TYPES */
 
-
-
-    /**Get workout data */
+    /**Get plse data */
     useEffect(()=>{
 
         const fetchApiData = async()=>{
 
-            let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/profile',{ 
-            //let data = await fetch('http://localhost:4000/api/workout/profile',{     
+            let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/profile',{ 
+            //let data = await fetch('http://localhost:4000/api/place/profile',{     
 
                 headers:{
 
@@ -65,18 +55,20 @@ const Exercise = ()=>{
 
             }).then((data)=>{
 
-                dispatch({type: 'SET_WORKOUTS', payload: data})
-                console.log('workoutscontextdata', workouts)
+                dispatch({type: 'SET_PLACE', payload: data})
+                console.log('placecontextdata', place)
                 setLoader(false)
                console.log('UserProfile',data)
 
             })
         }
 
+        /**total likes and dislikes */
+
         const fetchtotalReactions = async()=>{
 
-            let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/total',{ 
-            //let data = await fetch('http://localhost:4000/api/workout/total',{     
+            let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/total',{ 
+            //let data = await fetch('http://localhost:4000/api/place/total',{     
 
                 headers:{
 
@@ -93,7 +85,7 @@ const Exercise = ()=>{
 
                
                console.log('Reactions',data[0].totalLikeslength)
-
+                    
                setLikes(data[0].totalLikeslength)
                setDislikes(data[0].totalDislikeslength)
 
@@ -112,8 +104,8 @@ const Exercise = ()=>{
         /**Get total types */
         const typesData = async()=>{
 
-            let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/types',{ 
-            //let data = await fetch('http://localhost:4000/api/workout/types',{     
+            let data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/types',{ 
+            //let data = await fetch('http://localhost:4000/api/place/types',{     
 
                 headers:{
 
@@ -150,14 +142,14 @@ const Exercise = ()=>{
 
     useEffect(()=>{
 
-        if(workouts !== null){
+        if(place !== null){
 
-            const filteredWorkouts = workouts.filter((workout)=>{
+            const filteredPlace = place.filter((single_place)=>{
 
-            return workout.title.toLocaleLowerCase().includes(search);
+            return single_place.title.toLocaleLowerCase().includes(search);
         })
 
-        setFilteredWorkouts(filteredWorkouts);
+        setFilteredPlace(filteredPlace);
 
 
         }
@@ -165,7 +157,7 @@ const Exercise = ()=>{
         
 
         
-    },[search, workouts]);
+    },[search, place]);
 
     const onCheckChange = (event) => {
 
@@ -187,19 +179,19 @@ const Exercise = ()=>{
 
       useEffect(() => {
 
-        if(workouts !== null){
+        if(place !== null){
         
-        const newCheckedWorkouts = workouts.filter((workout) =>
+        const newCheckedPlace = place.filter((single_place) =>
           filterTags.length > 0
-            ? filterTags.some((filterTag) => workout.wtype.includes(filterTag))
-            : workouts
+            ? filterTags.some((filterTag) => single_place.wtype.includes(filterTag))
+            : place
         );
 
-        setFilteredWorkouts(newCheckedWorkouts);
+        setFilteredPlace(newCheckedPlace);
 
     }
 
-      }, [filterTags, workouts]);
+      }, [filterTags, place]);
 
 
 
@@ -293,11 +285,11 @@ const Exercise = ()=>{
                             
                                 
                                 
-                                filteredWorkouts && filteredWorkouts.map((singleWorkout)=>{
+                                filteredPlace && filteredPlace.map((singlePlace)=>{
 
                                     return (
                                     
-                                        <WorkoutCard key={singleWorkout._id} props={singleWorkout} />
+                                        <PlaceCard key={singlePlace._id} props={singlePlace} />
                                     )
                                 })
                             }
@@ -329,7 +321,7 @@ const Exercise = ()=>{
 
                             {
 
-                            workouts && workouts.map((singleMap, index)=>{
+                            place && place.map((singleMap, index)=>{
                                 
                             return (
                             
@@ -388,4 +380,4 @@ const Exercise = ()=>{
     )
 }
 
-export default Exercise;
+export default Place;

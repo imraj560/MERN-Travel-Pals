@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
+import { UsePlaceContext } from '../../hooks/UsePlaceContext';
 import { useNavigate } from 'react-router-dom';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import { AuthComponent } from '../../components/AuthComponent';
@@ -12,7 +12,7 @@ import './EditForm.css';
 
 const EditForm = ()=>{
 
-    const {dispatch} = UseWorkoutsContext();
+    const {dispatch} = UsePlaceContext();
     const navigate = useNavigate();
     const params = useParams();
     const [wdate, setWdate] = useState('');
@@ -38,8 +38,8 @@ const EditForm = ()=>{
 
         const apiDataFetch = async()=>{
 
-            //const data = await fetch(`http://localhost:4000/api/workout/${params.id}`, {
-            const data = await fetch(`https://mern-exercise-tracker-production.up.railway.app/api/workout/${params.id}`, {
+            //const data = await fetch(`http://localhost:4000/api/place/${params.id}`, {
+            const data = await fetch(`https://mern-exercise-tracker-production.up.railway.app/api/place/${params.id}`, {
 
                   headers:{
 
@@ -104,8 +104,8 @@ const EditForm = ()=>{
         formData.append('file',file)
         formData.append('oldimage',oldImage)
 
-        //const response = await fetch(`http://localhost:4000/api/workout/${params.id}`, {
-        const response = await fetch(`https://mern-exercise-tracker-production.up.railway.app/api/workout/${params.id}`, {    
+        //const response = await fetch(`http://localhost:4000/api/place/${params.id}`, {
+        const response = await fetch(`https://mern-exercise-tracker-production.up.railway.app/api/place/${params.id}`, {    
             method: 'PATCH',
             body: formData,
 
@@ -127,9 +127,9 @@ const EditForm = ()=>{
 
             setError(null);
         
-            dispatch({type:'UPDATE_WORKOUT', payload: json});
+            dispatch({type:'UPDATE_PLACE', payload: json});
 
-            navigate('/exercise');
+            navigate('/place');
         }
 
     }
@@ -209,8 +209,8 @@ const EditForm = ()=>{
                                 </Form.Group>
                             </Col>
                             <Col md={6}>
-                            {/* <Image width={80} height={80} rounded className='float-start' src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+oldImage} /> */}
-                            <Image src={process.env.PUBLIC_URL+"/images/"+oldImage} width={100} height={80} rounded className='float-start'/>
+                            <Image width={80} height={80} rounded className='float-start' src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+oldImage} />
+                            {/* <Image src={process.env.PUBLIC_URL+"/images/"+oldImage} width={100} height={80} rounded className='float-start'/> */}
                             </Col>
 
                         </Row> 

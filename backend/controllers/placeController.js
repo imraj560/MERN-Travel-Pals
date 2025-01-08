@@ -1,4 +1,4 @@
-const Workout = require('../models/workoutModel');
+const Place = require('../models/placeModel');
 const Comment = require('../models/commentModel')
 const User = require('../models/userModel')
 const Reply = require('../models/replyModel')
@@ -8,11 +8,12 @@ const path = require('path');
 const { error } = require('console');
 
 
-/**All workout  */
 
-const homeWorkout = async(req, res) => {
+/**All place  */
 
-    await Workout.aggregate([
+const homePlace = async(req, res) => {
+
+    await Place.aggregate([
         {
           $project: {
             _id: 1,
@@ -29,8 +30,6 @@ const homeWorkout = async(req, res) => {
             // If 'friends' doesn't exist, treat it as an empty array
             likesCount: { $size: { $ifNull: ["$likes", []] } },
             dislikesCount: { $size: { $ifNull: ["$dislikes", []] } },
-
-           
             
           }
         },
@@ -50,8 +49,8 @@ const homeWorkout = async(req, res) => {
 
 
 
-/**Add a single workout */
-const newWorkout = async(req, res) => {
+/**Add a single place */
+const newPlace = async(req, res) => {
 
 
    const image = req.file.filename
@@ -64,8 +63,8 @@ const newWorkout = async(req, res) => {
 
     try{
 
-         const workout = await Workout.create({title, wdate, wtype, image, user_id, location_lat, location_lng});
-         res.status(200).json(workout);
+         const place = await Place.create({title, wdate, wtype, image, user_id, location_lat, location_lng});
+         res.status(200).json(place);
 
     }catch(error){
 
@@ -254,29 +253,29 @@ const likePost = async(req, res) => {
 
     const user_id = req.user._id;
     const {postId} = req.body
-    const workoutId = await Workout.findById(postId);
+    const placeId = await Place.findById(postId);
 
-    const unique = workoutId.likes.some(likeid => likeid == user_id)
+    const unique = placeId.likes.some(likeid => likeid == user_id)
     if(!unique){
 
         try{
         
-            const workout = await Workout.findByIdAndUpdate(postId, {
+            const place = await Place.findByIdAndUpdate(postId, {
                 
                 $push:{likes:user_id},  $pull:{dislikes:user_id}
             }, {new: true})
 
-            const likesCount = workout.likes.length
-            const dislikesCount = workout.dislikes.length
+            const likesCount = place.likes.length
+            const dislikesCount = place.dislikes.length
 
 
-                const workoutArray = {'_id':workout._id, 'title': workout.title,'wdate': workout.wdate, 'wtype':workout.wtype,'image': workout.image,
-                    'likes':workout.likes, 'dislikes':workout.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':workout.location_lat,
-                'location_lng':workout.location_lng}  
+                const placeArray = {'_id':place._id, 'title': place.title,'wdate': place.wdate, 'wtype':place.wtype,'image': place.image,
+                    'likes':place.likes, 'dislikes':place.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':place.location_lat,
+                'location_lng':place.location_lng}  
 
                 // console.log(workoutArray)    
                     
-                res.status(200).json({"message":'Post liked','workoutArray':workoutArray})
+                res.status(200).json({"message":'Post liked','placeArray':placeArray})
 
                 
 
@@ -290,13 +289,13 @@ const likePost = async(req, res) => {
 
     }else{
 
-        const likesCount = workoutId.likes.length
-        const dislikesCount = workoutId.dislikes.length
-        const workoutArray = {'_id':workoutId._id, 'title': workoutId.title,'wdate': workoutId.wdate, 'wtype':workoutId.wtype,'image': workoutId.image,
-        'likes':workoutId.likes, 'dislikes':workoutId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':workoutId.location_lat,
-        'location_lng':workoutId.location_lng} 
+        const likesCount = placeId.likes.length
+        const dislikesCount = placeId.dislikes.length
+        const placeArray = {'_id':placeId._id, 'title': placeId.title,'wdate': placeId.wdate, 'wtype':placeId.wtype,'image': placeId.image,
+        'likes':placeId.likes, 'dislikes':placeId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':placeId.location_lat,
+        'location_lng':placeId.location_lng} 
 
-        res.status(200).json({"message":'Already Liked','workoutArray':workoutArray})
+        res.status(200).json({"message":'Already Liked','placeArray':placeArray})
 
     }
 
@@ -307,29 +306,29 @@ const dislikePost = async(req, res) => {
 
     const user_id = req.user._id;
     const {postId} = req.body
-    const workoutId = await Workout.findById(postId);
+    const placeId = await Place.findById(postId);
 
-    const unique = workoutId.dislikes.some(likeid => likeid == user_id)
+    const unique = placeId.dislikes.some(likeid => likeid == user_id)
 
     if(!unique){
 
         try{
         
-        const workout = await Workout.findByIdAndUpdate(postId, {
+        const place = await Place.findByIdAndUpdate(postId, {
             
             $pull:{likes:user_id},  $push:{dislikes:user_id}
         }, {new: true}) 
         
 
-        const likesCount = workout.likes.length
-        const dislikesCount = workout.dislikes.length
+        const likesCount = place.likes.length
+        const dislikesCount = place.dislikes.length
 
 
-        const workoutArray = {'_id':workout._id, 'title': workout.title,'wdate': workout.wdate, 'wtype':workout.wtype,'image': workout.image,
-        'likes':workout.likes, 'dislikes':workout.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':workout.location_lat,
-        'location_lng':workout.location_lng}
+        const placeArray = {'_id':place._id, 'title': place.title,'wdate': place.wdate, 'wtype':place.wtype,'image': place.image,
+        'likes':place.likes, 'dislikes':place.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':place.location_lat,
+        'location_lng':place.location_lng}
 
-        res.status(200).json({"message":'Post Disliked','workoutArray':workoutArray})
+        res.status(200).json({"message":'Post Disliked','placeArray':placeArray})
 
         }catch(error){
 
@@ -338,13 +337,13 @@ const dislikePost = async(req, res) => {
         }
     }else{
 
-        const likesCount = workoutId.likes.length
-        const dislikesCount = workoutId.dislikes.length
-        const workoutArray = {'_id':workoutId._id, 'title': workoutId.title,'wdate': workoutId.wdate, 'wtype':workoutId.wtype,'image': workoutId.image,
-        'likes':workoutId.likes, 'dislikes':workoutId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':workoutId.location_lat,
-        'location_lng':workoutId.location_lng}  
+        const likesCount = placeId.likes.length
+        const dislikesCount = placeId.dislikes.length
+        const placeArray = {'_id':placeId._id, 'title': placeId.title,'wdate': placeId.wdate, 'wtype':placeId.wtype,'image': placeId.image,
+        'likes':placeId.likes, 'dislikes':placeId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':placeId.location_lat,
+        'location_lng':placeId.location_lng}  
         
-        res.status(200).json({"message":'Already Disliked','workoutArray':workoutArray})
+        res.status(200).json({"message":'Already Disliked','placeArray':placeArray})
     }
     
    
@@ -355,7 +354,7 @@ const totalReactions = async(req, res)=>{
    const user_id = await req.user._id;
    const objectString = `${user_id}`
 
-   await Workout.aggregate([
+   await Place.aggregate([
 
     {
         $match: { user_id: objectString }
@@ -407,9 +406,9 @@ const totalTypes = async(req, res)=>{
 
     const user_id = req.user._id;
 
-        const vacation = await Workout.countDocuments({['wtype']: 'vacation'})
-        const restaurant = await Workout.countDocuments({['wtype']: 'restaurant'})
-        const hiking = await Workout.countDocuments({['wtype']: 'hiking'})
+        const vacation = await Place.countDocuments({['wtype']: 'vacation'})
+        const restaurant = await Place.countDocuments({['wtype']: 'restaurant'})
+        const hiking = await Place.countDocuments({['wtype']: 'hiking'})
 
         const arrayData = [];
 
@@ -431,13 +430,13 @@ const totalTypes = async(req, res)=>{
 
 
 
-/**All workout by user */
-const userWorkout = async(req, res) => {
+/**All places by user */
+const userPlace = async(req, res) => {
 
     const user_id = await req.user._id;
     const objectString = `${user_id}`
     
-    await Workout.aggregate([
+    await Place.aggregate([
        
         {
           $project: {
@@ -477,8 +476,8 @@ const userWorkout = async(req, res) => {
 
 
 
-/**Grab single workout */
-const findWorkout = async(req, res)=>{
+/**Grab single place */
+const findPlace = async(req, res)=>{
 
     const {id} = req.params;
 
@@ -487,14 +486,14 @@ const findWorkout = async(req, res)=>{
         return res.status(404).json({error: 'Invalid mongoId'});
     }
 
-    const workout = await Workout.findById(id);
+    const place = await Place.findById(id);
 
-    if(!workout){
+    if(!place){
 
-        return res.status(404).json({error:'No such workouts found'});
+        return res.status(404).json({error:'No such place found'});
     }
 
-    return res.status(200).json(workout);
+    return res.status(200).json(place);
 
 
 }
@@ -503,7 +502,7 @@ const findWorkout = async(req, res)=>{
 
 const locationList = async(req, res)=>{
 
-    await Workout.aggregate([
+    await Place.aggregate([
         {
           $group: {
             
@@ -529,7 +528,7 @@ const locationList = async(req, res)=>{
 
 
 /**Delete a workout */
-const deleteWorkout = async(req, res)=>{
+const deletePlace = async(req, res)=>{
 
     const {id} = req.params;
 
@@ -538,12 +537,12 @@ const deleteWorkout = async(req, res)=>{
         return res.status(404).error({error: 'Invalid mongoose Id'})
     }
 
-    const {image} = await Workout.findOne({_id: id}).select('image');
+    const {image} = await Place.findOne({_id: id}).select('image');
    
-    const workout = await Workout.findOneAndDelete({_id: id});
+    const place = await Place.findOneAndDelete({_id: id});
     
 
-    if(!workout){
+    if(!place){
 
     res.status(400).json({error: 'No such Rercord Found'});
 
@@ -561,12 +560,12 @@ const deleteWorkout = async(req, res)=>{
 
     
 
-    res.status(200).json(workout);
+    res.status(200).json(place);
 }
 
 
 /**Update a workout */
-const updateWorkout = async(req, res)=>{
+const updatePlace = async(req, res)=>{
 
     const {id} = req.params;
 
@@ -580,14 +579,14 @@ const updateWorkout = async(req, res)=>{
     //if there is no new image file for edit
     if(!req.file){
 
-        const workout = await Workout.findOneAndUpdate({_id: id}, {title, wdate, wtype, location_lat, location_lng});
+        const place = await Place.findOneAndUpdate({_id: id}, {title, wdate, wtype, location_lat, location_lng});
 
-        if(!workout){
+        if(!place){
 
             return res.status(400).json({error: 'Update unsuccessfull'});
             }   
 
-        return res.status(200).json(workout);
+        return res.status(200).json(place);
     }
 
     //if there is new image file for edit
@@ -595,7 +594,7 @@ const updateWorkout = async(req, res)=>{
 
         const image = req.file.filename
 
-        const workout = await Workout.findOneAndUpdate({_id: id}, {title, wdate, wtype, image});
+        const place = await Place.findOneAndUpdate({_id: id}, {title, wdate, wtype, image});
 
         fs.unlink(`./uploads/${oldimage}`, (error)=>{
 
@@ -603,12 +602,12 @@ const updateWorkout = async(req, res)=>{
                
              })
 
-          if(!workout){
+          if(!place){
 
          return res.status(400).json({error: 'Update unsuccessfull'});
          }   
 
-         return res.status(200).json(workout);
+         return res.status(200).json(place);
     }
 
 
@@ -645,12 +644,12 @@ const downloadImage = async(req, res) =>{
 
 module.exports = {
 
-    newWorkout,
-    userWorkout,
-    homeWorkout,
-    findWorkout,
-    deleteWorkout,
-    updateWorkout,
+    newPlace,
+    userPlace,
+    homePlace,
+    findPlace,
+    deletePlace,
+    updatePlace,
     downloadImage,
     likePost,
     dislikePost,
