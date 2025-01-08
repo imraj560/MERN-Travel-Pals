@@ -60,8 +60,8 @@ const Home = ()=>{
 
             let fetchGoogle = async()=>{
 
-            //let data = await fetch("https://mern-exercise-tracker-production.up.railway.app/auth/protected", {
-            let data = await fetch("http://localhost:4000/auth/protected", {
+            let data = await fetch("https://mern-exercise-tracker-production.up.railway.app/auth/protected", {
+            //let data = await fetch("http://localhost:4000/auth/protected", {
 
                 credentials: "include",
               })
