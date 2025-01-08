@@ -1,22 +1,22 @@
 import { useState } from "react"
 import {toast} from 'react-toastify'
 import { UseAuthContext } from "./UseAuthContext";
-import { UseWorkoutsContext } from "./UseWorkoutsContext";
+import { UsePlaceContext } from "./UsePlaceContext";
 
 
 export const useDislike = () =>  {
 
     const [errorr, setErrorr] = useState(null);
     const { user } = UseAuthContext()
-    const {workouts, dispatch} = UseWorkoutsContext();
+    const {place, dispatch} = UsePlaceContext();
     const [lloading, setLLoading] = useState(null)
 
     const dislike = async(postId)=>{
 
         setLLoading(true)
 
-        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/dislike',{
-        //const response = await fetch('http://localhost:4000/api/workout/dislike', {
+        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/dislike',{
+        //const response = await fetch('http://localhost:4000/api/place/dislike', {
 
             method: 'PUT',
             headers: {'Content-Type': 'application/json', 'Authorization' : `Bearer ${user.token}`},
@@ -34,9 +34,9 @@ export const useDislike = () =>  {
 
             setErrorr(null);
 
-            // console.log('WDATA',json.workoutArray)
+            // console.log('WDATA',json.placeArray)
 
-            dispatch({type:'UPDATE_WORKOUT', payload: json.workoutArray});
+            dispatch({type:'UPDATE_PLACE', payload: json.placeArray});
 
             // console.log('updated workout state', json.workoutArray)
             

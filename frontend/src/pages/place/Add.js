@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
+import { UsePlaceContext } from '../../hooks/UsePlaceContext';
 import { useNavigate } from 'react-router-dom';
 import { AuthComponent } from '../../components/AuthComponent';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import {toast} from 'react-toastify'
 import { Container, Form, Button, Row, Col} from "react-bootstrap";
-import { Alert } from 'react-bootstrap';
-import { ArrowLeft, ExclamationCircleFill } from 'react-bootstrap-icons';
 import Spinner from 'react-bootstrap/Spinner';
 import {APIProvider, Map, MapCameraChangedEvent, Marker} from '@vis.gl/react-google-maps';
 import './Add.css';
 
 const Add = ()=>{
 
-    const {dispatch} = UseWorkoutsContext();
+    const {dispatch} = UsePlaceContext();
     const navigate = useNavigate();
     const { user } = UseAuthContext()
 
@@ -58,8 +56,8 @@ const Add = ()=>{
         // });
 
 
-        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/upload', {
-        //const response = await fetch('http://localhost:4000/api/workout/upload', {
+        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/upload', {
+        //const response = await fetch('http://localhost:4000/api/place/upload', {
 
             method: 'POST',
             body: formData,
@@ -81,10 +79,10 @@ const Add = ()=>{
         if(response.ok){
 
             setError(null);
-            dispatch({type:'CREATE_WORKOUTS', payload: json});
+            dispatch({type:'CREATE_PLACE', payload: json});
             console.log('datajson',json)
-            toast.success('Workout Added')
-            navigate('/exercise');
+            toast.success('Place Added')
+            navigate('/place');
         }
 
     }

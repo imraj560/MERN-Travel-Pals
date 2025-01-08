@@ -1,5 +1,5 @@
 const express = require('express');
-const {locationList, totalTypes, destroyReply, getReply, newWorkout, userWorkout, findWorkout, deleteWorkout, updateWorkout, homeWorkout, downloadImage, likePost, dislikePost, totalReactions, postComment, getComment, destroyComment, replyComment} = require('../controllers/workoutController');
+const {locationList, totalTypes, destroyReply, getReply, newPlace, userPlace, findPlace, deletePlace, updatePlace, homePlace, downloadImage, likePost, dislikePost, totalReactions, postComment, getComment, destroyComment, replyComment} = require('../controllers/placeController');
 const requireAuth = require('../middleware/requireAuth')
 const multer = require('multer')
 const router = express.Router();
@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 //get all workouts
-router.get('/home', homeWorkout)
+router.get('/home', homePlace)
 router.get('/download/:filename', downloadImage)
 router.get('/commentlist/:id', getComment)
 router.get('/replylist/:id', getReply)
@@ -59,19 +59,19 @@ router.put('/like', likePost);
 router.put('/dislike', dislikePost)
 
 //GET user workouts
-router.get('/profile', userWorkout);
+router.get('/profile', userPlace);
 
 //GET a single workout
-router.get('/:id', findWorkout);
+router.get('/:id', findPlace);
 
 //POST a new workout
-router.post('/upload', upload.single('file'), newWorkout);
+router.post('/upload', upload.single('file'), newPlace);
 
 //DELETE a workout
-router.delete('/:id', deleteWorkout);
+router.delete('/:id', deletePlace);
 
 //UPDATE/PATCH a workout
-router.patch('/:id', upload.single('file'), updateWorkout);
+router.patch('/:id', upload.single('file'), updatePlace);
 
 //grabing server image
 

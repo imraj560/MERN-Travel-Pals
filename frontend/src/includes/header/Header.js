@@ -39,7 +39,7 @@ const Header = ()=>{
                 </>)}
 
                 {user && (<>
-                <Nav.Link><NavLink style={{textDecoration:'none', color:'black', fontSize:'16px'}} to="/exercise">Profile</NavLink></Nav.Link>
+                <Nav.Link><NavLink style={{textDecoration:'none', color:'black', fontSize:'16px'}} to="/place">Profile</NavLink></Nav.Link>
                 <Nav.Link><NavLink onClick={handleClick} style={{textDecoration:'none', color:'black'}}><PersonFillSlash style={{fontSize:'23PX'}}/></NavLink></Nav.Link>
                 </>)}
                 </Nav>

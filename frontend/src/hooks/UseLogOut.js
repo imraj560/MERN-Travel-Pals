@@ -1,12 +1,12 @@
 import { UseAuthContext } from "./UseAuthContext";
-import { UseWorkoutsContext } from "./UseWorkoutsContext"; 
+import { UsePlaceContext } from "./UsePlaceContext"; 
 import { useState } from "react";
 import { useCookies } from 'react-cookie';
 
 export const UseLogOut = ()=>{
     const [user, setUser] = useState(null);
     const { dispatch } = UseAuthContext()
-    const { dispatch : workoutsDispatch } = UseWorkoutsContext()
+    const { dispatch : placeDispatch } = UsePlaceContext()
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
     const logout = ()=>{
@@ -28,7 +28,7 @@ export const UseLogOut = ()=>{
         /**dispatch context */
         dispatch({type:'LOGOUT'})
 
-        workoutsDispatch({type: 'SET_WORKOUTS', payload: null})
+        placeDispatch({type: 'SET_PLACE', payload: null})
 
     }
 

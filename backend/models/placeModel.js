@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const workoutSchema = new Schema({
+const placeSchema = new Schema({
 
     title:{
 
@@ -59,5 +59,5 @@ const workoutSchema = new Schema({
     
 }, {timestamps: true})
 
-module.exports = mongoose.model('Workout', workoutSchema);
+module.exports = mongoose.model('Place', placeSchema);
 

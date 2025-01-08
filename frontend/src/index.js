@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { WorkoutsContextProvider } from './context/WorkoutsContext';
+import { PlaceContextProvider } from './context/PlaceContext';
 import { AuthContextProvider } from './context/AuthContext';
 import { CommentsContextProvider } from './context/CommentsContext';
 import { ReplyContextProvider } from './context/ReplyContext';
@@ -17,7 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-       <WorkoutsContextProvider>
+       <PlaceContextProvider>
         <LikesContextProvider>
           <CommentsContextProvider>
             <ReplyContextProvider>
@@ -28,7 +28,7 @@ root.render(
             </ReplyContextProvider>
        </CommentsContextProvider>
        </LikesContextProvider>
-    </WorkoutsContextProvider>
+    </PlaceContextProvider>
     </AuthContextProvider>
    
    

@@ -22,7 +22,7 @@ import { WiDaySunny } from "react-icons/wi";
 import { IoTimerSharp } from "react-icons/io5";
 import { FiType } from "react-icons/fi";
 import { FaCalendarCheck } from "react-icons/fa";
-import './HomeWorkoutCard.css'
+import './HomePlaceCard.css'
 
 
 
@@ -32,7 +32,7 @@ import './HomeWorkoutCard.css'
 
 
 
-const HomeWorkoutCard = ({props})=>{
+const HomePlaceCard = ({props})=>{
 
     const {title, reps, load, image, _id, likes, dislikes, likesCount, dislikesCount} = props;
     const params = useParams();
@@ -67,8 +67,8 @@ const HomeWorkoutCard = ({props})=>{
 
       const apiFetch = async()=>{
 
-         const data = await fetch(`https://mern-exercise-tracker-production.up.railway.app/api/workout/commentlist/${postId}`,{
-         //const data = await fetch(`http://localhost:4000/api/workout/commentlist/${postId}`,{
+         //const data = await fetch(`https://mern-exercise-tracker-production.up.railway.app/api/place/commentlist/${postId}`,{
+         const data = await fetch(`http://localhost:4000/api/workout/commentlist/${postId}`,{
 
            method: 'GET',
            headers: {'Content-Type': 'application/json'},
@@ -142,8 +142,8 @@ const HomeWorkoutCard = ({props})=>{
 
       if(user){
 
-      //const response = await fetch('http://localhost:4000/api/workout/comment', {
-      const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/comment',{   
+      //const response = await fetch('http://localhost:4000/api/place/comment', {
+      const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/comment',{   
 
               method: 'POST',
               body: JSON.stringify({ comment, postId }),
@@ -194,8 +194,8 @@ const HomeWorkoutCard = ({props})=>{
     
     if(user){
 
-        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/deleteComment/'+id, {
-        //const response = await fetch('http://localhost:4000/api/workout/deleteComment/'+id, {
+        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/deleteComment/'+id, {
+        //const response = await fetch('http://localhost:4000/api/place/deleteComment/'+id, {
 
 
                 method: 'DELETE',
@@ -328,8 +328,8 @@ const HomeWorkoutCard = ({props})=>{
                 {/**End of Modal */}    
                   
             <Card id="homeCard" key={props._id} style={{ width: '100%', borderRadius:'0px', borderColor:'#c1bfbf' }}>
-            <Card.Img style={{height:'320px', borderRadius:'0px'}} variant="top" src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+props.image} />
-            {/* <Card.Img style={{height:'320px', borderRadius:'0px'}} variant="top" src={"http://localhost:4000/api/workout/download/"+props.image} /> */}
+            <Card.Img style={{height:'320px', borderRadius:'0px'}} variant="top" src={"https://mern-exercise-tracker-production.up.railway.app/api/place/download/"+props.image} />
+            {/* <Card.Img style={{height:'320px', borderRadius:'0px'}} variant="top" src={"http://localhost:4000/api/place/download/"+props.image} /> */}
             <Card.Body style={{padding:'0px', borderColor:'black'}}>
             <Card.Title id="home_card_title">{props.title}</Card.Title>
             <ListGroup className="list-group-flush" >
@@ -357,4 +357,4 @@ const HomeWorkoutCard = ({props})=>{
     )
 }
 
-export default HomeWorkoutCard;
+export default HomePlaceCard;

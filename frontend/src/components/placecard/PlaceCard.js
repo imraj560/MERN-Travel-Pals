@@ -1,5 +1,5 @@
-import './WorkoutCard.css';
-import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
+
+import { UsePlaceContext } from '../../hooks/UsePlaceContext';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import {toast} from 'react-toastify';
 import { Pencil, XSquare } from 'react-bootstrap-icons';
@@ -11,16 +11,16 @@ import Button from 'react-bootstrap/Button';
 import { Trash2Fill, ExclamationCircle } from 'react-bootstrap-icons';
 import { HandThumbsDown, HandThumbsUp, Chat} from 'react-bootstrap-icons';
 import { FcLike, FcDislike } from "react-icons/fc";
-
 import { useState } from 'react';
+import './PlaceCard.css';
 
 
 
-const WorkoutCard = ({props})=>{
+const PlaceCard = ({props})=>{
 
   const {title, image, _id, likes, dislikes, likesCount, dislikesCount} = props;
 
-    const {dispatch} = UseWorkoutsContext();
+    const {dispatch} = UsePlaceContext();
     const { user } = UseAuthContext()
     const [show, setShow] = useState(false)
 
@@ -32,8 +32,8 @@ const WorkoutCard = ({props})=>{
     /**Remember server requests are an async function */
     const deleteWorkout = async() => {
     
-        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/'+ props._id, {
-        //const response = await fetch('http://localhost:4000/api/workout/'+ props._id, {
+        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/'+ props._id, {
+        //const response = await fetch('http://localhost:4000/api/place/'+ props._id, {
 
 
             method: 'DELETE',
@@ -49,11 +49,11 @@ const WorkoutCard = ({props})=>{
 
         if(response.ok){
 
-                dispatch({type:"DELETE_WORKOUT", payload: json});
+                dispatch({type:"DELETE_PLACE", payload: json});
 
                 setShow(false)
 
-                toast.error('Workout Deleted');
+                toast.error('Place Deleted');
 
         }
 
@@ -83,8 +83,8 @@ const WorkoutCard = ({props})=>{
                 <span style={{marginRight:'10px'}} id='delete' onClick={handleShow}><XSquare size={24}/></span>
                 <span id='edit' ><NavLink style={{textDecoration:'none', color:'white'}} to={'/editform/'+props._id}><Pencil/></NavLink></span>
             </div>
-            <img src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+props.image} />
-            {/* <img src={"http://localhost:4000/api/workout/download/"+props.image} /> */}
+            <img src={"https://mern-exercise-tracker-production.up.railway.app/api/place/download/"+props.image} />
+            {/* <img src={"http://localhost:4000/api/place/download/"+props.image} /> */}
            </div>
            <div id='detail'>
             <p style={{fontSize:'20px', fontWeight:'550'}}>{props.title}</p>
@@ -105,4 +105,4 @@ const WorkoutCard = ({props})=>{
     )
 }
 
-export default WorkoutCard;
+export default PlaceCard;

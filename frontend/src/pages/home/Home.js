@@ -2,7 +2,7 @@ import { useEffect, useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AuthComponent } from '../../components/AuthComponent';
-import HomeWorkoutCard from '../../components/homecards/HomeWorkoutCard';
+import HomePlaceCard from '../../components/homecards/HomePlaceCard';
 import './Home.css';
 import { Container, Row, Col, Card, Image, Footers } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -12,8 +12,8 @@ import CalendarImage from '../../../src/assets/images/calendar.png'
 import User2 from '../../../src/assets/images/user2.jpeg'
 import User1 from '../../../src/assets/images/user1.jpeg'
 import User3 from '../../../src/assets/images/user3.jpg'
-import { UseWorkoutsContext } from '../../hooks/UseWorkoutsContext';
-import { WorkoutsContext } from '../../context/WorkoutsContext';
+import { UsePlaceContext } from '../../hooks/UsePlaceContext';
+import { PlaceContext } from '../../context/PlaceContext';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
 import { toast } from 'react-toastify';
 import {APIProvider, Map, MapCameraChangedEvent, Marker, APILoadingStatus} from '@vis.gl/react-google-maps';
@@ -21,6 +21,8 @@ import { FaBusinessTime, FaSmileBeam } from "react-icons/fa";
 import { FaMountainSun } from "react-icons/fa6";
 import { GiTreeBranch } from "react-icons/gi";
 import { IoIosWater } from "react-icons/io";
+import { FaCalendar } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 import imageOne from '../../../src/assets/images/imageOne.jpg'
 import imageTwo from '../../assets/images/imageTwo.jpg'
 import imageThree from '../../assets/images/imageThree.jpg'
@@ -43,7 +45,7 @@ const Home = ()=>{
     const [cal, setCal] = useState([]);
     const [weight, setWeight] = useState([]);
     const [loader, setLoader] = useState(true);
-    const {workouts, dispatch} = UseWorkoutsContext();
+    const {place, dispatch} = UsePlaceContext();
     const {user, dispatch:authDispatch} = UseAuthContext();
 
     
@@ -58,8 +60,8 @@ const Home = ()=>{
 
             let fetchGoogle = async()=>{
 
-            let data = await fetch("https://mern-exercise-tracker-production.up.railway.app/auth/protected", {
-            //let data = await fetch("http://localhost:4000/auth/protected", {
+            //let data = await fetch("https://mern-exercise-tracker-production.up.railway.app/auth/protected", {
+            let data = await fetch("http://localhost:4000/auth/protected", {
 
                 credentials: "include",
               })
@@ -89,14 +91,14 @@ const Home = ()=>{
     }, [])
 
 
-
+    /**Fetch all Places */
     useEffect(()=>{
 
 
         const fetchApiData = async()=>{
 
-               const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/home',{
-               //const data = await fetch('http://localhost:4000/api/workout/home',{
+               const data = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/home',{
+               //const data = await fetch('http://localhost:4000/api/place/home',{
 
                 method: 'GET',
 
@@ -111,7 +113,7 @@ const Home = ()=>{
 
             }).then((data)=>{
                
-                dispatch({type: 'SET_WORKOUTS', payload: data})
+                dispatch({type: 'SET_PLACE', payload: data})
                 setLoader(false)
                
 
@@ -129,18 +131,18 @@ const Home = ()=>{
 
     }, [])
 
+    /**Fetch google map markers */
+
     useEffect(()=>{
 
-        if(workouts !== null){
+        if(place !== null){
 
-            setRecdata(workouts.slice(0,12))
-            setMapdata(workouts);
+            setRecdata(place.slice(0,12))
+            setMapdata(place);
           
-        }
-
-        
+        } 
       
-       },[workouts])
+       },[place])
 
        
        
@@ -241,7 +243,7 @@ const Home = ()=>{
            
                            return (
                            
-                               <HomeWorkoutCard key={singleWorkout._id} props={singleWorkout} />
+                               <HomePlaceCard key={singleWorkout._id} props={singleWorkout} />
                            )
                        })            
                                    
@@ -360,6 +362,8 @@ const Home = ()=>{
                     <Card.Text>
                     Some quick example text to build on the card title and make up the
                     bulk of the card's content.
+                    <p style={{marginTop:'10px'}}><FaCalendar/>: 22/4/2024</p>
+                    <p><FaLocationDot/>: Dhaka, Bangladesh</p>
                     </Card.Text>
                    
                 </Card.Body>
@@ -375,6 +379,8 @@ const Home = ()=>{
                     <Card.Title style={{fontFamily:"Poppins", fontWeight:"600", fontSize:'30PX'}}>Turkey</Card.Title>
                     <Card.Text>
                     Turkey was home to several ancient places & civilizations, including the Hittitess
+                    <p style={{marginTop:'10px'}}><FaCalendar/>: 20/1/2020</p>
+                    <p><FaLocationDot/>: Istanbul, Turkey</p>
                     </Card.Text>
                    
                 </Card.Body>
@@ -390,6 +396,8 @@ const Home = ()=>{
                     <Card.Title style={{fontFamily:"Poppins", fontWeight:"600", fontSize:'30PX'}}>Scotland</Card.Title>
                     <Card.Text>
                     Glasgow stands out as a cultural and musical hub for the whole world
+                    <p style={{marginTop:'10px'}}><FaCalendar/>: 6/7/2024</p>
+                    <p><FaLocationDot/>: Glasgow, Scotland</p>
                     </Card.Text>
                    
                 </Card.Body>
