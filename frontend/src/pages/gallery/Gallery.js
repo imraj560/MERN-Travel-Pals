@@ -110,7 +110,7 @@ const Gallery = ()=>{
         setVisibleComponentId(id)
 
         setDload(true)
-        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/gallery'+ id, {
+        const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/gallery/'+ id, {
         //const response = await fetch('http://localhost:4000/api/place/gallery/'+ id, {
     
     
