@@ -690,7 +690,7 @@ const locationList = async(req, res)=>{
 }
 
 
-/**Delete a workout */
+/**Delete a place */
 const deletePlace = async(req, res)=>{
 
     const {id} = req.params;
@@ -703,6 +703,7 @@ const deletePlace = async(req, res)=>{
     const {image} = await Place.findOne({_id: id}).select('image');
    
     const place = await Place.findOneAndDelete({_id: id});
+    const gallery = await Gallery.deleteMany({place_id: id});
     
 
     if(!place){

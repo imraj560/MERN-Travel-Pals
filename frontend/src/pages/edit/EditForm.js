@@ -59,6 +59,7 @@ const EditForm = ()=>{
                 setWdate(fdate);
                 setWtime(data.wtime);
                 setWtype(data.wtype);
+                setDescription(data.description);
                 setLocation(data.location_lng + ' : '+ data.location_lat);
                 setLocation_lat(data.location_lat)
                 setLocation_lng(data.location_lng)
