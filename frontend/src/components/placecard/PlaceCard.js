@@ -11,6 +11,8 @@ import Button from 'react-bootstrap/Button';
 import { Trash2Fill, ExclamationCircle } from 'react-bootstrap-icons';
 import { HandThumbsDown, HandThumbsUp, Chat} from 'react-bootstrap-icons';
 import { FcLike, FcDislike } from "react-icons/fc";
+import { RiGalleryView2 } from "react-icons/ri";
+
 import { useState } from 'react';
 import './PlaceCard.css';
 
@@ -82,16 +84,17 @@ const PlaceCard = ({props})=>{
             <div id='action_buttons'>
                 <span style={{marginRight:'10px'}} id='delete' onClick={handleShow}><XSquare size={24}/></span>
                 <span id='edit' ><NavLink style={{textDecoration:'none', color:'white'}} to={'/editform/'+props._id}><Pencil/></NavLink></span>
+                <span style={{marginLeft:'10PX'}} id='edit' ><NavLink style={{textDecoration:'none', color:'white'}} to={'/editgallery/'+props._id}><RiGalleryView2/></NavLink></span>
             </div>
             <img src={"https://mern-exercise-tracker-production.up.railway.app/api/place/download/"+props.image} />
             {/* <img src={"http://localhost:4000/api/place/download/"+props.image} /> */}
            </div>
            <div id='detail'>
-            <p style={{fontSize:'20px', fontWeight:'550'}}>{props.title}</p>
-            <p>Day : {format(props.wdate, 'MMM dd, yyyy')}</p>
-            <p>Type : {props.wtype}</p>
-            <p>
-            <FcLike size={22} style={{marginRight:'5px'}} color='#a2a6a2'/>{props.dislikesCount}
+            <p style={{fontSize:'20px', fontWeight:'550', marginBottom:'30PX'}}>{props.title}</p>
+            <p style={{marginBottom:'30px'}}>Day : {format(props.wdate, 'MMM dd, yyyy')}</p>
+            <p  style={{marginBottom:'30px'}}>Type : {props.wtype}</p>
+            <p  style={{marginBottom:'30px'}}>
+            <FcLike size={22} style={{marginRight:'10px'}} color='#a2a6a2'/>{props.dislikesCount}
             <FcDislike style={{ marginLeft:'18px'}} size={22} color='green'/>{props.likesCount}
             <Chat style={{marginLeft:'18px'}} size={22} color='gray'/> 3
             </p>

@@ -1,4 +1,5 @@
 const Place = require('../models/placeModel');
+const Gallery = require('../models/galleryModel')
 const Comment = require('../models/commentModel')
 const User = require('../models/userModel')
 const Reply = require('../models/replyModel')
@@ -6,6 +7,7 @@ const mongoose = require('mongoose');
 const fs = require('fs')
 const path = require('path');
 const { error } = require('console');
+const nodemailer = require('nodemailer');
 
 
 
@@ -27,6 +29,7 @@ const homePlace = async(req, res) => {
             user_id:1,
             location_lat:1,
             location_lng:1,
+            description:1,
             // If 'friends' doesn't exist, treat it as an empty array
             likesCount: { $size: { $ifNull: ["$likes", []] } },
             dislikesCount: { $size: { $ifNull: ["$dislikes", []] } },
@@ -47,6 +50,122 @@ const homePlace = async(req, res) => {
    
 }
 
+/**Contact Traveller */
+const mailOwner = async(req, res) => {
+
+    const {subject, message, email, owner} = req.body;
+
+    const id = new mongoose.Types.ObjectId(owner);
+
+    const ownerEmail = await User.findOne({_id:id}).select('email');
+
+      const transporter = nodemailer.createTransport({
+    
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+    
+            auth:{
+    
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            }
+        })
+    
+        const mailOptions = {
+    
+            from: email,
+            to: ownerEmail,
+            subject: subject,
+            text:message
+        }
+
+        try{
+
+             const sendMail = await transporter.sendMail(mailOptions);
+
+             if(sendMail){
+
+                res.status(200).json({'message':'Message Sent to Traveller'})
+             }
+        }catch(error){
+
+            res.status(400).json({'message':'Email Non-Existent'})
+        }
+    
+       
+
+
+}
+
+
+
+/**Add a single Gallery image */
+const galleryImage = async(req, res)=>{
+
+    const image = req.file.filename;
+    const place_id = req.params.id;
+    const user_id = req.user._id
+
+
+    try{
+
+        const gallery = await Gallery.create({place_id, image, user_id});
+        res.status(200).json({'message':'Image Added', gallery});
+
+   }catch(error){
+
+       res.status(400).json({error:error.message});
+
+       console.log(error.message)
+   }
+    
+
+}
+
+/**Fetch Gallery Image */
+
+const fetchGallery = async(req, res)=>{
+
+    const place_id = req.params.id;
+
+    console.log("Your place id:", place_id)
+
+    try{
+
+        const gallery = await Gallery.find({place_id:place_id})
+
+        res.status(200).json(gallery)
+
+    }catch(error){
+
+        res.status(400).json(error);
+    }
+
+    
+}
+
+/**Delete Gallery Image */
+const deleteGallery = async(req, res)=>{
+
+    const place_id = req.params.id;
+
+    try{
+
+        const gallery = await Gallery.findOneAndDelete({_id:place_id})
+
+        if(gallery){
+
+            res.status(200).json(gallery)
+        }
+
+    }catch(error){
+
+        res.status(400).json(error)
+
+    }
+}
+
 
 
 /**Add a single place */
@@ -57,13 +176,13 @@ const newPlace = async(req, res) => {
 
    const user_id = req.user._id
 
-   const {title, wdate, wtype, location_lat, location_lng} = req.body;
+   const {title, wdate, wtype, location_lat, location_lng, description} = req.body;
 
    
 
     try{
 
-         const place = await Place.create({title, wdate, wtype, image, user_id, location_lat, location_lng});
+         const place = await Place.create({title, wdate, wtype, image, user_id, location_lat, location_lng, description});
          res.status(200).json(place);
 
     }catch(error){
@@ -217,6 +336,7 @@ const getReply =  async(req, res)=>{
    
 }
 
+/**Delete reply */
 const destroyReply = async(req, res)=>{
 
     const {id} = req.params;//ReplyId
@@ -349,6 +469,8 @@ const dislikePost = async(req, res) => {
    
 }
 
+/**Get total reaction */
+
 const totalReactions = async(req, res)=>{
 
    const user_id = await req.user._id;
@@ -418,16 +540,57 @@ const totalTypes = async(req, res)=>{
 
             res.status(200).json({arrayData})
             console.log(arrayData)
-            
         
-
-    
-
   
     
 }
 
 
+/**Place view by id */
+const viewplace = async(req, res)=>{
+
+   const {id} = req.params;
+   const objectId = new mongoose.Types.ObjectId(id);
+
+   console.log('paramsid',id)
+
+   await Place.aggregate([
+
+    {
+        $match: { _id: objectId }
+    },
+       
+    {
+      $project: {
+        _id: 1,
+        title: 1,
+        wdate:1,
+        wtype:1,
+        image:1,
+        likes:1,
+        dislikes:1,
+        user_id:1,
+        location_lat:1,
+        location_lng:1,
+        description:1,
+        likesCount: { $size: { $ifNull: ["$likes", []] } },
+        dislikesCount: { $size: { $ifNull: ["$dislikes", []] } },
+
+      }
+    }
+  ])
+    .then(results => {
+        
+        res.status(200).json(results);
+        //console.log('Your ressults',results)
+
+    })
+    .catch(err => {
+      console.error(err);
+    });
+
+
+}
 
 
 /**All places by user */
@@ -442,7 +605,6 @@ const userPlace = async(req, res) => {
           $project: {
             _id: 1,
             title: 1,
-            wtime:1,
             wdate:1,
             wtype:1,
             image:1,
@@ -451,6 +613,7 @@ const userPlace = async(req, res) => {
             user_id:1,
             location_lat:1,
             location_lng:1,
+            description:1,
             likesCount: { $size: { $ifNull: ["$likes", []] } },
             dislikesCount: { $size: { $ifNull: ["$dislikes", []] } },
 
@@ -476,7 +639,7 @@ const userPlace = async(req, res) => {
 
 
 
-/**Grab single place */
+/**Grab single place for Edit */
 const findPlace = async(req, res)=>{
 
     const {id} = req.params;
@@ -574,12 +737,12 @@ const updatePlace = async(req, res)=>{
         res.status(404).error({error: "Invalid mongoose Id"});
     }
 
-    const {title, wdate, wtype, oldimage, location_lat, location_lng} = req.body
+    const {title, wdate, wtype, oldimage, location_lat, location_lng, description} = req.body
 
     //if there is no new image file for edit
     if(!req.file){
 
-        const place = await Place.findOneAndUpdate({_id: id}, {title, wdate, wtype, location_lat, location_lng});
+        const place = await Place.findOneAndUpdate({_id: id}, {title, wdate, wtype, location_lat, location_lng, description});
 
         if(!place){
 
@@ -661,5 +824,10 @@ module.exports = {
     getReply,
     destroyReply,
     totalTypes,
-    locationList
+    locationList,
+    viewplace,
+    galleryImage,
+    fetchGallery,
+    deleteGallery,
+    mailOwner
 }

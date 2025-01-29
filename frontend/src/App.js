@@ -5,6 +5,8 @@ import { Login } from './pages/login/Login';
 import Place from './pages/place/Place';
 import Add from './pages/place/Add';
 import EditForm from './pages/edit/EditForm';
+import PlaceView from './pages/view/PlaceView';
+import Gallery from './pages/gallery/Gallery';
 import { Signup } from './pages/singup/Signup';
 import { UseAuthContext } from './hooks/UseAuthContext';
 import { Navigate } from 'react-router-dom';
@@ -26,11 +28,14 @@ function App() {
         <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/find' element={<Find/>} />
+            <Route path='/view/:id' element={<PlaceView/>} />
             <Route path='/signup' element={user ? <Navigate to='/' />  : <Signup/>} />
             <Route path='/login' element={user ? <Navigate to='/' />  : <Login/>} />  
             <Route path='/place' element={user ? <Place/> : <Navigate to='/login' />} />
             <Route path='/add' element={user ? <Add/> : <Navigate to='/login' />} />
             <Route path='/editform/:id' element={user ? <EditForm/> : <Navigate to='/login' />} />
+            <Route path='/editgallery/:id' element={<Gallery/>} />
+            
         </Routes>
       </BrowserRouter>
    </>

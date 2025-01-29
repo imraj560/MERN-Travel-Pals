@@ -1,0 +1,32 @@
+#profile_gallery_title{
+
+    margin-top: 40px;
+}
+
+
+#profile_gallery_title > h2{
+
+    font-weight: 600;
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+#profile_gallery{
+
+    margin-top: 60px;
+}
+
+#image_col{
+
+    position:relative;
+}
+
+#action_div{
+
+    position: absolute;
+    right: 10px;
+    top:10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+

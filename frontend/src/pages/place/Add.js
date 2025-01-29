@@ -20,6 +20,7 @@ const Add = ()=>{
     const [wdate, setWdate] = useState('');
     const [wtype, setWtype] = useState('');
     const [location, setLocation] = useState('');
+    const [description, setDescription] = useState('');
     const [location_lng, setLocation_lng] = useState('');
     const [location_lat, setLocation_lat] = useState('')
     const [error, setError] = useState(null);
@@ -45,6 +46,7 @@ const Add = ()=>{
         formData.append('file',file)
         formData.append('wdate',wdate)
         formData.append('wtype',wtype)
+        formData.append('description',description)
         // formData.append('location',location)
         formData.append('location_lat',location_lat)
         formData.append('location_lng',location_lng)
@@ -158,7 +160,7 @@ const Add = ()=>{
                             <Col  md={12} lg={6}>
                                 <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Location Image</Form.Label>
-                                <Form.Control required type="file"  name="file"  onChange={(e)=> setFile(e.target.files[0])} />
+                                <Form.Control required type="file"  name="file" multiple onChange={(e)=> setFile(e.target.files[0])} />
                                 </Form.Group>
                             </Col>
                             <Col  md={12} lg={6}>
@@ -184,6 +186,16 @@ const Add = ()=>{
                             
                            
                     
+                        </Row>
+
+                        <Row>
+                            <Col  md={12} lg={12}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control required value={description} name="description" type='text' onChange={(e)=> setDescription(e.target.value)} />
+                                </Form.Group>
+                            </Col>
+                           
                         </Row>
                        
 

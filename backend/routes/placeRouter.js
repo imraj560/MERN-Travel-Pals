@@ -1,5 +1,5 @@
 const express = require('express');
-const {locationList, totalTypes, destroyReply, getReply, newPlace, userPlace, findPlace, deletePlace, updatePlace, homePlace, downloadImage, likePost, dislikePost, totalReactions, postComment, getComment, destroyComment, replyComment} = require('../controllers/placeController');
+const {mailOwner, deleteGallery,fetchGallery, galleryImage, viewplace, locationList, totalTypes, destroyReply, getReply, newPlace, userPlace, findPlace, deletePlace, updatePlace, homePlace, downloadImage, likePost, dislikePost, totalReactions, postComment, getComment, destroyComment, replyComment} = require('../controllers/placeController');
 const requireAuth = require('../middleware/requireAuth')
 const multer = require('multer')
 const router = express.Router();
@@ -25,6 +25,10 @@ router.get('/download/:filename', downloadImage)
 router.get('/commentlist/:id', getComment)
 router.get('/replylist/:id', getReply)
 router.get('/location',locationList)
+router.get('/view/:id',viewplace)
+//Get Gallery Image
+router.get('/gallery/:id', fetchGallery);
+router.post('/contact', mailOwner);
 
 
 
@@ -73,7 +77,14 @@ router.delete('/:id', deletePlace);
 //UPDATE/PATCH a workout
 router.patch('/:id', upload.single('file'), updatePlace);
 
-//grabing server image
+//Add gallery image
+router.post('/gallery/:id', upload.single('file'), galleryImage);
+
+
+
+//Delete gallery image
+router.delete('/gallery/:id', deleteGallery);
+
 
 
 

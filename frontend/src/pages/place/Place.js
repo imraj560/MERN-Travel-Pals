@@ -34,7 +34,7 @@ const Place = ()=>{
     const { user } = UseAuthContext()
 
 
-    /**Get plse data */
+    /**Get place data */
     useEffect(()=>{
 
         const fetchApiData = async()=>{
@@ -222,7 +222,7 @@ const Place = ()=>{
                     </Button> 
                 
                      <Button variant="default" style={{width:"50%", borderRadius:"0px"}}>
-                    <FcDislike style={{fontSize:'20px'}} /> {loader && (<Spinner size='sm' animation="border" variant="warning" />)} {likes}
+                    <FcLike style={{fontSize:'20px'}} /> {loader && (<Spinner size='sm' animation="border" variant="warning" />)} {likes}
                     <span className="visually-hidden">unread messages</span>
                  </Button>
 
@@ -243,9 +243,11 @@ const Place = ()=>{
                     className="mb-3"
                     fill
                     >
+                  
                     <Tab eventKey="home" title="Main">
 
                           <h2 style={{marginTop:"20px", fontWeight:"600", fontSize:"25PX", marginBottom:"30px"}}>Filter</h2>   
+                          
                         <Form className='m-0 p-0'>
                             <Form.Group controlId="exampleForm.ControlInput1" className='w-100'>
                                 <Form.Control className='rounded m-0 w-100' type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
@@ -278,6 +280,7 @@ const Place = ()=>{
                             </div>
                 
                         </Form>
+                        {loader && (<Spinner size="sm" animation='grow' />)}
 
                         {!loader && <Row id="profileDisplay" className='w-100'>
                             
@@ -294,7 +297,7 @@ const Place = ()=>{
                                 })
                             }
 
-                         </Row>}
+                         </Row>}  
                        
                     </Tab>
 
@@ -313,7 +316,7 @@ const Place = ()=>{
                     <Map
                     style={{width: '100%', height: '50vh'}}
                     defaultCenter={{lat: 45.48556, lng: -73.62780}}
-                    defaultZoom={12}
+                    defaultZoom={5}
                     gestureHandling={'greedy'}
                     disableDefaultUI={true}
                     >
