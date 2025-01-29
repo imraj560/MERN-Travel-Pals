@@ -3,21 +3,15 @@ import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AuthComponent } from '../../components/AuthComponent';
 import HomePlaceCard from '../../components/homecards/HomePlaceCard';
-import './Home.css';
-import { Container, Row, Col, Card, Image, Footers } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image, } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
-import { Alarm, PeopleFill, PersonArmsUp, PersonCircle, GeoAltFill, TelephoneFill, Facebook, Instagram, Git } from 'react-bootstrap-icons';
-import CalendarImage from '../../../src/assets/images/calendar.png'
 import User2 from '../../../src/assets/images/user2.jpeg'
 import User1 from '../../../src/assets/images/user1.jpeg'
 import User3 from '../../../src/assets/images/user3.jpg'
 import { UsePlaceContext } from '../../hooks/UsePlaceContext';
-import { PlaceContext } from '../../context/PlaceContext';
 import { UseAuthContext } from '../../hooks/UseAuthContext';
-import { toast } from 'react-toastify';
 import {APIProvider, Map, MapCameraChangedEvent, Marker, APILoadingStatus} from '@vis.gl/react-google-maps';
-import { FaBusinessTime, FaSmileBeam } from "react-icons/fa";
 import { FaMountainSun } from "react-icons/fa6";
 import { GiTreeBranch } from "react-icons/gi";
 import { IoIosWater } from "react-icons/io";
@@ -29,10 +23,7 @@ import imageThree from '../../assets/images/imageThree.jpg'
 import bangladesh from '../../assets/images/bangladesh.jpg'
 import turkey from '../../assets/images/turkey.jpg'
 import scotland from '../../assets/images/scotland.jpg'
-
-
-
-
+import './Home.css';
 
 
 
@@ -278,7 +269,7 @@ const Home = ()=>{
             <Map
                 style={{width: '100%', height: '50vh'}}
                 defaultCenter={{lat: 45.48556, lng: -73.62780}}
-                defaultZoom={10}
+                defaultZoom={5}
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}
             >

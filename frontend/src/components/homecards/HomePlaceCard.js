@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card'
 import { Col } from 'react-bootstrap'
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -23,13 +23,6 @@ import { IoTimerSharp } from "react-icons/io5";
 import { FiType } from "react-icons/fi";
 import { FaCalendarCheck } from "react-icons/fa";
 import './HomePlaceCard.css'
-
-
-
-
-
-
-
 
 
 const HomePlaceCard = ({props})=>{
@@ -67,8 +60,8 @@ const HomePlaceCard = ({props})=>{
 
       const apiFetch = async()=>{
 
-         //const data = await fetch(`https://mern-exercise-tracker-production.up.railway.app/api/place/commentlist/${postId}`,{
-         const data = await fetch(`http://localhost:4000/api/workout/commentlist/${postId}`,{
+         const data = await fetch(`https://mern-exercise-tracker-production.up.railway.app/api/place/commentlist/${postId}`,{
+         //const data = await fetch(`http://localhost:4000/api/workout/commentlist/${postId}`,{
 
            method: 'GET',
            headers: {'Content-Type': 'application/json'},
@@ -180,8 +173,6 @@ const HomePlaceCard = ({props})=>{
       }
 
      
-
-      
       
      
    }
@@ -328,13 +319,13 @@ const HomePlaceCard = ({props})=>{
                 {/**End of Modal */}    
                   
             <Card id="homeCard" key={props._id} style={{ width: '100%', borderRadius:'0px', borderColor:'#c1bfbf' }}>
-            <Card.Img style={{height:'320px', borderRadius:'0px'}} variant="top" src={"https://mern-exercise-tracker-production.up.railway.app/api/place/download/"+props.image} />
+            <NavLink to={'/view/'+props._id}><Card.Img style={{height:'320px', borderRadius:'0px'}} variant="top" src={"https://mern-exercise-tracker-production.up.railway.app/api/place/download/"+props.image} /></NavLink>
             {/* <Card.Img style={{height:'320px', borderRadius:'0px'}} variant="top" src={"http://localhost:4000/api/place/download/"+props.image} /> */}
             <Card.Body style={{padding:'0px', borderColor:'black'}}>
             <Card.Title id="home_card_title">{props.title}</Card.Title>
             <ListGroup className="list-group-flush" >
-                <ListGroup.Item style={{border:"none", fontSize:'15PX'}}><FaCalendarCheck/>: {format(props.wdate, 'yyyy-dd-MM')}</ListGroup.Item>
-                <ListGroup.Item style={{border:"none", fontSize:'15PX'}}><FiType/>: {props.wtype}</ListGroup.Item>
+                <ListGroup.Item style={{border:"none", fontSize:'15PX', marginBottom:'10px'}}><FaCalendarCheck/>: {format(props.wdate, 'yyyy-dd-MM')}</ListGroup.Item>
+                <ListGroup.Item style={{border:"none", fontSize:'15PX', marginBottom:'10px'}}><FiType/>: {props.wtype}</ListGroup.Item>
                 <ListGroup.Item style={{background:'white', color:'black', padding:'12px'}}>
                     <FcLike id="likeIcon" onClick={handleLike} style={{cursor:'pointer', background:'white'}} size={22} color='#159996'/>{props.likesCount}
                     <FcDislike id="dislikeIcon" onClick={handleDislike} size={22} style={{cursor:'pointer', marginLeft:'23px'}} color='#a2a6a2'/>{props.dislikesCount}

@@ -22,6 +22,7 @@ const EditForm = ()=>{
     const [location, setLocation] = useState('');
     const [location_lng, setLocation_lng] = useState('');
     const [location_lat, setLocation_lat] = useState('')
+    const [description, setDescription] = useState('');
     const[file, setFile] = useState(null)
     const[oldImage, setOldImage] = useState('')
     const [error, setError] = useState(null);
@@ -74,8 +75,7 @@ const EditForm = ()=>{
         }
 
            
-        
-
+    
         
 
     },[])
@@ -100,6 +100,7 @@ const EditForm = ()=>{
         formData.append('wtype',wtype)
         formData.append('location_lat',location_lat)
         formData.append('location_lng',location_lng)
+        formData.append('description',description)
         // formData.append('location',location)
         formData.append('file',file)
         formData.append('oldimage',oldImage)
@@ -238,6 +239,16 @@ const EditForm = ()=>{
                             
                                 
                         </Col>
+                        </Row>
+
+                        <Row>
+                            <Col  md={12} lg={12}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control required value={description} name="description" type='text' onChange={(e)=> setDescription(e.target.value)} />
+                                </Form.Group>
+                            </Col>
+                            
                         </Row>
                             
                        

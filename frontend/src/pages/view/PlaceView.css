@@ -1,0 +1,69 @@
+#placeViewMap{
+
+    margin-top:20px;
+}
+
+#placeViewMap > h2{
+
+    font-family:'Poppins';
+    font-weight: 600;
+    font-size: 40px;
+}
+
+#about {
+
+    /* padding:0px 50px */
+    margin-top: 70px;
+}
+
+#about_title{
+
+    font-weight: 600;
+    font-size: 35px;
+    text-align: left;
+    
+}
+
+#about > p{
+
+    text-align: center;
+    margin-top: 30px;
+}
+
+#description{
+
+    line-height: 29px;
+}
+
+#contact_traveller{
+
+    font-weight: 600;
+    font-size: 35px;
+    margin: 39px 0px;
+}
+
+#view_image:hover{
+
+    transform: translateY(-20px) scale(1.08);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#about_col{
+
+    padding-right: 20px;
+}
+
+
+@media only screen and (max-width: 850px) {
+
+    #about_col{
+
+        padding-right: 0px;
+    }
+
+}
+
+
+

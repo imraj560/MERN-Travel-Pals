@@ -204,7 +204,7 @@ const Find = ()=>{
                     <Map
                     style={{width: '100%', height: '50vh'}}
                     defaultCenter={{lat: 45.48556, lng: -73.62780}}
-                    defaultZoom={12}
+                    defaultZoom={5}
                     gestureHandling={'greedy'}
                     disableDefaultUI={true}
                     >
