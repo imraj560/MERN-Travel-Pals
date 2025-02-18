@@ -2,7 +2,7 @@ import './PlaceView.css';
 import { useState, useEffect, useRef } from 'react';
 import { AuthComponent } from '../../components/AuthComponent';
 import { UsePlaceContext } from '../../hooks/UsePlaceContext';
-import { Container, Row, Button, Col, Image, Form} from 'react-bootstrap';
+import { Container, Row, Button, Col, Image, Form, Card} from 'react-bootstrap';
 import {APIProvider, Map, MapCameraChangedEvent, Marker} from '@vis.gl/react-google-maps';
 import { FcLike, FcDislike } from "react-icons/fc";
 import { format, set } from 'date-fns';
@@ -117,6 +117,24 @@ const PlaceView = ()=>{
         
     }
 
+    const mapStyles = [
+        {
+          "featureType": "water",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#a1a1a1" }]
+        },
+        {
+          "featureType": "landscape",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#f2f2f2" }]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#ffffff" }]
+        }
+      ]
+
     return (
 
         <AuthComponent>
@@ -127,8 +145,9 @@ const PlaceView = ()=>{
                     <p>Below are some Details</p>
                     <Map
                         style={{width: '100%', height: '50vh'}}
-                        defaultCenter={{lat: 45.48556, lng: -73.62780}}
-                        defaultZoom={5}
+                        defaultCenter={{lat: 34.04126115291605, lng: -39.35729627839302}}
+                        options={{ styles: mapStyles }}
+                        defaultZoom={2}
                         gestureHandling={'greedy'}
                         disableDefaultUI={true}
                         > 
@@ -153,14 +172,17 @@ const PlaceView = ()=>{
                 </Row>
 
                 <Row id="about">
+
+
+
                     <Col md={5} id="about_col">
 
                         <h2 id='about_title'>About Place</h2>
-                        <p>Something about the place</p>
+                        <p id="about_para">Something about the place</p>
                         {filteredData.map((singleData)=>{
 
                             return (
-                                <>
+                                <div id="about_description">
                             
                                     <p id="place_title" style={{fontWeight:'600'}}>{singleData.title}</p>
                                     <p id="description"><FcLike style={{fontSize:'20PX'}}/> {singleData.likesCount} <FcDislike style={{marginLeft:'20PX',fontSize:"20PX"}}/> {singleData.dislikesCount}</p>
@@ -170,17 +192,17 @@ const PlaceView = ()=>{
                                     
                                     
                                     
-                                </>  
+                                </div>  
                                 
                             )
                             })}
 
-                        <h2 id="contact_traveller">Contact</h2>
+                        <h2 id="contact_traveller">Contact Visitor</h2>
 
-                        <Form style={{padding:"0px"}} onSubmit={handleSubmit}>
+                        <Form id="travel_form" onSubmit={handleSubmit}>
 
-                        <Row>
-                            <Col md={6}>
+                        <Row className='m-0'>
+                            <Col md={6} className='p-0 p-md-1'>
 
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label style={{marginLeft:'0px'}}>Email</Form.Label>
@@ -192,7 +214,7 @@ const PlaceView = ()=>{
 
                             </Col>
 
-                            <Col md={6}>
+                            <Col md={6} className='p-0 p-md-1'>
 
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label style={{marginLeft:'0px'}}>Subject</Form.Label>
@@ -201,27 +223,43 @@ const PlaceView = ()=>{
                             What do you want to ask about?
                             </Form.Text>
                             </Form.Group>
+                            
                             </Col>
                         </Row>    
 
                       
 
-                      
+                        <Row className='m-0'>
 
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Group className="mb-3 p-0" controlId="formBasicPassword">
                             <Form.Label style={{marginLeft:'0px'}}>Message</Form.Label>
                             <Form.Control required type="text" ref={messageRef} name="message" onChange={(e)=>setMessage(e.target.value)} placeholder="mention your message" />
                         </Form.Group>
-                        <Button variant="primary" type="submit" style={{background:"black", color:'white', width:'100%'}}>
+                        
+                        <Button variant="primary" type="submit" style={{background:"black", color:'white'}}>
                         {!load && ('Send Message')}{load && (<Spinner size="sm" variant='warning' animation="border" style={{marginTop:'4px'}} />)}
                         </Button>
+                            
+                        </Row>    
+
+                       
                         </Form>
+
+
+
+
                         
 
                     </Col>
 
+
+                    
+
                     <Col md={7}>
+
+                    
                         <Row id="image_gallery">
+                         <h2>Gallery Images</h2>   
 
 
                         { 
@@ -231,7 +269,8 @@ const PlaceView = ()=>{
                                     return (
                                         
                                         <Col id="image_col" style={{padding:'2px', height:"400px"}} md={12} lg={6} sm={12}>
-                                        <Image id="view_image"  height='100%' width="100%" src={"http://localhost:4000/api/place/download/"+single_image.image} />
+                                        {/* <Image id="view_image"  height='100%' width="100%" src={"http://localhost:4000/api/place/download/"+single_image.image} /> */}
+                                        <Image id="view_image" rounded height='100%' width="100%" src={"https://mern-exercise-tracker-production.up.railway.app/api/place/download/"+single_image.image} />
                                         </Col>
                                     )
                                 })) : (<p style={{fontSize:'20PX', borderRadius:'5px', padding:'10px'}}>! Traveller has not added any image to Gallery</p>)

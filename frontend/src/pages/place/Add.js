@@ -89,6 +89,24 @@ const Add = ()=>{
 
     }
 
+    const mapStyles = [
+        {
+          "featureType": "water",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#a1a1a1" }]
+        },
+        {
+          "featureType": "landscape",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#f2f2f2" }]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#ffffff" }]
+        }
+      ]
+
 
 
     return (
@@ -110,8 +128,9 @@ const Add = ()=>{
 
                     <Map
                     style={{width: '100%', height: '50vh'}}
-                    defaultCenter={{lat: 45.48556, lng: -73.62780}}
-                    defaultZoom={10}
+                    defaultCenter={{lat: 34.04126115291605, lng: -39.35729627839302}}
+                    options={{ styles: mapStyles }}
+                    defaultZoom={2}
                     onClick={(e)=> {
                         
                         setLocation(JSON.stringify(e.detail.latLng))

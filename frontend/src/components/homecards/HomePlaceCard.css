@@ -17,14 +17,14 @@
 
 #likeIcon:hover{
 
-    transform: translateY(-10px) scale(1.05) rotate(360deg);
+    transform: translateY(-10px) scale(1.05);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     transition: 0.3s;
 }
 
 #dislikeIcon:hover{
 
-    transform: translateY(-10px) scale(1.05) rotate(360deg);
+    transform: translateY(-10px) scale(1.05);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     transition: 0.3s;
 }
@@ -67,6 +67,16 @@
     width: 100%;
 }
 
+#home_card_date{
+
+    font-weight: 500;
+    font-size: 13px;
+    color: gray;
+    margin-top: 10px;
+    margin-right: 10px;
+
+}
+
 
 
 #detail{
@@ -74,3 +84,19 @@
     padding: 20px;
     line-height: 30px;
 }
+
+@media only screen and (max-width: 1200px) {
+
+    #home_card_title{
+
+        font-size: 15px;
+    }
+
+    #home_card_date{
+
+        font-size: 10px;
+    }
+
+}
+
+

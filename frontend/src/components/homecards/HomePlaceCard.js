@@ -27,7 +27,7 @@ import './HomePlaceCard.css'
 
 const HomePlaceCard = ({props})=>{
 
-    const {title, reps, load, image, _id, likes, dislikes, likesCount, dislikesCount} = props;
+    const {title, reps, load, image, _id, likes, dislikes, description, likesCount, dislikesCount} = props;
     const params = useParams();
     const {like, error, loading} = useLike();
     const {dislike, errorr, lloading} = useDislike();
@@ -254,7 +254,7 @@ const HomePlaceCard = ({props})=>{
 
     return (
 
-            <Col md={4} sm={6} lg={4} className='p-1' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <Col md={6} sm={12} lg={4} className='p-1' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
 
           {/**Start of Comment Model */}
           <Modal show={show} onHide={handleClose} style={{borderRadius:"0PX"}}>
@@ -318,18 +318,24 @@ const HomePlaceCard = ({props})=>{
                 </Modal>
                 {/**End of Modal */}    
                   
-            <Card id="homeCard" key={props._id} style={{ width: '100%', borderRadius:'0px', borderColor:'#c1bfbf' }}>
-            <NavLink to={'/view/'+props._id}><Card.Img style={{height:'320px', borderRadius:'0px'}} variant="top" src={"https://mern-exercise-tracker-production.up.railway.app/api/place/download/"+props.image} /></NavLink>
-            {/* <Card.Img style={{height:'320px', borderRadius:'0px'}} variant="top" src={"http://localhost:4000/api/place/download/"+props.image} /> */}
-            <Card.Body style={{padding:'0px', borderColor:'black'}}>
-            <Card.Title id="home_card_title">{props.title}</Card.Title>
-            <ListGroup className="list-group-flush" >
-                <ListGroup.Item style={{border:"none", fontSize:'15PX', marginBottom:'10px'}}><FaCalendarCheck/>: {format(props.wdate, 'yyyy-dd-MM')}</ListGroup.Item>
-                <ListGroup.Item style={{border:"none", fontSize:'15PX', marginBottom:'10px'}}><FiType/>: {props.wtype}</ListGroup.Item>
+            <Card id="homeCard" key={props._id} style={{ width: '100%', borderRadius:'7px', borderColor:'#c1bfbf' }}>
+            <NavLink to={'/view/'+props._id}><Card.Img style={{height:'330px', borderRadius:'7px 7PX 0PX 0PX'}} variant="top" src={"https://mern-exercise-tracker-production.up.railway.app/api/place/download/"+props.image} /></NavLink>
+            {/* <Card.Img style={{height:'320px', borderRadius:'7px'}} variant="top" src={"http://localhost:4000/api/place/download/"+props.image} /> */}
+            <Card.Body style={{padding:'0px', borderColor:'black', borderRadius:'7PX', height:'185px'}}>
+            <Row>
+              <Col md={8} sm={8} xs={8}> <Card.Title id="home_card_title">{props.title}</Card.Title></Col>
+              <Col md={4} sm={4} xs={4}> <Card.Title id="home_card_date" className='float-end'>{format(props.wdate, 'yyyy-dd-MM')}</Card.Title></Col>      
+            </Row>
+                  
+            <Card.Text style={{fontSize:"12PX", padding:'0PX 12PX'}}>
+              {description.slice(0,135)} <NavLink to={'/view/'+props._id} style={{textDecoration:"none", color:'gray'}}>Read More..</NavLink>
+            </Card.Text>      
+            
+            <ListGroup className="list-group-flush" style={{borderRadius:'7px'}} >
                 <ListGroup.Item style={{background:'white', color:'black', padding:'12px'}}>
                     <FcLike id="likeIcon" onClick={handleLike} style={{cursor:'pointer', background:'white'}} size={22} color='#159996'/>{props.likesCount}
-                    <FcDislike id="dislikeIcon" onClick={handleDislike} size={22} style={{cursor:'pointer', marginLeft:'23px'}} color='#a2a6a2'/>{props.dislikesCount}
-                    <ChatDotsFill onClick={handleShow} style={{cursor:'pointer',  marginLeft:'23px'}} size={22} color='gray'/>
+                    <FcDislike id="dislikeIcon" onClick={handleDislike} size={22} style={{cursor:'pointer', marginLeft:'40px'}} color='#a2a6a2'/>{props.dislikesCount}
+                    <ChatDotsFill onClick={handleShow} style={{cursor:'pointer',  marginLeft:'40px'}} size={22} color='gray'/>
                     {(loading || lloading) && (
 
                        <Spinner style={{marginLeft:'20px'}} animation="border" role="status" variant='warning' size='sm'></Spinner>

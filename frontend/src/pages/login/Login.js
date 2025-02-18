@@ -77,11 +77,11 @@ export const Login = ()=>{
                         <Form.Control onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="Enter Password" />
                     </Form.Group>
                    
-                    <Button type="submit" variant="default" style={{borderRadius:'0px', border:'1px solid black', marginTop:'20px'}}>
+                    <Button id="signIn_button" type="submit" variant="default" style={{border:'1px solid black', marginTop:'20px'}}>
                         SignIn
                     </Button>
 
-                    <Button variant='dark' style={{width:'40%', marginTop:'10px', borderRadius:'0px'}}>
+                    <Button id="google_link" variant='dark' style={{marginTop:'10px', borderRadius:'0px'}}>
                          <FcGoogle/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='https://mern-exercise-tracker-production.up.railway.app/auth/google'>Google</a>
                          {/* <Google/><a style={{textDecoration:"none", color:"white", marginLeft:'10px' }} href='http://localhost:4000/auth/google'>Google</a> */}
                         </Button>

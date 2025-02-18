@@ -8,6 +8,8 @@ import { UsePlaceContext } from '../../hooks/UsePlaceContext';
 import {APIProvider, Map, MapCameraChangedEvent, Marker} from '@vis.gl/react-google-maps';
 import { MdOutlineRefresh } from "react-icons/md";
 import './Find.css'
+import { FaFilter } from "react-icons/fa";
+
 
 const Find = ()=>{
     const {place, dispatch} = UsePlaceContext();
@@ -186,6 +188,25 @@ const Find = ()=>{
 
     },[type, place])
 
+
+    const mapStyles = [
+        {
+          "featureType": "water",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#a1a1a1" }]
+        },
+        {
+          "featureType": "landscape",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#f2f2f2" }]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#ffffff" }]
+        }
+      ]
+
    
 
     return (
@@ -199,12 +220,13 @@ const Find = ()=>{
                 <Row id="find_google_row">
 
                     <h2>Location of Visited Places</h2>
-                    <p><span style={{fontWeight:'600', fontSize:'20px'}}>Click</span> on the location markers to find your ideal location</p>
+                    <p><span style={{fontWeight:'600', fontSize:'20px', color:'#9b0b0b'}}>Click</span> on the location markers to find your ideal location</p>
 
                     <Map
                     style={{width: '100%', height: '50vh'}}
-                    defaultCenter={{lat: 45.48556, lng: -73.62780}}
-                    defaultZoom={5}
+                    defaultCenter={{lat: 34.04126115291605, lng: -39.35729627839302}}
+                    options={{ styles: mapStyles }}
+                    defaultZoom={2}
                     gestureHandling={'greedy'}
                     disableDefaultUI={true}
                     >
@@ -219,6 +241,7 @@ const Find = ()=>{
                                 <Marker
                                  key={index}
                                  position={{lat:Number(singleMap.location_lat), lng:Number(singleMap.location_lng)}} 
+                                 options={{ styles: mapStyles }}
                                  clickable={true}
                                  onClick={() => mapFilter(singleMap.location_lat, singleMap.location_lng)}
                                  id="map"
@@ -236,7 +259,8 @@ const Find = ()=>{
 
              
                 <Row id="find_filter_row"> 
-                     <Col md={6}>
+                    <p><span style={{fontWeight:'600', fontSize:'20px', margin:"20px 0px"}}><FaFilter /></span></p>
+                     <Col md={6}>    
                         <label for="inputEmail4" class="form-label">Search name</label>
                         <input className='rounded m-0 w-100' placeholder="Search Location" style={{width:'100%', marginLeft:'0PX'}} required type="search" name="search" id="search" value={search} onChange={onSearchChange} class="form-control" />
                     </Col>
