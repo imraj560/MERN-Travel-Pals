@@ -53,6 +53,20 @@
 #about_col{
 
     padding-right: 20px;
+    padding-left: 0px;
+}
+
+#image_gallery > h2{
+
+    font-weight: 600;
+    padding-left: 0px;
+    margin-bottom: 20px;
+}
+
+#travel_form{
+
+    padding:0px;
+   
 }
 
 
@@ -63,7 +77,48 @@
         padding-right: 0px;
     }
 
+    #image_gallery > h2{
+
+        font-weight: 600;
+        padding-left: 10px;
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+
 }
+
+
+
+@media only screen and (max-width: 575px) {
+
+  #travel_form{
+    width: 100%;
+    padding:10px;
+  }
+
+  #about_title{
+
+    padding-left: 10px;
+  }
+
+  #about_para{
+
+    padding-left: 10px;
+  }
+
+  #about_description{
+
+    padding-left: 10px;
+  }
+
+  #contact_traveller{
+
+    padding-left: 10px;
+  }
+
+}
+
+
 
 
 

@@ -136,6 +136,24 @@ const EditForm = ()=>{
 
     }
 
+    const mapStyles = [
+        {
+          "featureType": "water",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#a1a1a1" }]
+        },
+        {
+          "featureType": "landscape",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#f2f2f2" }]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#ffffff" }]
+        }
+      ]
+
     return (
 
             <AuthComponent>
@@ -155,8 +173,9 @@ const EditForm = ()=>{
 
                     <Map
                     style={{width: '100%', height: '50vh'}}
-                    defaultCenter={{lat: 45.48556, lng: -73.62780}}
-                    defaultZoom={10}
+                    defaultCenter={{lat: 34.04126115291605, lng: -39.35729627839302}}
+                    options={{ styles: mapStyles }}
+                    defaultZoom={2}
                     onClick={(e)=> {
                         
                         setLocation(JSON.stringify(e.detail.latLng))
@@ -211,7 +230,7 @@ const EditForm = ()=>{
                                 </Form.Group>
                             </Col>
                             <Col md={6}>
-                            <Image width={80} height={80} rounded className='float-start' src={"https://mern-exercise-tracker-production.up.railway.app/api/workout/download/"+oldImage} />
+                            <Image width={80} height={80} rounded className='float-start' src={"https://mern-exercise-tracker-production.up.railway.app/api/place/download/"+oldImage} />
                             {/* <Image src={process.env.PUBLIC_URL+"/images/"+oldImage} width={100} height={80} rounded className='float-start'/> */}
                             </Col>
 

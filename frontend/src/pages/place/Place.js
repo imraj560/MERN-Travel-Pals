@@ -194,6 +194,25 @@ const Place = ()=>{
       }, [filterTags, place]);
 
 
+      const mapStyles = [
+        {
+          "featureType": "water",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#a1a1a1" }]
+        },
+        {
+          "featureType": "landscape",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#f2f2f2" }]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [{ "color": "#ffffff" }]
+        }
+      ]
+
+
 
  
   
@@ -250,7 +269,7 @@ const Place = ()=>{
                           
                         <Form className='m-0 p-0'>
                             <Form.Group controlId="exampleForm.ControlInput1" className='w-100'>
-                                <Form.Control className='rounded m-0 w-100' type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Workout" />
+                                <Form.Control className='rounded m-0 w-100' type="search" value={search} id="search" onChange={onSearchChange} placeholder="Search Place" />
                             </Form.Group> 
                             </Form>
 
@@ -315,8 +334,9 @@ const Place = ()=>{
                     <h2 style={{marginTop:"20px", fontWeight:"600", fontSize:"25PX", marginBottom:"30px"}}>All Your Visited Locations</h2>
                     <Map
                     style={{width: '100%', height: '50vh'}}
-                    defaultCenter={{lat: 45.48556, lng: -73.62780}}
-                    defaultZoom={5}
+                    options={{ styles: mapStyles }}
+                    defaultCenter={{lat: 34.04126115291605, lng: -39.35729627839302}}
+                    defaultZoom={2}
                     gestureHandling={'greedy'}
                     disableDefaultUI={true}
                     >

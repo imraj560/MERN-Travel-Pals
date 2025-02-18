@@ -391,7 +391,7 @@ const likePost = async(req, res) => {
 
                 const placeArray = {'_id':place._id, 'title': place.title,'wdate': place.wdate, 'wtype':place.wtype,'image': place.image,
                     'likes':place.likes, 'dislikes':place.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':place.location_lat,
-                'location_lng':place.location_lng}  
+                'location_lng':place.location_lng, 'description':place.description}  
 
                 // console.log(workoutArray)    
                     
@@ -413,7 +413,7 @@ const likePost = async(req, res) => {
         const dislikesCount = placeId.dislikes.length
         const placeArray = {'_id':placeId._id, 'title': placeId.title,'wdate': placeId.wdate, 'wtype':placeId.wtype,'image': placeId.image,
         'likes':placeId.likes, 'dislikes':placeId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':placeId.location_lat,
-        'location_lng':placeId.location_lng} 
+        'location_lng':placeId.location_lng, 'description':placeId.description} 
 
         res.status(200).json({"message":'Already Liked','placeArray':placeArray})
 
@@ -446,7 +446,7 @@ const dislikePost = async(req, res) => {
 
         const placeArray = {'_id':place._id, 'title': place.title,'wdate': place.wdate, 'wtype':place.wtype,'image': place.image,
         'likes':place.likes, 'dislikes':place.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':place.location_lat,
-        'location_lng':place.location_lng}
+        'location_lng':place.location_lng, 'description':place.description}
 
         res.status(200).json({"message":'Post Disliked','placeArray':placeArray})
 
@@ -461,7 +461,7 @@ const dislikePost = async(req, res) => {
         const dislikesCount = placeId.dislikes.length
         const placeArray = {'_id':placeId._id, 'title': placeId.title,'wdate': placeId.wdate, 'wtype':placeId.wtype,'image': placeId.image,
         'likes':placeId.likes, 'dislikes':placeId.dislikes, 'likesCount':likesCount, 'dislikesCount':dislikesCount, 'location_lat':placeId.location_lat,
-        'location_lng':placeId.location_lng}  
+        'location_lng':placeId.location_lng, 'description':placeId.description}  
         
         res.status(200).json({"message":'Already Disliked','placeArray':placeArray})
     }

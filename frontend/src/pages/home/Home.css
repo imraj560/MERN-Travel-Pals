@@ -11,6 +11,42 @@
     justify-content: center;
     margin-top: 5px;
     margin-left:0px;
+    border-radius: 7px;
+}
+
+#body_banner{
+    width: 100%;
+    height: 50vh;
+    background:url(../../assets/images/body_banner.jpg);
+    background-size: cover;
+    background-position: center center;
+    margin-top: 130px;
+    margin-left:0px;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-radius: 7px; */
+}
+
+#body_banner_div{
+
+    height: 40%;
+    width: 70%;
+    /* background-color: red; */
+}
+
+#body_banner_div > h2{
+
+    font-weight: 600;
+}
+
+#body_banner_text{
+
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 50vh;
 }
 
 #call_one{
@@ -68,13 +104,29 @@
     text-align: center;
 }
 
+#stats{
+
+    margin-top:100px;
+    text-align: center;
+}
+
 
 
 .service_heading{
 
     font-weight:600;
-    font-size: 30px;
+    font-size: 25px;
    
+}
+
+.service_col{
+
+    border-radius: 7px;
+}
+
+.stats_col{
+
+    border-radius: 7px;
 }
 
 #service_button_row{
@@ -220,6 +272,19 @@ svg{
 }
 
 @media only screen and (max-width: 992px) {
+
+    #map_title_button{
+
+        font-size: 10px !important;
+        margin-top: 12px;
+        border-radius: 4px;
+         
+      }
+
+    .cityCard{
+
+        margin-top: 10px !important;
+    }
   
     #call_one_heading > h1{
 
@@ -335,6 +400,22 @@ svg{
     
     }
 
+    .col_stats{
+
+        border-radius: 7px;
+        padding-top: 80px;
+    }
+
+    #body_banner_text{
+
+        font-size: 15px;
+    }
+
+    #body_banner_div > h2{
+
+        font-size: 15px;
+    }
+
     #explore h2{
 
         font-size: 20px;
@@ -394,6 +475,19 @@ svg{
   
 
 
+  }
+
+  @media only screen and (max-width: 430px) {
+
+    #map_title_button{
+
+        font-size: 10px;
+        margin-top: 15px;
+        border-radius: 4px;
+         
+      }
+
+    
   }
 
 

@@ -26,7 +26,7 @@ const Reply = ({commentId})=>{
 
         if(user){
 
-            const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/reply', {
+            const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/reply', {
             //const response = await fetch('http://localhost:4000/api/workout/reply', {
 
                 method : 'POST',
@@ -66,7 +66,7 @@ const Reply = ({commentId})=>{
 
     if(user){
 
-          const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/workout/deleteReply/'+id, {
+          const response = await fetch('https://mern-exercise-tracker-production.up.railway.app/api/place/deleteReply/'+id, {
           //const response = await fetch('http://localhost:4000/api/workout/deleteReply/'+id, {
 
 
@@ -118,8 +118,8 @@ const Reply = ({commentId})=>{
     const apiFetch = async()=>{
 
         setLoading(true)
-        //const data = await fetch(`http://localhost:4000/api/workout/replylist/${commentId}`,{
-        const data = await fetch(`https://mern-exercise-tracker-production.up.railway.app/api/workout/replylist/${commentId}`,{
+        //const data = await fetch(`http://localhost:4000/api/place/replylist/${commentId}`,{
+        const data = await fetch(`https://mern-exercise-tracker-production.up.railway.app/api/place/replylist/${commentId}`,{
 
             method: 'GET',
             headers: {'Content-Type': 'application/json'},

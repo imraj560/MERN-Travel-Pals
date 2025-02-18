@@ -6,3 +6,21 @@
     align-items: center;
     margin-top: 30px;
  }
+
+
+ @media only screen and (max-width: 992px) {
+
+    #signIn_button{
+
+        font-size: 15px;
+        border-radius: 6px;
+        width: 100%;
+    }
+
+    #google_link{
+
+        font-size: 12px;
+        width: 100%;
+    }
+
+ }
