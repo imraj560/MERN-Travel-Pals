@@ -12,7 +12,7 @@ app.use(cookieParser());
 /**Some more changes */
 
 var corsOptions = {
-    origin: 'https://travelpals-560.netlify.app/',
+    origin: 'https://travelpals-560.netlify.app',
     //origin: 'http://localhost:3000',
     credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
