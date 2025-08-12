@@ -22,7 +22,7 @@ router.get('/google',
       });
 
       //res.redirect('http://localhost:3000')
-      res.redirect('https://creative-bunny-7517e7.netlify.app')
+      res.redirect('https://travelpals-560.netlify.app/')
 
     }
   );
@@ -51,7 +51,7 @@ router.get('/google',
 router.get('/logout',(req,res)=>{
 
     req.logout();
-    res.redirect('https://creative-bunny-7517e7.netlify.app')
+    res.redirect('https://travelpals-560.netlify.app/')
 })
 
 module.exports = router;
