@@ -42,7 +42,7 @@ export const Signup = ()=>{
                 </Spinner>
 
             }
-                <h2 style={{fontSize:'18px',fontWeight:'500', marginBottom:'30px'}}>Lets Get You Registered</h2>
+                <h2 style={{fontSize:'30px',fontWeight:'bold', marginBottom:'30px'}}>Sign Up</h2>
                 <Form onSubmit={handleSubmit}>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">

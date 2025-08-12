@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthComponent } from '../../components/AuthComponent';
 import HomePlaceCard from '../../components/homecards/HomePlaceCard';
 import { Container, Row, Col, Card, Image, } from 'react-bootstrap';
+import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import User2 from '../../../src/assets/images/user2.jpeg'
@@ -26,6 +27,7 @@ import scotland from '../../assets/images/scotland.jpg'
 import { FaCity } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { IoIosStats } from "react-icons/io";
+import { format, set } from 'date-fns';
 
 import './Home.css';
 
@@ -35,6 +37,7 @@ const Home = ()=>{
 
    
     const [recdata, setRecdata] = useState([]);
+    const [freshData, setFreshData] = useState([]);
     const[mapdata, setMapdata] = useState([]);
     const [cardio, setCardio] = useState([]);
     const [cal, setCal] = useState([]);
@@ -133,6 +136,7 @@ const Home = ()=>{
         if(place !== null){
 
             setRecdata(place.slice(0,12))
+            setFreshData(place.slice(0,2))
             setMapdata(place);
           
         } 
@@ -144,7 +148,7 @@ const Home = ()=>{
         {
           "featureType": "water",
           "elementType": "geometry",
-          "stylers": [{ "color": "#a1a1a1" }]
+          "stylers": [{ "color": "#000000" }]
         },
         {
           "featureType": "landscape",
@@ -172,13 +176,13 @@ const Home = ()=>{
 
                 <Col md={6} id="call_one_heading">
 
-                <h1>Join our Vibrant Travel Community</h1>
+                <h1>Share your memories with others</h1>
 
                 </Col>
 
                 <Col md={6} id="call_one_text">
 
-                 <p>Discover Variety of places to visit. Connect with like minded individuals and elevate your travel journey</p>
+                 <p>Discover Variety of places to visit. Register now to share your memories and access to other places</p>
                  <Button id="button_one"><NavLink style={{textDecoration:'none', color:'white'}} to="/signup">Join</NavLink></Button> 
                  <Button id="button_two"><NavLink style={{textDecoration:'none', color:'black'}} to="/find">Find</NavLink></Button>
                  
@@ -228,7 +232,7 @@ const Home = ()=>{
                 <Button id="service_button"><NavLink style={{textDecoration:'none', color:'white'}} to="/find">Find A Place</NavLink></Button>
             </Row>
 
-            <Row id="gallery_title">
+            <Row id="explore">
                 <p>Gallery</p>
                 <h2>We Have A Collection Of Amazing Places For You</h2>
                 <p>We have an amazing collection of places which people of all around the world has posted</p>
@@ -267,12 +271,14 @@ const Home = ()=>{
               
             </Row>
 
-       
+
+
+   
 
             <Row id="map_title_div">
 
                 <Col md={6}>
-                    <h2 id="map_title_heading">Recent Travel Locations</h2>
+                    <h2 id="map_title_heading">Explore and Find More Places</h2>
                     <p style={{marginBottom:'0px'}}>All your recently updated Locations</p>
                 </Col>
 
@@ -283,180 +289,7 @@ const Home = ()=>{
                 </Col>
                 
 
-            </Row>
-
-            
-
-                  
-
-            <Row id="googleMap" style={{borderRadius:'7PX'}}>
-
-            <Map
-                style={{width: '100%', height: '50vh', borderRadius:'7PX'}}
-                defaultCenter={{lat: 34.04126115291605, lng: -39.35729627839302}}
-                defaultZoom={2}
-                options={{ styles: mapStyles }}
-                gestureHandling={'greedy'}
-                disableDefaultUI={true}
-            >
-
-                {
-
-                 mapdata.map((singleMap, index)=>{
-                        
-                    return (
-                    
-                        <Marker key={index} title={singleMap.title} position={{lat:Number(singleMap.location_lat), lng:Number(singleMap.location_lng)}} >
-
-                        </Marker>
-
-                        
-                        
-                       
-                    )
-                })     
-
-                }  
-                
-
-            </Map>
-
-          
-
-            </Row>
-
-            <Row id="stats">
-
-            <Col className='col_stats' md={6} sm={12} lg={4}>
-            <FaCity style={{fontSize:'30px', marginBottom:'15px', marginTop:'20px'}}/>
-            <h4 class="service_heading">Total City</h4>
-            <p>50 +</p>
-            </Col>
-
-            <Col className='col_stats' md={6} sm={12} lg={4}>
-            <FaPeopleGroup style={{fontSize:'30px', marginBottom:'15px', marginTop:'20px'}}/>
-            <h4 class="service_heading">Travellers</h4>
-            <p>100 +</p>
-            </Col>
-
-            <Col className='col_stats' md={6} sm={12} lg={4}>
-            <IoIosStats style={{fontSize:'30px', marginBottom:'15px', marginTop:'20px'}}/>
-            <h4 class="service_heading">Visits</h4>
-            <p>300 +</p>
-            </Col>
-
-
-            </Row>
-
-
-            <Row id="testimonial_div_title">
-
-                <h2>Peoples Opinion</h2>
-                <p>Some thoughts from our users reagarding our community</p>
-
-            </Row>
-
-
-
-
-
-            <Row id="testimonial">
-
-
-                <Col  md={6} sm={12} lg={4} style={{textAlign:'center', padding:'20px 10px'}} >
-                <Image src={User2} roundedCircle width={130} height={130} />
-                    <h2 class="name_title">Emily Grey</h2>
-                    <p>Found an awesome community and people to travel around with</p>
-                </Col>
-                <Col  md={6} sm={12} lg={4} style={{textAlign:'center', padding:'20px 10px'}}>
-                <Image src={User1} roundedCircle width={130} height={130} />
-                <h2 class="name_title">Islam Makhachev</h2>
-                <p>Could easily find a good location for my next destination</p>
-                </Col>
-                <Col  md={6} sm={12} lg={4} style={{textAlign:'center', padding:'20px 0px'}}>
-                <Image src={User3} roundedCircle width={130} height={130} />
-                <h2 class="name_title">Mahruf Ahmad</h2>
-                <p>Amazing platform if you are looking for a good travel partner</p>
-                </Col>
-                
-            </Row>
-{/* 
-
-            <Row id="body_banner">
-
-           <div id="body_banner_div">
-            <h2>We have got amazing places for you to visit</h2>
-            <p>Beautiful places are like therapy</p>
-            <Button variant='default' style={{background:'white'}}><NavLink style={{textDecoration:'none', color:'BLACK'}} to="/signup">Join us</NavLink></Button>
-           </div>
-          
-
-            </Row> */}
-
-            <Row id="favourite_div_title">
-
-            <h2>Favourite Locations</h2>
-            <p>Some of your most visited Places</p>
-
-            </Row>
-
-
-            <Row id="favourite">
-
-                <Col  md={6} sm={12} lg={4} className='cityCard'>
-
-                <Card style={{ width: '100%' }}>
-                <Card.Img variant="top" src={bangladesh} />
-                <Card.Body>
-                    <Card.Title style={{fontFamily:"Poppins", fontWeight:"600", fontSize:'30PX'}}>Bangladesh</Card.Title>
-                    <Card.Text>
-                    Bangladesh is a country in South Asia, bordered by India on the west, north, and east, Myanmar.
-                    <p style={{marginTop:'10px'}}><FaCalendar/>: 22/4/2024</p>
-                    <p><FaLocationDot/>: Dhaka, Bangladesh</p>
-                    </Card.Text>
-                   
-                </Card.Body>
-                </Card>
-                
-                </Col>
-
-                <Col  md={6} sm={12} lg={4} className='cityCard'>
-
-                <Card style={{ width: '100%' }}>
-                <Card.Img variant="top" src={turkey} />
-                <Card.Body>
-                    <Card.Title style={{fontFamily:"Poppins", fontWeight:"600", fontSize:'30PX'}}>Turkey</Card.Title>
-                    <Card.Text>
-                    Turkey was home to several ancient places & civilizations, including the Hittitess
-                    <p style={{marginTop:'10px'}}><FaCalendar/>: 20/1/2020</p>
-                    <p><FaLocationDot/>: Istanbul, Turkey</p>
-                    </Card.Text>
-                   
-                </Card.Body>
-                </Card>
-                
-                </Col>
-
-                <Col  md={6} sm={12} lg={4} className='cityCard'>
-
-                <Card style={{ width: '100%' }}>
-                <Card.Img variant="top" src={scotland} />
-                <Card.Body>
-                    <Card.Title style={{fontFamily:"Poppins", fontWeight:"600", fontSize:'30PX'}}>Scotland</Card.Title>
-                    <Card.Text>
-                    Glasgow stands out as a cultural and musical hub for the whole world
-                    <p style={{marginTop:'10px'}}><FaCalendar/>: 6/7/2024</p>
-                    <p><FaLocationDot/>: Glasgow, Scotland</p>
-                    </Card.Text>
-                   
-                </Card.Body>
-                </Card>
-                
-                </Col>
-
-               
-
-            </Row>
+            </Row> 
 
            
 

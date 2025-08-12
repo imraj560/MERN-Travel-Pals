@@ -62,7 +62,7 @@ export const Login = ()=>{
             }
                 
                
-                <h2 style={{fontSize:'20px',fontWeight:'500', marginBottom:'30px'}}>Welcome Back</h2>
+                <h2 style={{fontSize:'30px',fontWeight:'bold', marginBottom:'30px'}}>Join Us</h2>
                 <Form onSubmit={handleLogin}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>

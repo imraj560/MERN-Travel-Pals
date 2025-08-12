@@ -24,11 +24,11 @@ const Header = ()=>{
 
     return (
 
-   
+        <Container>
 
-            <Navbar expand="lg" className="bg-body-tertiary">
-            <Container>
-            <Navbar.Brand href="#home"><NavLink style={{textDecoration:'none', color:'black'}} to={'/'}>Travel Pals</NavLink></Navbar.Brand>
+            <Navbar expand="lg" className="bg-body-tertiary" style={{opacity:"1", margin:'20px 0px', backgroundColor:'white', border:'1px solid black', borderRadius:'20px', padding:'10px 20px'}}>
+           
+            <Navbar.Brand href="#home"><NavLink style={{textDecoration:'none', color:'black', fontWeight:'BOLD'}} to={'/'}>Travel Pals</NavLink></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
@@ -44,9 +44,10 @@ const Header = ()=>{
                 </>)}
                 </Nav>
             </Navbar.Collapse>
-            </Container>
+           
             </Navbar>
 
+         </Container>
 
     )
 }

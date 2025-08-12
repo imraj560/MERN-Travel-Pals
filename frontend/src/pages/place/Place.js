@@ -198,7 +198,7 @@ const Place = ()=>{
         {
           "featureType": "water",
           "elementType": "geometry",
-          "stylers": [{ "color": "#a1a1a1" }]
+          "stylers": [{ "color": "#000000" }]
         },
         {
           "featureType": "landscape",
