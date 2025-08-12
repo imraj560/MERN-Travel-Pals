@@ -34,6 +34,7 @@ const HomePlaceCard = ({props})=>{
     const {user} = UseAuthContext();
     const {comments, dispatch} = UseCommentsContext()
     const [show, setShow] = useState(false);
+     const [showw, setShoww] = useState(false);
     const [comment, setComment] = useState('')
     const [commentList, setCommentList] = useState([]);
     const [cerror, setCerror] = useState(null);
@@ -52,6 +53,19 @@ const HomePlaceCard = ({props})=>{
       dispatch({type: 'CLEAR_COMMENTS'})
 
     } 
+
+      const handleClosee = () => {
+
+      setShoww(false);
+      
+
+    } 
+
+    const handleShoww = () => {
+
+      setShoww(true);
+
+    }
 
 
     const handleShow = () => {
@@ -256,6 +270,22 @@ const HomePlaceCard = ({props})=>{
 
             <Col md={6} sm={12} lg={4} className='p-1' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
 
+
+               {/**Start of About Model */}
+          <Modal show={showw} onHide={handleClosee} style={{borderRadius:"0PX"}}>
+                  <Modal.Header closeButton style={{padding:'10px 15px', background:'white', color:'black', border:"none", padding:'10px 15px'}}>
+                    <Modal.Title style={{fontSize:'35px', fontFamily:'Poppins', fontWeight:'600'}}>About Place</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body style={{padding:'10px 10px', minHeight:'200px', textAlign:'justify', padding:'0px 15px 10px 15px'}}>
+
+                  {description}
+             
+
+                  </Modal.Body>
+                 
+                </Modal>
+                {/**End of Modal */}    
+
           {/**Start of Comment Model */}
           <Modal show={show} onHide={handleClose} style={{borderRadius:"0PX"}}>
                   <Modal.Header closeButton style={{padding:'10px 15px', background:'white', color:'black', border:"none"}}>
@@ -319,7 +349,7 @@ const HomePlaceCard = ({props})=>{
                 {/**End of Modal */}    
                   
             <Card id="homeCard" key={props._id} style={{ width: '100%', borderRadius:'7px', borderColor:'#c1bfbf' }}>
-            <NavLink to={'/view/'+props._id}><Card.Img style={{height:'330px', borderRadius:'7px 7PX 0PX 0PX'}} variant="top" src={"https://mern-exercise-tracker-production.up.railway.app/api/place/download/"+props.image} /></NavLink>
+         <Card.Img style={{height:'330px', borderRadius:'7px 7PX 0PX 0PX'}} variant="top" src={"https://mern-exercise-tracker-production.up.railway.app/api/place/download/"+props.image} />
             {/* <Card.Img style={{height:'320px', borderRadius:'7px'}} variant="top" src={"http://localhost:4000/api/place/download/"+props.image} /> */}
             <Card.Body style={{padding:'0px', borderColor:'black', borderRadius:'7PX', height:'185px'}}>
             <Row>
@@ -328,14 +358,14 @@ const HomePlaceCard = ({props})=>{
             </Row>
                   
             <Card.Text style={{fontSize:"12PX", padding:'0PX 12PX'}}>
-              {description.slice(0,135)} <NavLink to={'/view/'+props._id} style={{textDecoration:"none", color:'gray'}}>Read More..</NavLink>
+              {description.slice(0,135)} <span onClick={handleShoww} style={{cursor:"pointer", color:'gray', textDecoration:"none"}}>Read More...</span>
             </Card.Text>      
             
             <ListGroup className="list-group-flush" style={{borderRadius:'7px'}} >
                 <ListGroup.Item style={{background:'white', color:'black', padding:'12px'}}>
                     <FcLike id="likeIcon" onClick={handleLike} style={{cursor:'pointer', background:'white'}} size={22} color='#159996'/>{props.likesCount}
                     <FcDislike id="dislikeIcon" onClick={handleDislike} size={22} style={{cursor:'pointer', marginLeft:'40px'}} color='#a2a6a2'/>{props.dislikesCount}
-                    <ChatDotsFill onClick={handleShow} style={{cursor:'pointer',  marginLeft:'40px'}} size={22} color='gray'/>
+                    <ChatDotsFill onClick={handleShow} style={{cursor:'pointer',  marginLeft:'40px'}} size={22} color='green'/>
                     {(loading || lloading) && (
 
                        <Spinner style={{marginLeft:'20px'}} animation="border" role="status" variant='warning' size='sm'></Spinner>

@@ -14,6 +14,15 @@
 
     /* padding:0px 50px */
     margin-top: 70px;
+    text-align: center;
+}
+
+#about > h2{
+
+    font-family:'Poppins';
+    font-weight: 600;
+    font-size: 40px;
+    text-align: center;
 }
 
 #about_title{
@@ -24,10 +33,47 @@
     
 }
 
-#about > p{
+#comments_title{
+
+    font-weight: 600;
+    font-size: 35px;
+    text-align: left;
+    
+}
+
+#about_para{
+
+    text-align: justify;
+    margin-top: 5px;
+}
+
+#about_description{
 
     text-align: center;
-    margin-top: 30px;
+}
+
+
+
+
+#gallery_title{
+
+    font-weight: 600;
+    font-size: 35px;
+    text-align: left;
+    
+}
+
+#contact{
+
+  margin-top: 100px;
+}
+
+#contact_title{
+
+    font-weight: 600;
+    font-size: 35px;
+    text-align: left;
+    
 }
 
 #description{
@@ -39,7 +85,7 @@
 
     font-weight: 600;
     font-size: 35px;
-    margin: 39px 0px;
+    margin: 10px 0px 20px 0px;
 }
 
 #view_image:hover{
@@ -56,11 +102,16 @@
     padding-left: 0px;
 }
 
-#image_gallery > h2{
+#gallery_view{
+
+    margin-top: 30px;
+}
+
+#gallery_title{
 
     font-weight: 600;
     padding-left: 0px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 #travel_form{
@@ -68,6 +119,90 @@
     padding:0px;
    
 }
+
+input{
+
+    border-radius: 0px !important;
+}
+
+#feedback{
+
+    margin-top: 120px;
+    margin-bottom: 100px;
+}
+
+#feedback_title{
+
+    font-weight: 600;
+    font-size: 35px;
+    text-align: center;
+}
+
+#comments, #travel{
+
+    margin-top: 100px;
+}
+
+#comments{
+
+  background-color: black;
+  color: white;
+  padding: 30px;
+}
+
+#travel{
+
+  padding-left: 40px;
+ 
+}
+
+#underline-heading {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+#underline-heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px; /* spacing under text */
+  width: 35px; /* length of the dash */
+  height: 7px; /* thickness */
+  background-color: rgb(235, 11, 11); /* or any color */
+}
+
+
+#underline-headingg {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+#underline-headingg::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px; /* spacing under text */
+  width: 35px; /* length of the dash */
+  height: 7px; /* thickness */
+  background-color: rgb(17, 163, 12); /* or any color */
+}
+
+
+@media only screen and (max-width: 768px) {
+
+  #travel{
+
+  padding-left: 10px;
+}
+
+#comments{
+
+  padding:10px;
+}
+
+}
+
+
 
 
 @media only screen and (max-width: 850px) {
@@ -90,6 +225,13 @@
 
 
 @media only screen and (max-width: 575px) {
+
+  
+
+  #image_gallery{
+
+    padding: 0px 10px;
+  }  
 
   #travel_form{
     width: 100%;

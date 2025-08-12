@@ -193,7 +193,7 @@ const Find = ()=>{
         {
           "featureType": "water",
           "elementType": "geometry",
-          "stylers": [{ "color": "#a1a1a1" }]
+          "stylers": [{ "color": "#000000" }]
         },
         {
           "featureType": "landscape",
@@ -257,18 +257,18 @@ const Find = ()=>{
                    
                 </Row>
 
-             
+               
                 <Row id="find_filter_row"> 
                     <p><span style={{fontWeight:'600', fontSize:'20px', margin:"20px 0px"}}><FaFilter /></span></p>
                      <Col md={6}>    
                         <label for="inputEmail4" class="form-label">Search name</label>
-                        <input className='rounded m-0 w-100' placeholder="Search Location" style={{width:'100%', marginLeft:'0PX'}} required type="search" name="search" id="search" value={search} onChange={onSearchChange} class="form-control" />
+                        <input className='rounded m-0 w-100' placeholder="Search Location" style={{width:'100%', marginLeft:'0PX', border:'2px solid gray'}} required type="search" name="search" id="search" value={search} onChange={onSearchChange} class="form-control" />
                     </Col>
                    
 
                     <Col md={4} >
                         <label for="inputState" class="form-label">Vacation Type</label>
-                        <select className='rounded m-0 w-100' required onChange={(e)=> setType(e.target.value)} class="form-select" style={{height:'45px', paddingLeft:'10PX'}}>
+                        <select className='rounded m-0 w-100' required onChange={(e)=> setType(e.target.value)} class="form-select" style={{height:'45px', paddingLeft:'10PX', border:'2px solid gray'}}>
                         <option selected>Vacation Type</option>
                         <option value="vacation">Vacation</option>
                         <option value="restaurant">Restaurant</option>
